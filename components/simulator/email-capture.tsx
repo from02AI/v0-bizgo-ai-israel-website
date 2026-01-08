@@ -1,0 +1,138 @@
+"use client"
+
+import type React from "react"
+
+import { useState } from "react"
+import Link from "next/link"
+import { Check, MessageCircle, Mail, BookOpen } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Checkbox } from "@/components/ui/checkbox"
+
+export function EmailCapture() {
+  const [email, setEmail] = useState("")
+  const [joinWhatsApp, setJoinWhatsApp] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    console.log("Email submitted:", email, "Join WhatsApp:", joinWhatsApp)
+    setSubmitted(true)
+  }
+
+  if (submitted) {
+    return (
+      <div className="max-w-2xl mx-auto px-4 py-12">
+        <div className="bg-white rounded-3xl shadow-xl p-8 text-center">
+          <div className="text-6xl mb-4">✅</div>
+          <h2 className="text-2xl font-bold text-[#0b2e7b] mb-2">הדוח נשלח!</h2>
+          <p className="text-slate-600 mb-8">בדקו את תיבת המייל.</p>
+          <p className="text-slate-500 mb-8">הרגע שלחנו הערכת AI מלאה ל־{email}</p>
+
+          <div className="grid gap-4 mb-8">
+            <Link
+              href="/consultation"
+              className="flex items-center gap-4 p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors"
+            >
+              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                <Mail className="w-6 h-6 text-blue-600" />
+              </div>
+              <div className="text-right">
+                <p className="font-bold text-[#0b2e7b]">לקבוע ייעוץ חינם</p>
+                <p className="text-sm text-slate-500">שיחה אישית עם מומחה AI</p>
+              </div>
+            </Link>
+
+            <a
+              href="#"
+              className="flex items-center gap-4 p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors"
+            >
+              <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                <MessageCircle className="w-6 h-6 text-green-600" />
+              </div>
+              <div className="text-right">
+                <p className="font-bold text-[#0b2e7b]">להצטרף לקהילה</p>
+                <p className="text-sm text-slate-500">WhatsApp, ניוזלטר</p>
+              </div>
+            </a>
+
+            <Link
+              href="/about"
+              className="flex items-center gap-4 p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors"
+            >
+              <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
+                <BookOpen className="w-6 h-6 text-amber-600" />
+              </div>
+              <div className="text-right">
+                <p className="font-bold text-[#0b2e7b]">ללמוד עוד</p>
+                <p className="text-sm text-slate-500">על BizgoAI Israel</p>
+              </div>
+            </Link>
+          </div>
+
+          <Button asChild variant="outline" className="w-full rounded-xl bg-transparent">
+            <Link href="/">חזרה לדף הבית</Link>
+          </Button>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="max-w-2xl mx-auto px-4 py-12">
+      <div className="bg-white rounded-3xl shadow-xl p-8">
+        <h2 className="text-2xl font-bold text-[#0b2e7b] mb-2 text-center">רוצים את הפירוט המלא?</h2>
+        <p className="text-slate-600 text-center mb-6">נשלח לכם דוח שלם הכולל:</p>
+
+        <ul className="space-y-3 mb-8">
+          {[
+            "ניתוח הזדמנות מלא עם המלצות לכלים",
+            "צ'קליסט בטיחות מותאם למצב שלכם",
+            "חישובי ROI מפורטים עם כל ההנחות",
+            "הצעדים הבאים ליישום",
+          ].map((item, index) => (
+            <li key={index} className="flex items-start gap-3">
+              <Check className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+              <span className="text-slate-600">{item}</span>
+            </li>
+          ))}
+        </ul>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <Input
+            type="email"
+            required
+            placeholder="כתובת אימייל"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="text-lg py-6 rounded-xl border-2 border-slate-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+          />
+
+          <div className="flex items-center gap-3">
+            <Checkbox
+              id="whatsapp"
+              checked={joinWhatsApp}
+              onCheckedChange={(checked) => setJoinWhatsApp(checked as boolean)}
+            />
+            <label htmlFor="whatsapp" className="text-slate-600 cursor-pointer">
+              הוסיפו אותי גם לקהילת ה־WhatsApp להמלצות כלים שוטפות
+            </label>
+          </div>
+
+          <Button
+            type="submit"
+            className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-6 text-lg"
+          >
+            שלחו לי את הדוח המלא ←
+          </Button>
+        </form>
+
+        <p className="text-sm text-slate-400 text-center mt-4">אנחנו מכבדים את הפרטיות שלכם. ניתן להסיר בכל עת.</p>
+
+        <Link href="/" className="block text-center text-sm text-slate-500 hover:text-slate-700 mt-4">
+          דלג — אני מסתפק בתצוגה מקדימה
+        </Link>
+      </div>
+    </div>
+  )
+}
