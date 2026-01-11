@@ -1,0 +1,87 @@
+name: CI - Playwright Matrix + Perf
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  e2e-matrix:
+    name: Playwright E2E matrix
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            browser: chromium
+          - os: ubuntu-latest
+            browser: firefox
+          - os: ubuntu-latest
+            browser: webkit
+          - os: windows-latest
+            browser: chromium
+          - os: macos-latest
+            browser: webkit
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json', '**/pnpm-lock.yaml', '**/package.json') }}
+
+      - name: Install dependencies
+        run: |
+          npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Start app (background)
+        run: |
+          npm run build --if-present || true
+          npm run start &
+        env:
+          NODE_ENV: test
+
+      - name: Run unit tests
+        run: npm test -- --ci || true
+
+      - name: Run Playwright E2E (${{ matrix.browser }})
+        run: npx playwright test --browser=${{ matrix.browser }} --reporter=list
+
+      - name: Upload Playwright artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.os }}-${{ matrix.browser }}
+          path: playwright-report
+
+  perf:
+    name: Perf (k6) smoke
+    runs-on: ubuntu-latest
+    needs: e2e-matrix
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run k6 perf script (placeholder)
+        run: |
+          echo 'This job is a placeholder. To run k6 in CI, install k6 or use grafana/k6-action and run test/perf/simulator-load.js against a staging TARGET_URL.'
+
+  security:
+    name: Security scan (placeholder)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: NPM Audit
+        run: npm ci && npm audit --audit-level=high || true

@@ -3,30 +3,43 @@
 import { createContext, useContext, useState, type ReactNode } from "react"
 
 export interface Tool1Data {
-  q1: number // frequency points
-  q2: number // repetitiveness points
-  q3: number // time points
-  q4: number // task type points
-  score: number
+  taskName?: string
+  q1: number // Task type/nature (0/2/7/10) - creative to routine
+  q2: number // Repetitiveness/consistency (0/5/10)
+  q3: number // Documentation/examples availability (0/3/7/10)
+  q4: number // Reserved (set to 0, not used in scoring)
+  score: number // Final 0-10 score
+  // Derived labels for PDF
+  fitLabel?: string
+  taskTypeLabel?: string
+  repetitivenessLabel?: string
+  documentationLabel?: string
 }
 
 export interface Tool2Data {
-  q1: number // backup risk
-  q2: number // error detection risk
-  q3: number // impact risk
-  q4: number // learning capacity risk
-  maxRisk: number
+  q1: number // Infrastructure safety - backups (0/5/10 risk)
+  q2: number // Error detection ease (1-10 slider, inverted to risk 0-9)
+  q3: number // Error impact/consequences (0/5/10 risk)
+  q4: number // Implementation capacity (1-10 slider, inverted to risk)
+  weightedRisk: number // Calculated weighted risk score
   status: "green" | "yellow" | "red"
+  // Derived labels for PDF
+  safetyScore?: number
+  safetyLabel?: string
+  backupsLabel?: string
+  errorDetectionLabel?: string
+  errorConsequenceLabel?: string
+  capacityLabel?: string
 }
 
 export interface Tool3Data {
-  hoursPerTask: number
-  timesPerMonth: number
+  hoursPerWeek: number
+  numEmployees: number
   hourlyRate: number
-  learningHours: string
-  maintenanceHours: number
-  toolCost: number
+  learningHours: number // Auto-calculated from Tool1+Tool2
   sixMonthTotal: number
+  breakEvenMonth: number
+  riskAdjusted: boolean
   monthlyBreakdown: {
     month: number
     laborSaved: number
@@ -34,7 +47,21 @@ export interface Tool3Data {
     maintenanceCost: number
     toolCost: number
     netSavings: number
+    cumulativeSavings: number
   }[]
+  // additional optional diagnostics
+  estimatedMinBudget?: number
+  monthlyBudgetUsed?: number
+  implementationProfile?: 'self' | 'minimal' | 'full'
+  tool1Score?: number
+  tool2Status?: "green" | "yellow" | "red" | null
+  // Derived labels for PDF
+  technicalComfort?: string
+  technicalComfortLabel?: string
+  implementationProfileLabel?: string
+  recommendedTier?: string
+  budgetMin?: number
+  budgetMax?: number
 }
 
 interface SimulatorContextType {

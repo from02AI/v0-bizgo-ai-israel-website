@@ -9,13 +9,15 @@ import Link from "next/link"
 interface Question {
   context: string
   question: string
-  options: { label: string; risk: number }[]
+  // options is present for multiple-choice; if absent we'll render a slider
+  options?: { label: string; risk: number }[]
+  slider?: { left: string; right: string; min?: number; max?: number }
 }
 
 const questions: Question[] = [
   {
     context: "כלי AI עובדים עם נתוני העסק. נבדוק את הגיבויים.",
-    question: "האם יש לכם גיבויים למידע חשוב?",
+    question: "האם יש לך גיבויים למידע החשוב למשימה \"שם המשימה\"?",
     options: [
       { label: "✅ כן, מערכת גיבוי אוטומטית", risk: 0 },
       { label: "⚠️ כן, גיבויים ידניים מדי פעם", risk: 5 },
@@ -23,17 +25,13 @@ const questions: Question[] = [
     ],
   },
   {
-    context: "AI עלול לטעות. האם תוכלו לגלות?",
-    question: "האם תוכלו לזהות אם AI שוגה במשימה הזו?",
-    options: [
-      { label: "✅ כן, בקלות", risk: 0 },
-      { label: "⚠️ אולי, לפעמים", risk: 5 },
-      { label: "❌ לא, אין לי איך לדעת", risk: 10 },
-    ],
+    context: "AI עלול לטעות.",
+    question: "באיזו קלות תוכל/י לזהות אם AI שוגה במשימה \"שם המשימה\"?",
+    slider: { left: "לא ניתן לזהות", right: "בקלות מאוד", min: 1, max: 10 },
   },
   {
-    context: "מה ההשפעה אם AI טועה?",
-    question: "מה קורה אם AI עושה טעות במשימה הזו?",
+    context: "לטעויות של AI יש השלכות.",
+    question: "מה קורה אם AI עושה טעות במשימה \"שם המשימה\"?",
     options: [
       { label: "✅ תיקון פשוט בדקות", risk: 0 },
       { label: "⚠️ שעות של תיקונים", risk: 5 },
@@ -41,20 +39,17 @@ const questions: Question[] = [
     ],
   },
   {
-    context: "כלי AI דורשים זמן למידה. יש לכם קיבולת?",
-    question: "יש לכם זמן ללמוד כלי חדש?",
-    options: [
-      { label: "✅ כן, יש לי/לנו זמן", risk: 0 },
-      { label: "⚠️ זמן מוגבל", risk: 5 },
-      { label: "❌ אין זמן בכלל", risk: 10 },
-    ],
+    context: "הטמעת כלי AI דורשת יכולות ומשאבים: זמן שלך/עובדיך או תקציב עזרה חיצונית",
+    question: "יש לך משאבים להטמעת כלי AI עבור המשימה\"שם המשימה\"?",
+    slider: { left: "אין לי ", right: "כמה שנדרש", min: 1, max: 10 },
   },
 ]
 
 export function Tool2Safety() {
-  const { setCurrentTool, setTool2Data, tool2Data, resetSimulator } = useSimulator()
+  const { setCurrentTool, setTool2Data, tool2Data, resetSimulator, tool1Data } = useSimulator()
   const [questionIndex, setQuestionIndex] = useState(0)
   const [answers, setAnswers] = useState<number[]>([])
+  const [sliderValue, setSliderValue] = useState<number>(5)
   const [showResults, setShowResults] = useState(false)
 
   const handleAnswer = (risk: number) => {
@@ -64,18 +59,95 @@ export function Tool2Safety() {
     if (questionIndex < questions.length - 1) {
       setQuestionIndex(questionIndex + 1)
     } else {
-      const maxRisk = Math.max(...newAnswers)
+      // Critical Blockers - any single critical risk triggers RED
+      const hasCriticalBlocker = (
+        newAnswers[0] >= 10 ||  // No backups
+        newAnswers[1] >= 9 ||   // Catastrophic error risk
+        newAnswers[2] >= 9      // Highly regulated data
+      )
+      
       let status: "green" | "yellow" | "red" = "green"
-      if (maxRisk >= 8) status = "red"
-      else if (maxRisk >= 5) status = "yellow"
+      
+      if (hasCriticalBlocker) {
+        status = "red"
+      } else {
+        // Weighted Risk Score: Infrastructure 25%, Errors 40%, Data 20%, Capacity 15%
+        const weightedRisk = (
+          newAnswers[0] * 0.25 +  // Infrastructure (backups)
+          newAnswers[1] * 0.40 +  // Error scenario (most critical)
+          newAnswers[2] * 0.20 +  // Data sensitivity
+          newAnswers[3] * 0.15    // Implementation capacity
+        )
+        
+        // Interaction effect: excellent controls reduce overall risk
+        const hasStrongControls = newAnswers[1] <= 3 && newAnswers[3] <= 3
+        const adjustedRisk = hasStrongControls ? weightedRisk * 0.80 : weightedRisk
+        
+        // Determine status based on adjusted risk
+        if (adjustedRisk >= 6) status = "red"
+        else if (adjustedRisk >= 3.5) status = "yellow"
+        else status = "green"
+      }
+
+      // Defensive sanitization/clamping before storing
+      const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, Number.isFinite(v) ? v : a))
+      const q1 = clamp(newAnswers[0], 0, 10)
+      const q2 = clamp(newAnswers[1], 1, 10)
+      const q3 = clamp(newAnswers[2], 0, 10)
+      const q4 = clamp(newAnswers[3], 1, 10)
+
+      // Calculate final weighted risk for display
+      const weightedRisk = +(q1 * 0.25 + q2 * 0.40 + q3 * 0.20 + q4 * 0.15).toFixed(2)
+
+      // Calculate safety score (inverse of risk)
+      const safetyScore = Math.max(0, Math.min(10, Math.round(10 - weightedRisk)))
+
+      // Generate labels for PDF
+      const getSafetyLabel = (score: number) => {
+        if (score >= 8) return "בטיחות גבוהה — פנוי לפיילוט"
+        if (score >= 6) return "בטיחות בינונית — דרוש תכנון נוסף"
+        if (score >= 4) return "סיכון משמעותי — יש להכין אמצעי בקרה"
+        return "סיכון גבוה — מומלץ לבחור משימה אחרת"
+      }
+
+      const getBackupsLabel = (risk: number) => {
+        if (risk === 0) return "מערכת גיבוי אוטומטית"
+        if (risk === 5) return "גיבויים ידניים מדי פעם"
+        return "אין גיבויים"
+      }
+
+      const getErrorDetectionLabel = (risk: number) => {
+        if (risk <= 3) return "זיהוי קל ותיקון מהיר"
+        if (risk <= 5) return "זיהוי בזמן סביר"
+        if (risk <= 7) return "קשה לזהות"
+        return "סיכון נזק משמעותי"
+      }
+
+      const getErrorConsequenceLabel = (risk: number) => {
+        if (risk === 0) return "תיקון פשוט בדקות"
+        if (risk === 5) return "שעות של תיקונים"
+        return "נזק כספי או משפטי"
+      }
+
+      const getCapacityLabel = (risk: number) => {
+        if (risk <= 3) return "קיבולת מלאה"
+        if (risk <= 6) return "קיבולת בינונית"
+        return "עומס גבוה, קיבולת מוגבלת"
+      }
 
       setTool2Data({
-        q1: newAnswers[0],
-        q2: newAnswers[1],
-        q3: newAnswers[2],
-        q4: newAnswers[3],
-        maxRisk,
+        q1,
+        q2,
+        q3,
+        q4,
+        weightedRisk,
         status,
+        safetyScore,
+        safetyLabel: getSafetyLabel(safetyScore),
+        backupsLabel: getBackupsLabel(q1),
+        errorDetectionLabel: getErrorDetectionLabel(q2),
+        errorConsequenceLabel: getErrorConsequenceLabel(q3),
+        capacityLabel: getCapacityLabel(q4),
       })
       setShowResults(true)
     }
@@ -99,145 +171,117 @@ export function Tool2Safety() {
     }
   }
 
+  const getBackupLabel = (risk: number) => {
+    if (risk === 0) return "מערכת גיבוי אוטומטית"
+    if (risk === 5) return "גיבויים ידניים"
+    return "אין גיבויים"
+  }
+
+  const getErrorLabel = (risk: number) => {
+    if (risk <= 3) return "זיהוי קל ותיקון מהיר"
+    if (risk <= 5) return "זיהוי בזמן סביר, תיקון דורש שעות"
+    if (risk <= 7) return "קשה לזהות, תיקון מורכב"
+    return "סיכון נזק משמעותי"
+  }
+
+  const getDataLabel = (risk: number) => {
+    if (risk === 0) return "מידע ציבורי/לא רגיש"
+    if (risk === 3) return "נתונים עסקיים פנימיים"
+    if (risk === 7) return "מידע אישי (PII)"
+    return "נתונים מוסדרים (רפואי/פיננסי)"
+  }
+
+  const getCapacityLabel = (risk: number) => {
+    if (risk <= 3) return "קיבולת מלאה"
+    if (risk <= 6) return "קיבולת בינונית"
+    return "עומס גבוה, קיבולת מוגבלת"
+  }
+
   const getRiskIcon = (risk: number) => {
-    if (risk === 0) return <Check className="w-5 h-5 text-green-600" />
-    if (risk === 5) return <AlertTriangle className="w-5 h-5 text-yellow-600" />
+    if (risk <= 3) return <Check className="w-5 h-5 text-green-600" />
+    if (risk <= 6) return <AlertTriangle className="w-5 h-5 text-yellow-600" />
     return <X className="w-5 h-5 text-red-600" />
   }
 
   if (showResults && tool2Data) {
-    const statusInfo = getStatusInfo(tool2Data.status)
+    // Convert weighted risk (0=low risk,10=high risk) into a safety score (higher=better)
+    const safetyScore = Math.max(0, Math.min(10, Math.round(10 - tool2Data.weightedRisk)))
+
+    const getSafetyColor = (score: number) => {
+      const bucket = Math.floor(score)
+      if (bucket >= 8) return { emoji: "🟢", text: "בטיחות גבוהה — פנוי לפיילוט", color: "text-green-600" }
+      if (bucket >= 6) return { emoji: "🟡", text: "בטיחות בינונית — דרוש תכנון נוסף", color: "text-yellow-600" }
+      if (bucket >= 4) return { emoji: "🟠", text: "סיכון משמעותי — יש להכין אמצעי בקרה", color: "text-orange-500" }
+      return { emoji: "🔴", text: "סיכון גבוה — מומלץ לבחור משימה אחרת או להתייעץ", color: "text-red-600" }
+    }
+
+    const scoreInfo = getSafetyColor(safetyScore)
+
+    const safeTaskLabel = tool1Data?.taskName ? tool1Data.taskName.replace(/["“”'״]/g, "") : ""
 
     return (
       <div className="max-w-2xl mx-auto px-4 py-12">
         <div className="bg-white rounded-3xl shadow-xl p-8 text-center">
-          <div className="text-6xl mb-4">{statusInfo.emoji}</div>
-          <p className={`text-xl font-bold ${statusInfo.color} mb-8`}>{statusInfo.text}</p>
+          <h3 className="text-lg font-semibold text-slate-700 mb-4">{safeTaskLabel ? `הערכת בטיחות למשימה ״${safeTaskLabel}״` : 'הערכת בטיחות למשימה'}</h3>
+          <div className="text-6xl mb-4">{scoreInfo.emoji}</div>
+          <div className="text-5xl font-black text-[#0b2e7b] mb-2">{safetyScore}<span className="text-2xl text-slate-400">/10</span></div>
+          <p className={`text-xl font-bold ${scoreInfo.color} mb-4`}>{scoreInfo.text}</p>
 
-          <div className="text-right bg-slate-50 rounded-2xl p-6 mb-8">
-            <h3 className="font-bold text-[#0b2e7b] mb-4">פירוט הסיכונים:</h3>
-            <ul className="space-y-3">
+          <div className="text-right bg-slate-50 rounded-2xl p-6 mb-6">
+            <h3 className="font-bold text-[#0b2e7b] mb-4">איך חישבנו את הציון?</h3>
+            <p className="text-slate-600 mb-3">הציון מורכב ממספר מרכיבי סיכון שכל אחד מהם משפיע על היכולת להטמיע את הכלי בבטחה.</p>
+            <ul className="space-y-2">
               <li className="flex items-start gap-3">
-                {getRiskIcon(tool2Data.q1)}
-                <span className="text-slate-600">
-                  גיבויים:{" "}
-                  {tool2Data.q1 === 0 ? "מערכת גיבוי תקינה" : tool2Data.q1 === 5 ? "גיבויים חלקיים" : "אין גיבויים"}
-                </span>
+                <Check className="w-5 h-5 text-green-600 mt-0.5 shrink-0" />
+                <span className="text-slate-600">תשתית וגיבויים - חוסן מערכתי מקטין את הסיכון לאובדן או לשיבושים.</span>
               </li>
               <li className="flex items-start gap-3">
-                {getRiskIcon(tool2Data.q2)}
-                <span className="text-slate-600">
-                  זיהוי שגיאות:{" "}
-                  {tool2Data.q2 === 0 ? "יכולת זיהוי גבוהה" : tool2Data.q2 === 5 ? "יכולת חלקית" : "אין יכולת זיהוי"}
-                </span>
+                <Check className="w-5 h-5 text-green-600 mt-0.5 shrink-0" />
+                <span className="text-slate-600"> שגיאות - טעויות שקשה לגלות או שגורמות לנזק משמעותי מעלות את הסיכון.</span>
               </li>
               <li className="flex items-start gap-3">
-                {getRiskIcon(tool2Data.q3)}
-                <span className="text-slate-600">
-                  השפעת שגיאות: {tool2Data.q3 === 0 ? "תיקון מהיר" : tool2Data.q3 === 5 ? "דורש זמן" : "נזק משמעותי"}
-                </span>
+                <Check className="w-5 h-5 text-green-600 mt-0.5 shrink-0" />
+                <span className="text-slate-600">נתונים - חוסרים, איכות נמוכה או רגישות מידע מגדילים את הסיכון.</span>
               </li>
               <li className="flex items-start gap-3">
-                {getRiskIcon(tool2Data.q4)}
-                <span className="text-slate-600">
-                  זמן למידה: {tool2Data.q4 === 0 ? "יש זמן" : tool2Data.q4 === 5 ? "זמן מוגבל" : "אין זמן"}
-                </span>
+                <Check className="w-5 h-5 text-green-600 mt-0.5 shrink-0" />
+                <span className="text-slate-600">משאבים - מחסור בזמינות ללמידה, הטמעה וביצוע בדיקות מעלה את הסיכון.</span>
               </li>
             </ul>
           </div>
 
-          {tool2Data.status === "green" && (
-            <>
-              <div className="bg-green-50 border border-green-200 rounded-xl p-4 mb-8 text-right">
-                <h4 className="font-bold text-green-800 mb-2">אמצעי זהירות מומלצים:</h4>
-                <ul className="text-green-700 space-y-1 text-sm">
-                  <li>• התחילו בפיילוט קטן לפני שימוש רחב</li>
-                  <li>• בדקו תוצאות באופן שוטף בחודש הראשון</li>
-                  <li>• הגדירו תהליך לזיהוי ותיקון שגיאות</li>
-                  <li>• שמרו על גיבויים קבועים</li>
-                </ul>
-              </div>
-              <Button
-                onClick={() => {
-                  setCurrentTool(3)
-                  setShowResults(false)
-                  setQuestionIndex(0)
-                  setAnswers([])
-                }}
-                className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-6 text-lg"
-              >
-                המשך למחשבון ROI ←
-              </Button>
-            </>
-          )}
+          <div className="flex items-start gap-3 bg-yellow-50 border border-yellow-100 rounded-xl p-3 mb-6 text-right">
+            <AlertTriangle className="w-5 h-5 text-yellow-600 mt-0.5 shrink-0" />
+            <p className="text-sm text-yellow-800">
+              הסימולטור מספק הערכה כללית בלבד ואינו מהווה ייעוץ מקצועי. הערכה זו מתבססת על הנחות ומידע שהזנתם; היא אינדיקטיבית בלבד ותיתכן שונות בתנאים אמיתיים. אין לראות בתוצאה התחייבות.
+            </p>
+          </div>
 
-          {tool2Data.status === "yellow" && (
-            <>
-              <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-8 text-right">
-                <h4 className="font-bold text-yellow-800 mb-2">צעדי היערכות נדרשים:</h4>
-                <ol className="text-yellow-700 space-y-1 text-sm">
-                  <li>1. הקימו מערכת גיבוי אוטומטית</li>
-                  <li>2. הגדירו תהליך בדיקת איכות לתוצאות AI</li>
-                  <li>3. הקצו זמן ללמידה ותרגול</li>
-                </ol>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  onClick={() => {
-                    setCurrentTool(3)
-                    setShowResults(false)
-                    setQuestionIndex(0)
-                    setAnswers([])
-                  }}
-                  className="flex-1 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-6"
-                >
-                  המשך למחשבון ROI ←
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    setCurrentTool(1)
-                    setShowResults(false)
-                    setQuestionIndex(0)
-                    setAnswers([])
-                  }}
-                  className="flex-1 rounded-xl py-6"
-                >
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                  חזרה למאתר הזדמנויות
-                </Button>
-              </div>
-            </>
-          )}
-
-          {tool2Data.status === "red" && (
-            <>
-              <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-8 text-right">
-                <p className="text-red-800">
-                  זיהינו סיכונים קריטיים שעלולים לגרום לנזק משמעותי. מומלץ להתייעץ עם מומחה לפני שממשיכים, או לבחור
-                  משימה אחרת להתחיל איתה.
-                </p>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  onClick={() => {
-                    resetSimulator()
-                    setShowResults(false)
-                    setQuestionIndex(0)
-                    setAnswers([])
-                  }}
-                  variant="outline"
-                  className="flex-1 rounded-xl py-6"
-                >
-                  <RotateCcw className="w-4 h-4 ml-2" />
-                  התחל מחדש עם משימה אחרת
-                </Button>
-                <Button asChild className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl py-6">
-                  <Link href="/consultation">הגש בקשה לייעוץ מקצועי</Link>
-                </Button>
-              </div>
-            </>
-          )}
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Button
+              variant="outline"
+              onClick={() => {
+                resetSimulator()
+                setShowResults(false)
+                setQuestionIndex(0)
+                setAnswers([])
+              }}
+              className="flex-1 rounded-xl py-6"
+            >
+              בחר משימה אחרת
+            </Button>
+            <Button
+              onClick={() => {
+                setCurrentTool(3)
+                setShowResults(false)
+                setQuestionIndex(0)
+                setAnswers([])
+              }}
+              className="flex-1 bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-6 text-lg"
+            >
+              לחישוב חסכון לעסק ←
+            </Button>
+          </div>
         </div>
       </div>
     )
@@ -245,34 +289,90 @@ export function Tool2Safety() {
 
   const currentQuestion = questions[questionIndex]
 
+  // Replace placeholder task name in question text with the saved task name from Tool1 (if any).
+  // If no mission title was provided, remove the placeholder entirely (show no fallback text).
+  const safeTask = tool1Data?.taskName ? tool1Data.taskName.replace(/[\"“”'״]/g, "") : ""
+  const getDisplayedQuestion = (q: string) => {
+    try {
+      if (q.match(/[\"'״]?\s*שם המשימה\s*[\"'״]?/)) {
+          if (safeTask) {
+            return q
+              .replace(/[\"'״]?\s*שם המשימה\s*[\"'״]?/g, ` ״${safeTask}״ `)
+              .replace(/\s+/g, ' ')
+              .replace(/\s+([?!.:,;])/g, '$1')
+              .trim()
+          }
+          return q
+            .replace(/[\"'״]?\s*שם המשימה\s*[\"'״]?/g, ' ')
+            .replace(/\s+/g, ' ')
+            .replace(/\s+([?!.:,;])/g, '$1')
+            .trim()
+      }
+      return q
+    } catch (e) {
+      return q
+    }
+  }
+
   return (
     <div className="max-w-2xl mx-auto px-4 py-12">
-      <div className="mb-8">
-        <div className="text-sm text-slate-500 mb-2">
-          שאלה {questionIndex + 1} מתוך {questions.length}
-        </div>
-        <div className="h-1 bg-slate-100 rounded-full">
-          <div
-            className="h-full bg-[#0b2e7b] rounded-full transition-all"
-            style={{ width: `${((questionIndex + 1) / questions.length) * 100}%` }}
-          />
+      <div className="mb-8 flex justify-center">
+        <div className="flex items-center gap-3">
+          {questions.map((_, i) => (
+            <span
+              key={i}
+              className={`w-3 h-3 rounded-full transition-colors ${
+                i === questionIndex ? "bg-blue-600" : "bg-slate-200"
+              }`}
+            />
+          ))}
         </div>
       </div>
 
       <div className="bg-white rounded-3xl shadow-xl p-8">
         <p className="text-slate-500 mb-4">{currentQuestion.context}</p>
-        <h2 className="text-2xl font-bold text-[#0b2e7b] mb-8">{currentQuestion.question}</h2>
+        <h2 className="text-2xl font-bold text-[#0b2e7b] mb-8">{getDisplayedQuestion(currentQuestion.question)}</h2>
 
         <div className="space-y-3">
-          {currentQuestion.options.map((option, index) => (
-            <button
-              key={index}
-              onClick={() => handleAnswer(option.risk)}
-              className="w-full text-right p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-blue-300 rounded-xl transition-all font-medium text-slate-700"
-            >
-              {option.label}
-            </button>
-          ))}
+          {currentQuestion.options ? (
+            currentQuestion.options.map((option, index) => (
+              <button
+                key={index}
+                onClick={() => handleAnswer(option.risk)}
+                className="w-full text-right p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-blue-300 rounded-xl transition-all font-medium text-slate-700"
+              >
+                {option.label}
+              </button>
+            ))
+          ) : (
+            // slider UI
+            <div className="space-y-4">
+              <div className="flex items-center justify-between text-sm text-slate-600">
+                <span>{currentQuestion.slider?.left}</span>
+                <span>{currentQuestion.slider?.right}</span>
+              </div>
+              <input
+                type="range"
+                min={currentQuestion.slider?.min ?? 1}
+                max={currentQuestion.slider?.max ?? 10}
+                step={1}
+                value={sliderValue}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSliderValue(Number(e.target.value))}
+                className="w-full"
+              />
+              <div className="text-center text-[#0b2e7b] font-semibold text-xl">{sliderValue}</div>
+              <div className="flex justify-center">
+                <Button
+                  onClick={() => {
+                    handleAnswer(sliderValue)
+                  }}
+                  className="mx-auto bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-4 px-12 text-lg"
+                >
+                  הבא
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
 
         {questionIndex > 0 && (

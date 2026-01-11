@@ -88,19 +88,19 @@ export default function ConsultationPage() {
               <h3 className="font-bold text-[#0b2e7b] mb-4">מה עכשיו?</h3>
               <ol className="space-y-3">
                 <li className="flex items-start gap-3">
-                  <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+                  <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">
                     1
                   </span>
                   <span className="text-slate-600">נבדוק את כל הבקשות השבוע</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+                  <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">
                     2
                   </span>
                   <span className="text-slate-600">אם נבחרתם — נשלח מייל לתיאום תוך 3–5 ימים</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+                  <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">
                     3
                   </span>
                   <span className="text-slate-600">נקבע שיחת ייעוץ (30 דקות, ללא עלות)</span>
@@ -112,19 +112,19 @@ export default function ConsultationPage() {
               <h3 className="font-bold text-blue-800 mb-3">מה לצפות מהייעוץ:</h3>
               <ul className="space-y-2 text-blue-700">
                 <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                  <Check className="w-5 h-5 mt-0.5 shrink-0" />
                   <span>ניתוח הצרכים הספציפיים של העסק שלכם</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                  <Check className="w-5 h-5 mt-0.5 shrink-0" />
                   <span>המלצות לכלי AI מותאמים</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                  <Check className="w-5 h-5 mt-0.5 shrink-0" />
                   <span>תוכנית פעולה ברורה וריאליסטית</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                  <Check className="w-5 h-5 mt-0.5 shrink-0" />
                   <span>הערכת עלויות וזמנים צפויים</span>
                 </li>
               </ul>
@@ -201,7 +201,7 @@ export default function ConsultationPage() {
         {/* Transparency box */}
         <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-10">
           <div className="flex items-start gap-3 mb-4">
-            <Info className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+            <Info className="w-5 h-5 text-blue-600 mt-0.5 shrink-0" />
             <div>
               <h3 className="font-bold text-blue-800 mb-2">שקיפות מלאה: הייעוץ הוא כלי שיווקי</h3>
               <p className="text-blue-700">
@@ -452,7 +452,7 @@ export default function ConsultationPage() {
 
           <Button
             type="submit"
-            className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-6 text-lg"
+            className="w-full bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-6 text-lg"
           >
             שליחת בקשה ←
           </Button>

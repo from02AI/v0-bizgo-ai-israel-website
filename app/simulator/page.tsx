@@ -10,9 +10,9 @@ function SimulatorContent() {
   const { currentTool } = useSimulator()
 
   const toolNames = {
-    1: "מאתר הזדמנויות AI",
-    2: "נקודת בדיקת בטיחות",
-    3: "מחשבון ROI",
+    1: "משימות",
+    2: "בטיחות",
+    3: "חסכון",
   }
 
   return (

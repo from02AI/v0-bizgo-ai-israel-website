@@ -75,8 +75,9 @@
 }
 
 @theme inline {
-  --font-sans: 'Geist', 'Geist Fallback';
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  /* Unified font variables — use the Heebo variable (--font-main) provided by app/layout.tsx */
+  --font-sans: var(--font-main), system-ui, sans-serif;
+  --font-mono: var(--font-main), system-ui, monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

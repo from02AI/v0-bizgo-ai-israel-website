@@ -19,7 +19,7 @@ const channels = [
     title: "ניוזלטר שבועי",
     description: "תובנות AI, מחקרים חדשים, ההמלצות המובילות",
     cta: "הירשמו לניוזלטר ←",
-    ctaBg: "bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700",
+    ctaBg: "bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700",
     href: "#",
   },
   {
@@ -36,7 +36,7 @@ const channels = [
 
 export function CommunitySection() {
   return (
-    <section className="bg-purple-50 py-16 md:py-20">
+    <section id="community" className="bg-purple-50 py-16 md:py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-blue-600 drop-shadow-sm mb-4">

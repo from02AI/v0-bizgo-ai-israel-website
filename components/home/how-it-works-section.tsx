@@ -7,7 +7,7 @@ const tools = [
     icon: Target,
     iconColor: "text-[#0b2e7b]",
     iconBg: "bg-[#0b2e7b]/10",
-    title: "מאתר הזדמנויות AI",
+    title: "משימות",
     description: "לגלות איפה AI יכול לעזור בעסק",
     stats: "4 שאלות | 2 דקות",
   },
@@ -15,7 +15,7 @@ const tools = [
     icon: Shield,
     iconColor: "text-blue-600",
     iconBg: "bg-blue-100",
-    title: "נקודת בדיקת בטיחות",
+    title: "בטיחות",
     description: "האם העסק מוכן לאמץ AI? מאתרים סיכונים לפני שמתחילים",
     stats: "4 שאלות | 2 דקות",
   },
@@ -23,7 +23,7 @@ const tools = [
     icon: Calculator,
     iconColor: "text-amber-600",
     iconBg: "bg-amber-100",
-    title: "כמה אפשר לחסוך?",
+    title: "חסכון",
     description: "מחשבים חיסכון ל־6 חודשים כולל עלויות חבויות (עקומת למידה, טעויות, תחזוקה)",
     stats: "6 שאלות | 3 דקות",
   },
@@ -35,7 +35,7 @@ export function HowItWorksSection() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-blue-600 drop-shadow-sm mb-4">
-            איך זה עובד?
+            סימולטור AI לעסק
           </h2>
           <p className="text-lg sm:text-xl text-slate-600">3 כלים פשוטים, 5 דקות, תשובות כנות על AI לעסק שלך</p>
         </div>
@@ -60,7 +60,7 @@ export function HowItWorksSection() {
           <Button
             asChild
             size="lg"
-            className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl shadow-lg hover:shadow-amber-500/25 transition-all text-lg px-8 py-6"
+            className="bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl shadow-lg hover:shadow-amber-500/25 transition-all text-lg px-8 py-6"
           >
             <Link href="/simulator">להתחיל את הסימולטור עכשיו ←</Link>
           </Button>

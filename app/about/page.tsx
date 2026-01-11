@@ -22,11 +22,11 @@ export default function AboutPage() {
           <div className="prose prose-lg text-slate-600 leading-relaxed space-y-4">
             <p>בישראל יש כ־560,000 עסקים קטנים ובינוניים. הם עמוד השדרה של הכלכלה.</p>
             <p>אבל כשזה מגיע ל־AI, עסקים קטנים טובעים:</p>
-            <ul className="list-disc list-inside space-y-1">
+              <ul className="list-disc list-inside space-y-1">
               <li>62% חסרים מומחיות להעריך כלים</li>
               <li>74% מההטמעות שמתחילות מכלי — נכשלות</li>
               <li>37% חסרי זמן לחקור פתרונות</li>
-              <li>34% לא רואים ROI ברור</li>
+              <li>34% לא רואים חסכון ברור</li>
             </ul>
             <p>
               בינתיים, ארגונים גדולים מדרגים AI בהצלחה. יש להם: צוותי IT ייעודיים, תקציבים לניסוי ולכישלון, זמן ומשאבים
@@ -61,7 +61,7 @@ export default function AboutPage() {
               <h3 className="text-xl font-bold text-[#0b2e7b] mb-3">1. מתחילים בהערכה (לא במכירה)</h3>
               <p className="text-slate-600 leading-relaxed">
                 לפני שמציעים כלים, אנחנו עוזרים לכם להבין אם AI בכלל מתאים למשימה שלכם. הסימולטור שלנו מזהה הזדמנויות,
-                בודק מוכנות, ומחשב ROI ריאליסטי — כולל עלויות נסתרות.
+                בודק מוכנות, ומחשב חסכון ריאלי — כולל עלויות נסתרות.
               </p>
             </div>
 
@@ -153,7 +153,7 @@ export default function AboutPage() {
         </section>
 
         {/* Final CTA */}
-        <section className="text-center bg-gradient-to-br from-blue-50 to-white rounded-3xl p-8 border border-blue-100">
+        <section className="text-center bg-linear-to-br from-blue-50 to-white rounded-3xl p-8 border border-blue-100">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-blue-600 mb-4">להיות חלק מהפתרון</h2>
           <p className="text-lg text-slate-600 mb-8 max-w-xl mx-auto">
             לעסקים קטנים בישראל מגיע יותר משיווק מנופח וכלים שלא עובדים. ביחד — בונים דרך טובה יותר.
@@ -161,7 +161,7 @@ export default function AboutPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               asChild
-              className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl px-8 py-6"
+              className="bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl px-8 py-6"
             >
               <Link href="/simulator">סימולטור</Link>
             </Button>

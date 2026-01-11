@@ -1,7 +1,8 @@
-import { ChevronLeft, ChevronRight, GraduationCap, DollarSign, Clock } from "lucide-react"
+import { ChevronLeft, ChevronRight, GraduationCap, DollarSign, Clock, CheckCircle } from "lucide-react"
 
 const statCards = [
   {
+    emoji: "🎓",
     stat: "71.9%",
     title: "פער ידע",
     description:
@@ -9,31 +10,36 @@ const statCards = [
     source: "Intuit & ICIC, מרץ 2025",
   },
   {
+    emoji: "💰",
     stat: "36%",
     title: "תקציבים עולים",
     description:
-      "תקציבי ה־AI החודשיים צפויים לעלות ב־36% ב־2025, אבל רק 39% מהארגונים יודעים להעריך ROI בביטחון — פער נראות הולך וגדל.",
+      "תקציבי ה־AI החודשיים צפויים לעלות ב־36% ב־2025, אבל רק 39% מהארגונים יודעים להעריך חסכון בביטחון — פער נראות הולך וגדל.",
     source: "CloudZero State of AI Costs, 2025",
   },
   {
+    emoji: "⏰",
     stat: "37%",
     title: "לחץ זמן",
     description: "בעלי עסקים קטנים חסרי זמן/משאבים לבחון כלים לעומק — גם כשהם יודעים שזה יכול לעזור.",
     source: "PayPal/Reimagine Main Street, 2025",
   },
   {
+    emoji: "🧠",
     stat: "62%",
     title: "חסם הבנה",
     description: "חוסר הבנה של היתרונות וחוסר משאבים פנימיים (60%) הם החסמים המרכזיים בפני אימוץ AI.",
     source: "Service Direct AI Report, 2025",
   },
   {
+    emoji: "💡",
     stat: "34%",
-    title: "אין ROI ברור",
+    title: "אין חסכון ברור",
     description: "ללא שימושיות ברורה או החזר השקעה מורגש — עסקים מהססים להשקיע תקציב מוגבל.",
     source: "PayPal/Reimagine Main Street, 2025",
   },
   {
+    emoji: "📉",
     stat: "28%",
     title: "ירידת אימוץ",
     description: "אימוץ AI בעסקים קטנים ירד מ־42% ב־2024 ל־28% בלבד ב־2025 — תסכול מהולך וגדל מהטמעה מורכבת.",
@@ -66,13 +72,13 @@ const quoteCards = [
 
 export function DataProofsSection() {
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section className="bg-[#4169E1] py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-blue-600 drop-shadow-sm mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white drop-shadow-sm mb-4">
             אתם לא לבד בזה
           </h2>
-          <p className="text-lg sm:text-xl text-slate-600">
+          <p className="text-lg sm:text-xl text-white">
             מחקרי תעשייה מאשרים: פער האימוץ של AI בעסקים קטנים — אמיתי
           </p>
         </div>
@@ -84,12 +90,25 @@ export function DataProofsSection() {
             {statCards.map((card, index) => (
               <div
                 key={index}
-                className="w-80 flex-shrink-0 bg-white rounded-2xl border border-slate-200 p-6 shadow-lg scroll-snap-item"
+                className="w-80 shrink-0 bg-[#1e3a8a] rounded-2xl p-6 shadow-lg scroll-snap-item"
               >
-                <div className="text-4xl font-black text-[#0b2e7b] mb-2">{card.stat}</div>
-                <div className="text-lg font-bold text-blue-600 mb-3">{card.title}</div>
-                <p className="text-slate-600 text-sm leading-relaxed mb-4">{card.description}</p>
-                <p className="text-xs text-slate-400">{card.source}</p>
+                {/* Emoji at top */}
+                <div className="text-4xl mb-3">{card.emoji}</div>
+                
+                {/* Title in uppercase - small, above stat */}
+                <div className="text-xs font-bold text-cyan-400 uppercase tracking-wide mb-2">{card.title}</div>
+                
+                {/* Huge stat number */}
+                <div className="text-6xl font-black text-amber-400 mb-4">{card.stat}</div>
+                
+                {/* Description */}
+                <p className="text-white text-sm leading-relaxed mb-4">{card.description}</p>
+                
+                {/* Citation with checkmark */}
+                <div className="flex items-start gap-1.5 text-xs text-blue-200">
+                  <CheckCircle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
+                  <span>{card.source}</span>
+                </div>
               </div>
             ))}
 
@@ -97,21 +116,29 @@ export function DataProofsSection() {
             {quoteCards.map((card, index) => (
               <div
                 key={`quote-${index}`}
-                className="w-80 flex-shrink-0 bg-gradient-to-br from-blue-50 to-white rounded-2xl border border-blue-100 p-6 shadow-lg scroll-snap-item"
+                className="w-80 shrink-0 bg-[#1e3a8a] rounded-2xl p-6 shadow-lg scroll-snap-item"
               >
-                <div className="w-10 h-10 bg-[#0b2e7b] rounded-lg flex items-center justify-center mb-4">
-                  <card.icon className="w-5 h-5 text-white" />
+                <div className="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center mb-4">
+                  <card.icon className="w-5 h-5 text-white stroke-2" />
                 </div>
-                <div className="text-lg font-bold text-[#0b2e7b] mb-3">{card.title}</div>
-                <p className="text-slate-600 text-sm leading-relaxed mb-4 italic">"{card.quote}"</p>
-                <p className="text-xs text-slate-400">{card.source}</p>
+                
+                {/* Title in uppercase */}
+                <div className="text-xs font-bold text-cyan-400 uppercase tracking-wide mb-3">{card.title}</div>
+                
+                <p className="text-white text-sm leading-relaxed mb-4 italic">"{card.quote}"</p>
+                
+                {/* Citation with checkmark */}
+                <div className="flex items-start gap-1.5 text-xs text-blue-200">
+                  <CheckCircle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
+                  <span>{card.source}</span>
+                </div>
               </div>
             ))}
           </div>
         </div>
 
         {/* Scroll hint */}
-        <div className="flex items-center justify-center gap-2 mt-4 text-slate-400 text-sm">
+        <div className="flex items-center justify-center gap-2 mt-4 text-white text-sm">
           <ChevronRight className="w-4 h-4" />
           <span>גלול לעוד נתונים</span>
           <ChevronLeft className="w-4 h-4" />

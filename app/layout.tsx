@@ -1,12 +1,11 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Inter, Rubik, Caveat } from "next/font/google"
+import { Heebo } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
-const rubik = Rubik({ subsets: ["latin", "hebrew"], variable: "--font-rubik" })
-const caveat = Caveat({ subsets: ["latin"], variable: "--font-caveat", weight: ["500", "700"] })
+// Single site-wide font (Heebo) with Hebrew+Latin glyphs so all text—Hebrew or Latin—renders in the same face
+const heebo = Heebo({ subsets: ["hebrew", "latin"], variable: "--font-main" })
 
 export const metadata: Metadata = {
   title: "BizgoAI Israel - עסקים קטנים מתקדמים עם AI",
@@ -33,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="he" dir="rtl">
-      <body className={`${inter.variable} ${rubik.variable} ${caveat.variable} font-sans antialiased`}>
+      <body className={`${heebo.variable} font-sans antialiased`}>
         {children}
         <Analytics />
       </body>

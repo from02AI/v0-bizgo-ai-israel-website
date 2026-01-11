@@ -23,7 +23,7 @@ export function ConsultationPreviewSection() {
               {["זיהוי הזדמנויות AI שמתאימות לעסק שלכם", "המלצות לכלים מותאמים אישית", "תוכנית התחלה ברורה"].map(
                 (item, index) => (
                   <li key={index} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-green-600 mt-0.5 shrink-0" />
                     <span className="text-slate-600">{item}</span>
                   </li>
                 ),
@@ -38,7 +38,7 @@ export function ConsultationPreviewSection() {
               {["ממלאים טופס קצר (2 דקות)", "אנחנו בוחרים עסקים מתאימים (פעם בשבוע)", "מתאמים שיחה — ללא התחייבות"].map(
                 (item, index) => (
                   <li key={index} className="flex items-start gap-3">
-                    <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+                    <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">
                       {index + 1}
                     </span>
                     <span className="text-slate-600">{item}</span>
@@ -50,9 +50,9 @@ export function ConsultationPreviewSection() {
         </div>
 
         {/* Transparency box */}
-        <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-8">
+          <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-8">
           <div className="flex items-start gap-3 mb-4">
-            <Info className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+            <Info className="w-5 h-5 text-blue-600 mt-0.5 shrink-0" />
             <p className="text-slate-700">
               <strong>שקיפות מלאה:</strong> הייעוץ הוא כלי שיווקי. אתם נותנים אימייל ומצטרפים לקהילה, ואנחנו בוחרים את
               העסקים שהכי מתאימים לצרכים שלנו.
@@ -72,7 +72,7 @@ export function ConsultationPreviewSection() {
           <Button
             asChild
             size="lg"
-            className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl shadow-lg hover:shadow-amber-500/25 transition-all text-lg px-8 py-6"
+            className="bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl shadow-lg hover:shadow-amber-500/25 transition-all text-lg px-8 py-6"
           >
             <Link href="/consultation">הגישו בקשה לייעוץ חינם ←</Link>
           </Button>
