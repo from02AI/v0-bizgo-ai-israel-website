@@ -1,90 +1,67 @@
-import { NextRequest, NextResponse } from 'next/server';
-import puppeteer from 'puppeteer';
-import PDFTemplate from '@/components/simulator/PDFTemplate';
-import React from 'react';
+import { NextRequest, NextResponse } from "next/server"
+import puppeteer from "puppeteer"
+import { buildPdfHtml, type PdfPayload } from "@/lib/pdf-template"
 
-export const maxDuration = 60; // Maximum execution time for Vercel
+export const runtime = "nodejs"
+export const dynamic = "force-dynamic"
+
+function isValidPayload(payload: PdfPayload) {
+  if (!payload || typeof payload !== "object") return false
+  const { tool1Data, tool2Data, tool3Data } = payload
+  return Boolean(tool1Data || tool2Data || tool3Data)
+}
 
 export async function POST(request: NextRequest) {
+  let body: PdfPayload
+
   try {
-    const data = await request.json();
+    body = await request.json()
+  } catch (error) {
+    return NextResponse.json({ error: "בקשה לא חוקית" }, { status: 400 })
+  }
 
-    // Validate required data
-    if (!data.taskName || typeof data.fitScore !== 'number') {
-      return NextResponse.json(
-        { error: 'Missing required data fields' },
-        { status: 400 }
-      );
-    }
+  if (!isValidPayload(body)) {
+    return NextResponse.json({ error: "נתוני סימולטור חסרים" }, { status: 400 })
+  }
 
-    // Dynamic import for renderToStaticMarkup
-    const { renderToStaticMarkup } = await import('react-dom/server');
-    
-    // Render React component to HTML
-    const htmlContent = renderToStaticMarkup(React.createElement(PDFTemplate, { data }));
-    const fullHTML = `<!DOCTYPE html>${htmlContent}`;
+  const html = buildPdfHtml(body)
+  let browser: puppeteer.Browser | null = null
 
-    // Determine if running on Vercel (production) or locally
-    const isProduction = process.env.VERCEL === '1';
-    
-    let browser;
-    
-    if (isProduction) {
-      // Use chromium for Vercel deployment
-      const chromium = require('@sparticuz/chromium');
-      const puppeteerCore = require('puppeteer-core');
-      
-      browser = await puppeteerCore.launch({
-        args: chromium.args,
-        defaultViewport: chromium.defaultViewport,
-        executablePath: await chromium.executablePath(),
-        headless: chromium.headless,
-      });
-    } else {
-      // Use regular puppeteer locally
-      browser = await puppeteer.launch({
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      });
-    }
+  try {
+    browser = await puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    })
 
-    const page = await browser.newPage();
+    const page = await browser.newPage()
+    await page.setContent(html, { waitUntil: "networkidle0" })
 
-    // Set content and wait for it to be ready
-    await page.setContent(fullHTML, {
-      waitUntil: 'networkidle0',
-    });
-
-    // Generate PDF
     const pdfBuffer = await page.pdf({
-      format: 'A4',
+      format: "A4",
       printBackground: true,
       margin: {
-        top: '0mm',
-        right: '0mm',
-        bottom: '0mm',
-        left: '0mm',
+        top: "20mm",
+        bottom: "20mm",
+        left: "15mm",
+        right: "15mm",
       },
-    });
+    })
 
-    await browser.close();
+    const headers = new Headers()
+    headers.set("Content-Type", "application/pdf")
+    headers.set("Content-Disposition", `attachment; filename="bizgoai-report.pdf"`)
 
-    // Return PDF as response
-    return new NextResponse(pdfBuffer, {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/pdf',
-        'Content-Disposition': `attachment; filename="AI-Readiness-Report-${data.taskName.replace(/[^a-z0-9]/gi, '-')}.pdf"`,
-      },
-    });
+    return new NextResponse(pdfBuffer, { status: 200, headers })
   } catch (error) {
-    console.error('PDF Generation Error:', error);
-    return NextResponse.json(
-      { 
-        error: 'Failed to generate PDF',
-        details: error instanceof Error ? error.message : 'Unknown error'
-      },
-      { status: 500 }
-    );
+    console.error("PDF generation failed", error)
+    return NextResponse.json({ error: "נכשלה יצירת ה-PDF" }, { status: 500 })
+  } finally {
+    if (browser) {
+      try {
+        await browser.close()
+      } catch (err) {
+        console.warn("Failed closing browser", err)
+      }
+    }
   }
 }

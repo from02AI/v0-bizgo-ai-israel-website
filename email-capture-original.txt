@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import type React from "react"
 
@@ -8,11 +8,8 @@ import { Check, MessageCircle, Mail, BookOpen } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
-import { useSimulator } from "@/contexts/simulator-context"
-import { PDFDownloadButton } from "@/components/simulator/PDFDownloadButton"
 
 export function EmailCapture() {
-  const { tool1Data, tool2Data, tool3Data } = useSimulator()
   const [email, setEmail] = useState("")
   const [joinWhatsApp, setJoinWhatsApp] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -27,10 +24,10 @@ export function EmailCapture() {
     return (
       <div className="max-w-2xl mx-auto px-4 py-12">
         <div className="bg-white rounded-3xl shadow-xl p-8 text-center">
-          <div className="text-6xl mb-4">✅</div>
-          <h2 className="text-2xl font-bold text-[#0b2e7b] mb-2">הדוח נשלח!</h2>
-          <p className="text-slate-600 mb-8">בדקו את תיבת המייל.</p>
-          <p className="text-slate-500 mb-8">הרגע שלחנו הערכת AI מלאה ל־{email}</p>
+          <div className="text-6xl mb-4">Γ£à</div>
+          <h2 className="text-2xl font-bold text-[#0b2e7b] mb-2">╫ö╫ô╫ò╫ù ╫á╫⌐╫£╫ù!</h2>
+          <p className="text-slate-600 mb-8">╫æ╫ô╫º╫ò ╫É╫¬ ╫¬╫Ö╫æ╫¬ ╫ö╫₧╫Ö╫Ö╫£.</p>
+          <p className="text-slate-500 mb-8">╫ö╫¿╫Æ╫ó ╫⌐╫£╫ù╫á╫ò ╫ö╫ó╫¿╫¢╫¬ AI ╫₧╫£╫É╫ö ╫£╓╛{email}</p>
 
           <div className="grid gap-4 mb-8">
             <Link
@@ -41,8 +38,8 @@ export function EmailCapture() {
                 <Mail className="w-6 h-6 text-blue-600" />
               </div>
               <div className="text-right">
-                <p className="font-bold text-[#0b2e7b]">לקבוע ייעוץ חינם</p>
-                <p className="text-sm text-slate-500">שיחה אישית עם מומחה AI</p>
+                <p className="font-bold text-[#0b2e7b]">╫£╫º╫æ╫ò╫ó ╫Ö╫Ö╫ó╫ò╫Ñ ╫ù╫Ö╫á╫¥</p>
+                <p className="text-sm text-slate-500">╫⌐╫Ö╫ù╫ö ╫É╫Ö╫⌐╫Ö╫¬ ╫ó╫¥ ╫₧╫ò╫₧╫ù╫ö AI</p>
               </div>
             </Link>
 
@@ -54,8 +51,8 @@ export function EmailCapture() {
                 <MessageCircle className="w-6 h-6 text-green-600" />
               </div>
               <div className="text-right">
-                <p className="font-bold text-[#0b2e7b]">להצטרף לקהילה</p>
-                <p className="text-sm text-slate-500">WhatsApp, ניוזלטר</p>
+                <p className="font-bold text-[#0b2e7b]">╫£╫ö╫ª╫ÿ╫¿╫ú ╫£╫º╫ö╫Ö╫£╫ö</p>
+                <p className="text-sm text-slate-500">WhatsApp, ╫á╫Ö╫ò╫û╫£╫ÿ╫¿</p>
               </div>
             </a>
 
@@ -67,14 +64,14 @@ export function EmailCapture() {
                 <BookOpen className="w-6 h-6 text-amber-600" />
               </div>
               <div className="text-right">
-                <p className="font-bold text-[#0b2e7b]">ללמוד עוד</p>
-                <p className="text-sm text-slate-500">על BizgoAI Israel</p>
+                <p className="font-bold text-[#0b2e7b]">╫£╫£╫₧╫ò╫ô ╫ó╫ò╫ô</p>
+                <p className="text-sm text-slate-500">╫ó╫£ BizgoAI Israel</p>
               </div>
             </Link>
           </div>
 
           <Button asChild variant="outline" className="w-full rounded-xl bg-transparent">
-            <Link href="/">חזרה לדף הבית</Link>
+            <Link href="/">╫ù╫û╫¿╫ö ╫£╫ô╫ú ╫ö╫æ╫Ö╫¬</Link>
           </Button>
         </div>
       </div>
@@ -84,15 +81,15 @@ export function EmailCapture() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-12">
       <div className="bg-white rounded-3xl shadow-xl p-8">
-        <h2 className="text-2xl font-bold text-[#0b2e7b] mb-2 text-center">רוצים את הפירוט המלא?</h2>
-        <p className="text-slate-600 text-center mb-6">נשלח לכם דוח שלם הכולל:</p>
+        <h2 className="text-2xl font-bold text-[#0b2e7b] mb-2 text-center">╫¿╫ò╫ª╫Ö╫¥ ╫É╫¬ ╫ö╫ñ╫Ö╫¿╫ò╫ÿ ╫ö╫₧╫£╫É?</h2>
+        <p className="text-slate-600 text-center mb-6">╫á╫⌐╫£╫ù ╫£╫¢╫¥ ╫ô╫ò╫ù ╫⌐╫£╫¥ ╫ö╫¢╫ò╫£╫£:</p>
 
         <ul className="space-y-3 mb-8">
           {[
-            "ניתוח הזדמנות מלא עם המלצות לכלים",
-            "צ'קליסט בטיחות מותאם למצב שלכם",
-            "חישובי ROI מפורטים עם כל ההנחות",
-            "הצעדים הבאים ליישום",
+            "╫á╫Ö╫¬╫ò╫ù ╫ö╫û╫ô╫₧╫á╫ò╫¬ ╫₧╫£╫É ╫ó╫¥ ╫ö╫₧╫£╫ª╫ò╫¬ ╫£╫¢╫£╫Ö╫¥",
+            "╫ª'╫º╫£╫Ö╫í╫ÿ ╫æ╫ÿ╫Ö╫ù╫ò╫¬ ╫₧╫ò╫¬╫É╫¥ ╫£╫₧╫ª╫æ ╫⌐╫£╫¢╫¥",
+            "╫ù╫Ö╫⌐╫ò╫æ╫Ö ROI ╫₧╫ñ╫ò╫¿╫ÿ╫Ö╫¥ ╫ó╫¥ ╫¢╫£ ╫ö╫ö╫á╫ù╫ò╫¬",
+            "╫ö╫ª╫ó╫ô╫Ö╫¥ ╫ö╫æ╫É╫Ö╫¥ ╫£╫Ö╫Ö╫⌐╫ò╫¥",
           ].map((item, index) => (
             <li key={index} className="flex items-start gap-3">
               <Check className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
@@ -101,31 +98,11 @@ export function EmailCapture() {
           ))}
         </ul>
 
-        {/* PDF Download Section */}
-        <div className="mb-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
-          <h3 className="text-lg font-bold text-[#0b2e7b] mb-2 text-center">צפייה מיידית בדוח</h3>
-          <p className="text-sm text-slate-600 text-center mb-4">הורידו את הדוח עכשיו ללא צורך באימייל</p>
-          <PDFDownloadButton 
-            tool1Data={tool1Data}
-            tool2Data={tool2Data}
-            tool3Data={tool3Data}
-          />
-        </div>
-
-        <div className="relative mb-6">
-          <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t border-slate-200" />
-          </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="bg-white px-4 text-slate-500">או קבלו למייל</span>
-          </div>
-        </div>
-
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input
             type="email"
             required
-            placeholder="כתובת אימייל"
+            placeholder="╫¢╫¬╫ò╫æ╫¬ ╫É╫Ö╫₧╫Ö╫Ö╫£"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="text-lg py-6 rounded-xl border-2 border-slate-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
@@ -138,7 +115,7 @@ export function EmailCapture() {
               onCheckedChange={(checked) => setJoinWhatsApp(checked as boolean)}
             />
             <label htmlFor="whatsapp" className="text-slate-600 cursor-pointer">
-              הוסיפו אותי גם לקהילת ה־WhatsApp להמלצות כלים שוטפות
+              ╫ö╫ò╫í╫Ö╫ñ╫ò ╫É╫ò╫¬╫Ö ╫Æ╫¥ ╫£╫º╫ö╫Ö╫£╫¬ ╫ö╓╛WhatsApp ╫£╫ö╫₧╫£╫ª╫ò╫¬ ╫¢╫£╫Ö╫¥ ╫⌐╫ò╫ÿ╫ñ╫ò╫¬
             </label>
           </div>
 
@@ -146,14 +123,14 @@ export function EmailCapture() {
             type="submit"
             className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-6 text-lg"
           >
-            שלחו לי את הדוח המלא ←
+            ╫⌐╫£╫ù╫ò ╫£╫Ö ╫É╫¬ ╫ö╫ô╫ò╫ù ╫ö╫₧╫£╫É ΓåÉ
           </Button>
         </form>
 
-        <p className="text-sm text-slate-400 text-center mt-4">אנחנו מכבדים את הפרטיות שלכם. ניתן להסיר בכל עת.</p>
+        <p className="text-sm text-slate-400 text-center mt-4">╫É╫á╫ù╫á╫ò ╫₧╫¢╫æ╫ô╫Ö╫¥ ╫É╫¬ ╫ö╫ñ╫¿╫ÿ╫Ö╫ò╫¬ ╫⌐╫£╫¢╫¥. ╫á╫Ö╫¬╫ƒ ╫£╫ö╫í╫Ö╫¿ ╫æ╫¢╫£ ╫ó╫¬.</p>
 
         <Link href="/" className="block text-center text-sm text-slate-500 hover:text-slate-700 mt-4">
-          דלג — אני מסתפק בתצוגה מקדימה
+          ╫ô╫£╫Æ ΓÇö ╫É╫á╫Ö ╫₧╫í╫¬╫ñ╫º ╫æ╫¬╫ª╫ò╫Æ╫ö ╫₧╫º╫ô╫Ö╫₧╫ö
         </Link>
       </div>
     </div>

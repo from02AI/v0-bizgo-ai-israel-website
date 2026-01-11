@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { ArrowRight, AlertTriangle, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -40,6 +41,7 @@ function recommendToolTier(tool1Score: number): { tier: string; minBudget: numbe
 }
 
 export function Tool3ROI() {
+  const router = useRouter()
   const { setTool3Data, tool2Data, tool1Data, tool3Data } = useSimulator()
   const [step, setStep] = useState(1)
   const [formData, setFormData] = useState({
@@ -293,7 +295,7 @@ export function Tool3ROI() {
           <div className="mb-4 space-y-3">
             <Button
               onClick={() => {
-                window.location.href = "/simulator/email-capture"
+                router.push("/simulator/email-capture")
               }}
               className="w-full bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-6 px-10"
             >

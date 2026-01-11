@@ -12,6 +12,12 @@ declare module 'lucide-react' {
   export const Check: any;
   export const X: any;
   export const RotateCcw: any;
+  export const MessageCircle: any;
+  export const Mail: any;
+  export const BookOpen: any;
+  export const Loader2: any;
+  export const FileDown: any;
+  export const Download: any;
   const LucideDefault: any;
   export default LucideDefault;
 }
@@ -60,6 +66,68 @@ declare module 'react/jsx-runtime' {
   export function jsx(type: any, props?: any, key?: any): any;
   export function jsxs(type: any, props?: any, key?: any): any;
   export function jsxDEV(type: any, props?: any, key?: any): any;
+}
+
+// @react-pdf/renderer types - PDF generation library
+declare module '@react-pdf/renderer' {
+  import type { ReactNode, FC, CSSProperties } from 'react';
+  
+  // PDF-specific style type
+  export interface Style {
+    [key: string]: any;
+  }
+  
+  // Font registration
+  export const Font: {
+    register: (config: {
+      family: string;
+      fonts?: Array<{
+        src: string;
+        fontWeight?: number | string;
+        fontStyle?: string;
+      }>;
+      src?: string;
+    }) => void;
+  };
+  
+  // StyleSheet helper
+  export const StyleSheet: {
+    create: <T extends Record<string, Style>>(styles: T) => T;
+  };
+  
+  // PDF Components (as permissive types to avoid JSX conflicts)
+  export const Document: any;
+  export const Page: any;
+  export const View: any;
+  export const Text: any;
+  export const Image: any;
+  export const Link: any;
+  export const Canvas: any;
+  export const PDFViewer: any;
+  
+  // PDF Download Link component
+  export interface PDFDownloadLinkProps {
+    document: ReactNode;
+    fileName?: string;
+    className?: string;
+    style?: CSSProperties;
+    children: (props: {
+      blob: Blob | null;
+      url: string | null;
+      loading: boolean;
+      error: Error | null;
+    }) => ReactNode;
+  }
+  export const PDFDownloadLink: FC<PDFDownloadLinkProps>;
+  
+  // PDF rendering functions
+  export function pdf(element: ReactNode): {
+    toBlob: () => Promise<Blob>;
+    toBuffer: () => Promise<Buffer>;
+    toString: () => Promise<string>;
+  };
+  export function renderToStream(element: ReactNode): NodeJS.ReadableStream;
+  export function renderToFile(element: ReactNode, filePath: string): Promise<void>;
 }
 
 declare namespace JSX {

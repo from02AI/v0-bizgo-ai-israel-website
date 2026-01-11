@@ -1,6 +1,6 @@
 "use client"
 
-import { SimulatorProvider, useSimulator } from "@/contexts/simulator-context"
+import { useSimulator } from "@/contexts/simulator-context"
 import { ProgressBar } from "@/components/simulator/progress-bar"
 import { Tool1Opportunity } from "@/components/simulator/tool1-opportunity"
 import { Tool2Safety } from "@/components/simulator/tool2-safety"
@@ -28,9 +28,5 @@ function SimulatorContent() {
 }
 
 export default function SimulatorPage() {
-  return (
-    <SimulatorProvider>
-      <SimulatorContent />
-    </SimulatorProvider>
-  )
+  return <SimulatorContent />
 }
