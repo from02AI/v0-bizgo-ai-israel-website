@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import puppeteer from "puppeteer"
+import puppeteer, { type Browser } from "puppeteer"
 import { buildPdfHtml, type PdfPayload } from "@/lib/pdf-template"
 
 export const runtime = "nodejs"
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
   }
 
   const html = buildPdfHtml(body)
-  let browser: puppeteer.Browser | null = null
+  let browser: Browser | null = null
 
   try {
     browser = await puppeteer.launch({

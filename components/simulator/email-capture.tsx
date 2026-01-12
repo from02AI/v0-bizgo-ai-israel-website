@@ -1,8 +1,6 @@
 "use client"
 
-import type React from "react"
-
-import { useState } from "react"
+import React, { useState } from "react"
 import Link from "next/link"
 import { Check, MessageCircle, Mail, BookOpen } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -17,7 +15,7 @@ export function EmailCapture() {
   const [joinWhatsApp, setJoinWhatsApp] = useState(false)
   const [submitted, setSubmitted] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log("Email submitted:", email, "Join WhatsApp:", joinWhatsApp)
     setSubmitted(true)
@@ -127,7 +125,7 @@ export function EmailCapture() {
             required
             placeholder="כתובת אימייל"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
             className="text-lg py-6 rounded-xl border-2 border-slate-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
           />
 
@@ -135,7 +133,7 @@ export function EmailCapture() {
             <Checkbox
               id="whatsapp"
               checked={joinWhatsApp}
-              onCheckedChange={(checked) => setJoinWhatsApp(checked as boolean)}
+              onCheckedChange={(checked: boolean) => setJoinWhatsApp(checked)}
             />
             <label htmlFor="whatsapp" className="text-slate-600 cursor-pointer">
               הוסיפו אותי גם לקהילת ה־WhatsApp להמלצות כלים שוטפות
