@@ -115,45 +115,41 @@ body {
 }
 
 /* Header */
+
 .header {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
+  position: relative;
+  margin-bottom: 18px;
+  padding-top: 14px;
   padding-bottom: 12px;
   border-bottom: 3px solid var(--blue-600);
+  text-align: center;
 }
 
-.logo-box {
-  width: 110px;
-  height: 44px;
-  background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-800) 100%);
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.logo-text {
-  color: white;
+/* Plain-text logo positioned far top-left */
+.logo-plain {
+  position: absolute;
+  left: 0;
+  top: 0;
   font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  font-weight: 900;
+  color: var(--blue-900);
+  line-height: 1;
 }
 
-.header-content {
-  flex: 1;
-  text-align: left;
-  margin-left: 20px;
+/* Small date at the far top-right */
+.date-plain {
+  position: absolute;
+  right: 0;
+  top: 2px;
+  font-size: 10px;
+  color: var(--slate-600);
 }
 
 .h1 {
-  font-size: 28px;
-  font-weight: 700;
+  font-size: 22px;
+  font-weight: 800;
   color: var(--blue-900);
-  margin-bottom: 4px;
+  margin: 6px 0 4px;
 }
 
 .subtitle {
@@ -205,12 +201,13 @@ body {
 }
 
 .status-badge {
-  padding: 12px 16px;
+  padding: 8px 12px;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   text-align: center;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+  white-space: nowrap;
 }
 
 .status-badge.green { background: var(--green-bg); color: var(--green-text); }
@@ -309,12 +306,16 @@ body {
 
 /* Footer */
 .footer {
-  margin-top: 12px;
-  padding-top: 8px;
+  position: fixed;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  padding: 8px 0;
   border-top: 1px solid var(--slate-200);
   text-align: center;
-  font-size: 9px;
-  color: var(--slate-400);
+  font-size: 10px;
+  color: var(--slate-600);
+  background: rgba(255,255,255,0.0);
 }
 
 /* ROI Chart */
@@ -323,6 +324,7 @@ body {
   background: #F8FAFC;
   border-radius: 8px;
   padding: 12px;
+  page-break-inside: avoid;
 }
 
 .chart-title {
@@ -511,24 +513,17 @@ export function buildPdfHtml(payload: PdfPayload) {
     ${baseStyles}
   </style>
 </head>
-<body>
+<body style="padding-bottom: 68px;">
   <!-- Header -->
   <div class="header">
-    <!-- Logo and Date at Top Left -->
-    <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
-      <div style="background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%); padding: 8px 16px; border-radius: 6px;">
-        <div style="font-size: 16px; font-weight: 900; color: white; letter-spacing: 1px;">BizgoAI</div>
-        <div style="font-size: 11px; font-weight: 600; color: #E0E7FF; margin-top: 2px;">דוח מוכנות בינה מלאכותית</div>
-      </div>
-      <div style="margin-right: 12px; font-size: 9px; color: var(--slate-500); line-height: 1.4;">
-        ${escapeHtml(currentDate)}<br/>
-        נוצר עבור: <strong>${taskDisplayName}</strong>
-      </div>
-    </div>
-    <!-- Centered Headline -->
-    <h1 style="text-align: center; font-size: 18px; font-weight: 700; color: var(--blue-900); margin: 10px 0 4px 0;">דוח מוכנות בינה מלאכותית</h1>
-    <!-- Mission Title (Bigger) -->
-    <div style="text-align: center; font-size: 14px; font-weight: 600; color: var(--slate-600); margin-bottom: 12px;">${taskDisplayName}</div>
+    <!-- Plain text logo top-left -->
+    <div class="logo-plain">BizgoAI</div>
+    <!-- Date top-right -->
+    <div class="date-plain">${escapeHtml(currentDate)}</div>
+    <!-- Centered Headline (primary) -->
+    <h1 class="h1">דוח מוכנות בינה מלאכותית</h1>
+    <!-- Mission Title (slightly bigger) - show once under headline -->
+    <div style="text-align: center; font-size:16px; font-weight:700; color:var(--slate-700); margin-bottom: 12px;">המשימה: ${taskDisplayName}</div>
   </div>
 
   <!-- Summary Section -->
@@ -566,7 +561,7 @@ export function buildPdfHtml(payload: PdfPayload) {
   <div class="detail-section">
     <h3 style="display: flex; align-items: center; justify-content: space-between;">
       <span>🎯 כלי 1: ניתוח התאמה למשימה</span>
-      <span style="font-size: 20px; font-weight: 900; color: ${tool1Score >= 7 ? '#10B981' : tool1Score >= 4 ? '#F59E0B' : '#EF4444'}; background: ${tool1Score >= 7 ? '#ECFDF5' : tool1Score >= 4 ? '#FFFBEB' : '#FEE2E2'}; padding: 3px 10px; border-radius: 5px;">${escapeHtml(tool1Score)}/10 — ${escapeHtml(tool1.fitLabel || '')}</span>
+      <span style="font-size: 12px; font-weight: 800; color: ${tool1Score >= 7 ? '#10B981' : tool1Score >= 4 ? '#F59E0B' : '#EF4444'}; background: ${tool1Score >= 7 ? '#ECFDF5' : tool1Score >= 4 ? '#FFFBEB' : '#FEE2E2'}; padding: 2px 6px; border-radius: 4px; white-space: nowrap;">${escapeHtml(tool1Score)}/10 — ${escapeHtml(tool1.fitLabel || '')}</span>
     </h3>
     <div class="detail-grid">
       <div class="detail-item">
@@ -585,7 +580,7 @@ export function buildPdfHtml(payload: PdfPayload) {
   <div class="detail-section">
     <h3 style="display: flex; align-items: center; justify-content: space-between;">
       <span>🛡️ כלי 2: בדיקת בטיחות וסיכונים</span>
-      <span style="font-size: 20px; font-weight: 900; color: ${tool2Score >= 7 ? '#10B981' : tool2Score >= 4 ? '#F59E0B' : '#EF4444'}; background: ${tool2Score >= 7 ? '#ECFDF5' : tool2Score >= 4 ? '#FFFBEB' : '#FEE2E2'}; padding: 3px 10px; border-radius: 5px;">${escapeHtml(tool2Score)}/10 — ${escapeHtml(tool2.safetyLabel || '')}</span>
+      <span style="font-size: 12px; font-weight: 800; color: ${tool2Score >= 7 ? '#10B981' : tool2Score >= 4 ? '#F59E0B' : '#EF4444'}; background: ${tool2Score >= 7 ? '#ECFDF5' : tool2Score >= 4 ? '#FFFBEB' : '#FEE2E2'}; padding: 2px 6px; border-radius: 4px; white-space: nowrap;">${escapeHtml(tool2Score)}/10 — ${escapeHtml(tool2.safetyLabel || '')}</span>
     </h3>
     <div class="detail-grid">
       <div class="detail-item">
@@ -642,6 +637,8 @@ export function buildPdfHtml(payload: PdfPayload) {
 
   </div>
 
+  <!-- Ensure chart starts on its own page -->
+  <div class="page-break"></div>
   <!-- Visual ROI Chart -->
   <div class="chart-container">
     <div class="chart-title">מסלול החיסכון — 6 חודשים</div>
