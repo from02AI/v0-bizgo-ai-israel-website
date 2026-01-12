@@ -1,0 +1,41 @@
+﻿{
+  "tool1Data": {
+    "taskName": "פרסום בסושיאל",
+    "taskTypeLabel": "עבודה יצירתית או אסטרטגית",
+    "repetitivenessLabel": "בינוני",
+    "documentationLabel": "תבנית בסיסית עם הוראות",
+    "score": 3,
+    "fitLabel": "נמוכה"
+  },
+  "tool2Data": {
+    "safetyScore": 5,
+    "status": "yellow",
+    "safetyLabel": "סיכון ממוצע",
+    "backupsLabel": "גיבויים ידניים מדי פעם",
+    "errorDetectionLabel": "זיהוי שגיאות בסיסי",
+    "errorConsequenceLabel": "נזק זניח",
+    "capacityLabel": "קיבולת ממוצעת",
+    "weightedRisk": 5.2
+  },
+  "tool3Data": {
+    "hoursPerWeek": 8,
+    "numEmployees": 1,
+    "hourlyRate": 105,
+    "sixMonthTotal": 5733,
+    "breakEvenMonth": 5,
+    "monthlyBudgetUsed": 1438,
+    "implementationProfileLabel": "דרוש עזר חיצוני מינימלי",
+    "learningHours": 16,
+    "technicalComfortLabel": "בינונית",
+    "recommendedTier": "מתקדם",
+    "riskAdjusted": true,
+    "monthlyBreakdown": [
+      {"month":1,"laborSaved":1273,"learningCost":0,"maintenanceCost":0,"toolCost":2171,"netSavings":-898,"cumulativeSavings":-898},
+      {"month":2,"laborSaved":2364,"learningCost":0,"maintenanceCost":0,"toolCost":2171,"netSavings":193,"cumulativeSavings":-705},
+      {"month":3,"laborSaved":3092,"learningCost":0,"maintenanceCost":0,"toolCost":2171,"netSavings":921,"cumulativeSavings":216},
+      {"month":4,"laborSaved":3346,"learningCost":0,"maintenanceCost":0,"toolCost":2171,"netSavings":1175,"cumulativeSavings":1391},
+      {"month":5,"laborSaved":3455,"learningCost":0,"maintenanceCost":0,"toolCost":2171,"netSavings":1284,"cumulativeSavings":2675},
+      {"month":6,"laborSaved":3455,"learningCost":0,"maintenanceCost":0,"toolCost":2171,"netSavings":1284,"cumulativeSavings":3959}
+    ]
+  }
+}

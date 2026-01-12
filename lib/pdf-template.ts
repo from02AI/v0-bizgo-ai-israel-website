@@ -163,15 +163,15 @@ body {
 
 /* Summary Cards */
 .summary-section {
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .section-title {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--blue-900);
-  margin-bottom: 12px;
-  padding-bottom: 6px;
+  margin-bottom: 8px;
+  padding-bottom: 4px;
   border-bottom: 2px solid var(--blue-100);
 }
 
@@ -221,16 +221,16 @@ body {
 .detail-section {
   background: #f8fafc;
   border: 1px solid var(--slate-200);
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .detail-section h3 {
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--blue-900);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -239,13 +239,13 @@ body {
 .detail-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  gap: 6px;
 }
 
 .detail-item {
-  font-size: 12px;
+  font-size: 10px;
   color: var(--slate-700);
-  padding: 6px 0;
+  padding: 3px 0;
 }
 
 .detail-item strong {
@@ -255,14 +255,14 @@ body {
 
 /* ROI Table */
 .table-container {
-  margin: 20px 0;
+  margin: 10px 0;
   overflow-x: auto;
 }
 
 .roi-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
+  font-size: 10px;
   background: white;
   border-radius: 8px;
   overflow: hidden;
@@ -274,14 +274,14 @@ body {
 }
 
 .roi-table th {
-  padding: 14px 10px;
+  padding: 8px 6px;
   text-align: center;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 11px;
 }
 
 .roi-table td {
-  padding: 12px 10px;
+  padding: 6px 5px;
   text-align: center;
   border-bottom: 1px solid var(--slate-200);
 }
@@ -298,61 +298,49 @@ body {
 .positive { color: #059669; font-weight: 700; }
 .negative { color: #dc2626; font-weight: 600; }
 
-/* Next Steps */
-.next-steps {
-  background: linear-gradient(135deg, #fef3c7 0%, #fef9e7 100%);
-  border: 2px solid #fbbf24;
-  border-radius: 10px;
-  padding: 14px 18px;
-  margin: 18px 0;
-}
-
-.next-steps h3 {
-  font-size: 16px;
-  font-weight: 700;
-  color: #92400e;
-  margin-bottom: 10px;
-}
-
-.next-steps ol {
-  margin-right: 18px;
-  color: var(--slate-700);
-}
-
-.next-steps li {
-  margin-bottom: 6px;
-  font-size: 13px;
+/* CTA Section */
+.cta-section {
+  background: linear-gradient(135deg, #EFF6FF 0%, #F0F9FF 100%);
+  border: 2px solid #3B82F6;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 16px 0;
 }
 
 /* Footer */
 .footer {
-  margin-top: 20px;
-  padding-top: 12px;
+  margin-top: 12px;
+  padding-top: 8px;
   border-top: 1px solid var(--slate-200);
   text-align: center;
-  font-size: 10px;
+  font-size: 9px;
   color: var(--slate-400);
 }
 
 /* ROI Chart */
 .chart-container {
-  margin: 16px 0 20px 0;
+  margin: 12px 0;
+  background: #F8FAFC;
+  border-radius: 8px;
+  padding: 12px;
 }
 
 .chart-title {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--blue-900);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   text-align: center;
 }
 
 .chart-bars {
   display: flex;
   align-items: flex-end;
-  height: 100px;
-  gap: 8px;
-  margin-bottom: 8px;
+  height: 140px;
+  gap: 4px;
+  margin-bottom: 6px;
+  padding: 0 8px;
+  border-bottom: 2px solid #CBD5E1;
 }
 
 .chart-bar {
@@ -360,33 +348,46 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+}
+
+.bar-value {
+  font-size: 8px;
+  font-weight: 700;
+  color: var(--slate-700);
+  margin-bottom: 3px;
+  white-space: nowrap;
 }
 
 .bar-fill {
   width: 100%;
-  border-radius: 4px 4px 0 0;
-  transition: height 0.3s;
+  border-radius: 3px 3px 0 0;
+  min-height: 8px;
 }
 
 .bar-label {
-  font-size: 9px;
+  font-size: 8px;
   color: var(--slate-600);
-  margin-top: 4px;
+  margin-top: 3px;
   font-weight: 600;
 }
 
 .breakeven-mark {
-  font-size: 10px;
+  font-size: 7px;
   font-weight: 700;
   color: #059669;
+  background: #ECFDF5;
+  padding: 1px 3px;
+  border-radius: 3px;
   margin-top: 2px;
 }
 
 .chart-summary {
-  font-size: 11px;
+  font-size: 10px;
   color: var(--slate-600);
   text-align: center;
-  margin-top: 8px;
+  margin-top: 6px;
+  font-weight: 600;
 }
 
 /* Methodology Box */
@@ -511,15 +512,23 @@ export function buildPdfHtml(payload: PdfPayload) {
   </style>
 </head>
 <body>
-  <!-- Enhanced Header with Branding -->
+  <!-- Header -->
   <div class="header">
-    <div class="logo-box">
-      <div class="logo-text">BizgoAI</div>
+    <!-- Logo and Date at Top Left -->
+    <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+      <div style="background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%); padding: 8px 16px; border-radius: 6px;">
+        <div style="font-size: 16px; font-weight: 900; color: white; letter-spacing: 1px;">BizgoAI</div>
+        <div style="font-size: 11px; font-weight: 600; color: #E0E7FF; margin-top: 2px;">דוח מוכנות בינה מלאכותית</div>
+      </div>
+      <div style="margin-right: 12px; font-size: 9px; color: var(--slate-500); line-height: 1.4;">
+        ${escapeHtml(currentDate)}<br/>
+        נוצר עבור: <strong>${taskDisplayName}</strong>
+      </div>
     </div>
-    <div class="header-content">
-      <h1 class="h1">דוח מוכנות בינה מלאכותית</h1>
-      <p class="subtitle">${escapeHtml(currentDate)} | נוצר עבור: ${taskDisplayName}</p>
-    </div>
+    <!-- Centered Headline -->
+    <h1 style="text-align: center; font-size: 18px; font-weight: 700; color: var(--blue-900); margin: 10px 0 4px 0;">דוח מוכנות בינה מלאכותית</h1>
+    <!-- Mission Title (Bigger) -->
+    <div style="text-align: center; font-size: 14px; font-weight: 600; color: var(--slate-600); margin-bottom: 12px;">${taskDisplayName}</div>
   </div>
 
   <!-- Summary Section -->
@@ -555,14 +564,11 @@ export function buildPdfHtml(payload: PdfPayload) {
 
   <!-- Tool 1: Opportunity Assessment -->
   <div class="detail-section">
-    <h3>🎯 כלי 1: ניתוח התאמה למשימה</h3>
+    <h3 style="display: flex; align-items: center; justify-content: space-between;">
+      <span>🎯 כלי 1: ניתוח התאמה למשימה</span>
+      <span style="font-size: 20px; font-weight: 900; color: ${tool1Score >= 7 ? '#10B981' : tool1Score >= 4 ? '#F59E0B' : '#EF4444'}; background: ${tool1Score >= 7 ? '#ECFDF5' : tool1Score >= 4 ? '#FFFBEB' : '#FEE2E2'}; padding: 3px 10px; border-radius: 5px;">${escapeHtml(tool1Score)}/10 — ${escapeHtml(tool1.fitLabel || '')}</span>
+    </h3>
     <div class="detail-grid">
-      <div class="detail-item">
-        <strong>שם המשימה:</strong> ${taskDisplayName}
-      </div>
-      <div class="detail-item">
-        <strong>ציון כולל:</strong> ${escapeHtml(tool1Score)}/10 — ${escapeHtml(tool1.fitLabel || 'לא זמין')}
-      </div>
       <div class="detail-item">
         <strong>סוג המשימה:</strong> ${escapeHtml(tool1.taskTypeLabel || 'לא צוין')}
       </div>
@@ -577,11 +583,11 @@ export function buildPdfHtml(payload: PdfPayload) {
 
   <!-- Tool 2: Safety Assessment -->
   <div class="detail-section">
-    <h3>🛡️ כלי 2: בדיקת בטיחות וסיכונים</h3>
+    <h3 style="display: flex; align-items: center; justify-content: space-between;">
+      <span>🛡️ כלי 2: בדיקת בטיחות וסיכונים</span>
+      <span style="font-size: 20px; font-weight: 900; color: ${tool2Score >= 7 ? '#10B981' : tool2Score >= 4 ? '#F59E0B' : '#EF4444'}; background: ${tool2Score >= 7 ? '#ECFDF5' : tool2Score >= 4 ? '#FFFBEB' : '#FEE2E2'}; padding: 3px 10px; border-radius: 5px;">${escapeHtml(tool2Score)}/10 — ${escapeHtml(tool2.safetyLabel || '')}</span>
+    </h3>
     <div class="detail-grid">
-      <div class="detail-item">
-        <strong>ציון בטיחות:</strong> ${escapeHtml(tool2Score)}/10 — ${escapeHtml(tool2.safetyLabel || 'לא זמין')}
-      </div>
       <div class="detail-item">
         <strong>סיכון משוקלל:</strong> ${escapeHtml(tool2.weightedRisk?.toFixed(2) ?? 'לא חושב')}
       </div>
@@ -600,22 +606,12 @@ export function buildPdfHtml(payload: PdfPayload) {
     </div>
   </div>
 
-  <!-- Methodology & Trust Section -->
-  <div class="methodology-box">
-    <h4>🔍 איך חישבנו את הציונים?</h4>
-    <p>
-      • <strong>ציון התאמה:</strong> מבוסס על סוג משימה (25%), חזרתיות (45%), ותיעוד (30%)<br/>
-      • <strong>ציון בטיחות:</strong> שקלול של גיבויים (25%), זיהוי שגיאות (40%), השלכות (20%), ויכולת (15%)<br/>
-      • <strong>חישוב ROI:</strong> בהנחות שמרניות — 4.33 שבועות/חודש, עלייה הדרגתית ביעילות (35%→95%)<br/>
-      • <strong>רמת ודאות:</strong> ${tool1Score >= 7 && tool2Score >= 7 ? 'גבוהה ⭐⭐⭐' : tool1Score >= 5 && tool2Score >= 5 ? 'בינונית ⭐⭐' : 'נמוכה-בינונית ⭐'} (מבוסס על איכות הנתונים שסיפקת)
-    </p>
-  </div>
-
-  <div class="page-break"></div>
-
   <!-- Tool 3: ROI Calculation -->
   <div class="detail-section">
-    <h3>💰 כלי 3: חישוב ROI והמלצות</h3>
+    <h3 style="display: flex; align-items: center; justify-content: space-between;">
+      <span>💰 כלי 3: חישוב ROI והמלצות</span>
+      <span style="font-size: 18px; font-weight: 700; color: #10B981; background: #ECFDF5; padding: 4px 10px; border-radius: 6px;">החזר בחודש ${tool3.breakEvenMonth && tool3.breakEvenMonth <= 6 ? escapeHtml(tool3.breakEvenMonth) : '7+'}</span>
+    </h3>
     
     <div class="detail-grid">
       <div class="detail-item">
@@ -644,22 +640,6 @@ export function buildPdfHtml(payload: PdfPayload) {
       </div>
     </div>
 
-    <!-- Summary: Break-even and Risk Adjustment Only -->
-    <div class="summary-grid" style="margin-top: 20px; grid-template-columns: repeat(2, 1fr);">
-      <div class="metric-card">
-        <div class="metric-value" style="font-size: 32px;">
-          ${tool3.breakEvenMonth && tool3.breakEvenMonth <= 6 ? escapeHtml(tool3.breakEvenMonth) : '7+'}
-        </div>
-        <div class="metric-label">חודש החזר השקעה</div>
-      </div>
-      
-      <div class="metric-card">
-        <div class="metric-value" style="font-size: 28px;">
-          ${tool3.riskAdjusted ? '✓' : '—'}
-        </div>
-        <div class="metric-label">התאמה לסיכון</div>
-      </div>
-    </div>
   </div>
 
   <!-- Visual ROI Chart -->
@@ -669,12 +649,14 @@ export function buildPdfHtml(payload: PdfPayload) {
       ${tool3.monthlyBreakdown && tool3.monthlyBreakdown.length > 0 ? (() => {
         const maxCumulative = Math.max(...tool3.monthlyBreakdown.map(m => Math.abs(m.cumulativeSavings)), 1)
         return tool3.monthlyBreakdown.map((month, idx) => {
-          const height = Math.abs(month.cumulativeSavings) / maxCumulative * 100
+          const heightPx = Math.max((Math.abs(month.cumulativeSavings) / maxCumulative) * 120, 8)
           const isPositive = month.cumulativeSavings >= 0
           const isBreakeven = tool3.breakEvenMonth === month.month
+          const displayValue = formatCurrency(month.cumulativeSavings).replace('₪', '').trim()
           return `
             <div class="chart-bar">
-              <div class="bar-fill" style="height: ${height}%; background-color: ${isPositive ? '#10B981' : '#EF4444'};"></div>
+              <div class="bar-value">${displayValue}₪</div>
+              <div class="bar-fill" style="height: ${heightPx}px; background-color: ${isPositive ? '#10B981' : '#EF4444'};"></div>
               <div class="bar-label">ח${month.month}</div>
               ${isBreakeven ? '<div class="breakeven-mark">✓ איזון</div>' : ''}
             </div>
@@ -718,20 +700,55 @@ export function buildPdfHtml(payload: PdfPayload) {
     }
   </div>
 
-  <!-- Next Steps -->
-  <div class="next-steps">
-    <h3>🚀 הצעדים הבאים</h3>
-    <ol>
-      <li><strong>קבעו פגישת ייעוץ חינם</strong> — לתכנון מפורט והתאמה אישית</li>
-      <li><strong>הצטרפו לקהילת WhatsApp</strong> — עדכונים וטיפים שבועיים</li>
-      <li><strong>התחילו עם פיילוט קטן</strong> — 10-20% מהמשימות קודם</li>
-    </ol>
+  <!-- CTA Section -->
+  <div class="cta-section">
+    <div style="text-align: center; margin-bottom: 12px;">
+      <p style="font-size: 14px; font-weight: 700; color: var(--blue-900); margin: 0 0 6px 0;">תודה שהשתמשת בסימולטור של BizgoAI</p>
+      <p style="font-size: 11px; color: var(--slate-600); margin: 0; line-height: 1.5;">
+        הצטרפ/י לפעילות בערוצים השונים וקבל/י מידע חיוני AI לעסקים קטנים, חומרים, כלים ופתרונות נוספים
+      </p>
+    </div>
+    <!-- Social Media Icons -->
+    <div style="display: flex; justify-content: center; gap: 16px; margin-top: 10px;">
+      <div style="text-align: center;">
+        <div style="width: 32px; height: 32px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">
+          <span style="color: white; font-size: 18px; font-weight: 700;">W</span>
+        </div>
+        <div style="font-size: 8px; color: var(--slate-600);">WhatsApp</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="width: 32px; height: 32px; background: #1877F2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">
+          <span style="color: white; font-size: 18px; font-weight: 700;">f</span>
+        </div>
+        <div style="font-size: 8px; color: var(--slate-600);">Facebook</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="width: 32px; height: 32px; background: #0A66C2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">
+          <span style="color: white; font-size: 18px; font-weight: 700;">in</span>
+        </div>
+        <div style="font-size: 8px; color: var(--slate-600);">LinkedIn</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="width: 32px; height: 32px; background: #EA4335; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">
+          <span style="color: white; font-size: 16px; font-weight: 700;">✉</span>
+        </div>
+        <div style="font-size: 8px; color: var(--slate-600);">Newsletter</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="width: 32px; height: 32px; background: #6366F1; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">
+          <span style="color: white; font-size: 18px; font-weight: 700;">🌐</span>
+        </div>
+        <div style="font-size: 8px; color: var(--slate-600);">Website</div>
+      </div>
+    </div>
   </div>
 
   <!-- Footer -->
   <div class="footer">
-    <p><strong>BizgoAI Israel</strong> | דוח זה נוצר אוטומטית על בסיס המידע שהזנת</p>
-    <p style="margin-top: 4px;">הערכה זו אינדיקטיבית בלבד ואינה מהווה ייעוץ מקצועי או התחייבות</p>
+    <p style="margin: 0;"><strong>Israel BizgoAI</strong> | דוח זה נוצר אוטומטית על בסיס המידע שהזנת</p>
+    <p style="margin: 4px 0 0 0; font-size: 8px; line-height: 1.4;">
+      מסמך זה לשירותך ומהווה הערכה אינדיקטיבת בלבד. אין לראות בכך משום המלצה לפעולה, ייעוץ מקצועי או התחייבות.
+    </p>
   </div>
 </body>
 </html>`
