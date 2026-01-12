@@ -235,8 +235,8 @@ body {
 
 .detail-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 6px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
 }
 
 .detail-item {
@@ -252,7 +252,7 @@ body {
 
 /* ROI Table */
 .table-container {
-  margin: 10px 0;
+  margin: 22px 0;
   overflow-x: auto;
 }
 
@@ -301,7 +301,7 @@ body {
   border: 2px solid #3B82F6;
   border-radius: 8px;
   padding: 14px 16px;
-  margin: 16px 0;
+  margin: 24px 0; /* increased gap from table on page 2 */
 }
 
 /* Footer */
@@ -474,10 +474,13 @@ export function buildPdfHtml(payload: PdfPayload) {
   const tool2 = payload.tool2Data || {}
   const tool3 = payload.tool3Data || {}
 
-  const taskDisplayName = escapeHtml(tool1.taskName || 'משימה')
+  // show mission only if provided by user; otherwise leave empty
+  const taskDisplayName = tool1.taskName ? escapeHtml(tool1.taskName) : ''
   const tool1Score = tool1.score ?? 0
   const tool2Score = tool2.safetyScore ?? 0
   const sixMonthSavings = formatCurrency(tool3.sixMonthTotal ?? 0)
+  const fitScorePercent = Math.round((tool1Score ?? 0) * 10)
+  const safetyScorePercent = Math.round((tool2Score ?? 0) * 10)
   
   // Build 6-month breakdown table HTML
   let tableRowsHtml = ''
@@ -521,40 +524,38 @@ export function buildPdfHtml(payload: PdfPayload) {
     <!-- Date top-right -->
     <div class="date-plain">${escapeHtml(currentDate)}</div>
     <!-- Centered Headline (primary) -->
-    <h1 class="h1">דוח מוכנות בינה מלאכותית</h1>
-    <!-- Mission Title (slightly bigger) - show once under headline -->
-    <div style="text-align: center; font-size:16px; font-weight:700; color:var(--slate-700); margin-bottom: 12px;">המשימה: ${taskDisplayName}</div>
+    <h1 class="h1">הערכת מוכנות ל-AI - סיכום ביצועים (2 עמודים)</h1>
+    <!-- Mission Title (slightly bigger) - show once under headline; reserve space if empty -->
+    <div style="text-align: center; font-size:16px; font-weight:700; color:var(--slate-700); margin-bottom: 12px;">
+      ${taskDisplayName ? `המשימה: ${taskDisplayName}` : ''}
+    </div>
   </div>
 
   <!-- Summary Section -->
   <div class="summary-section">
-    <h2 class="section-title">סיכום ביצועים</h2>
-    
-    <!-- Status Badge ABOVE cards for better visibility -->
-    <div class="status-badge ${escapeHtml(tool2.status || 'yellow')}">
-      ${statusText(tool2.status)}
-    </div>
+    <!-- status badge removed per request -->
     
     <!-- RTL-Correct Card Order: Tool1 (right) → Tool2 (middle) → Tool3 (left) -->
     <div class="summary-grid">
       <div class="metric-card">
         <div class="metric-value">${getScoreIcon(tool1Score)} ${escapeHtml(tool1Score)}<span style="font-size: 20px; color: #94A3B8;">/10</span></div>
-        <div class="metric-label">ציון התאמה</div>
+        <div class="metric-label">הערכת התאמה</div>
         <div style="font-size: 9px; color: #64748B; margin-top: 4px;">עד כמה המשימה מתאימה ל-AI</div>
       </div>
       
       <div class="metric-card">
         <div class="metric-value">${getScoreIcon(tool2Score)} ${escapeHtml(tool2Score)}<span style="font-size: 20px; color: #94A3B8;">/10</span></div>
-        <div class="metric-label">ציון בטיחות</div>
+        <div class="metric-label">הערכת בטיחות</div>
         <div style="font-size: 9px; color: #64748B; margin-top: 4px;">רמת הסיכון ביישום</div>
       </div>
       
       <div class="metric-card">
         <div class="metric-value" style="font-size: 28px;">${sixMonthSavings}</div>
-        <div class="metric-label">חסכון צפוי ל-6 חודשים</div>
+        <div class="metric-label">הערכת חסכון ל-6 חודשים</div>
         <div style="font-size: 9px; color: #64748B; margin-top: 4px;">אחרי ניכוי כל העלויות</div>
       </div>
     </div>
+    <div style="height:8px"></div>
   </div>
 
   <!-- Tool 1: Opportunity Assessment -->
@@ -563,17 +564,17 @@ export function buildPdfHtml(payload: PdfPayload) {
       <span>🎯 כלי 1: ניתוח התאמה למשימה</span>
       <span style="font-size: 12px; font-weight: 800; color: ${tool1Score >= 7 ? '#10B981' : tool1Score >= 4 ? '#F59E0B' : '#EF4444'}; background: ${tool1Score >= 7 ? '#ECFDF5' : tool1Score >= 4 ? '#FFFBEB' : '#FEE2E2'}; padding: 2px 6px; border-radius: 4px; white-space: nowrap;">${escapeHtml(tool1Score)}/10 — ${escapeHtml(tool1.fitLabel || '')}</span>
     </h3>
-    <div class="detail-grid">
-      <div class="detail-item">
-        <strong>סוג המשימה:</strong> ${escapeHtml(tool1.taskTypeLabel || 'לא צוין')}
+      <div class="detail-grid">
+        <div class="detail-item">
+          <strong>סוג המשימה:</strong> ${escapeHtml(tool1.taskTypeLabel || 'לא צוין')}
+        </div>
+        <div class="detail-item">
+          <strong>רמת חזרתיות:</strong> ${escapeHtml(tool1.repetitivenessLabel || 'לא צוין')}
+        </div>
+        <div class="detail-item">
+          <strong>תיעוד ודוגמאות:</strong> ${escapeHtml(tool1.documentationLabel || 'לא צוין')}
+        </div>
       </div>
-      <div class="detail-item">
-        <strong>רמת חזרתיות:</strong> ${escapeHtml(tool1.repetitivenessLabel || 'לא צוין')}
-      </div>
-      <div class="detail-item" style="grid-column: 1 / -1;">
-        <strong>תיעוד ודוגמאות:</strong> ${escapeHtml(tool1.documentationLabel || 'לא צוין')}
-      </div>
-    </div>
   </div>
 
   <!-- Tool 2: Safety Assessment -->
@@ -583,9 +584,6 @@ export function buildPdfHtml(payload: PdfPayload) {
       <span style="font-size: 12px; font-weight: 800; color: ${tool2Score >= 7 ? '#10B981' : tool2Score >= 4 ? '#F59E0B' : '#EF4444'}; background: ${tool2Score >= 7 ? '#ECFDF5' : tool2Score >= 4 ? '#FFFBEB' : '#FEE2E2'}; padding: 2px 6px; border-radius: 4px; white-space: nowrap;">${escapeHtml(tool2Score)}/10 — ${escapeHtml(tool2.safetyLabel || '')}</span>
     </h3>
     <div class="detail-grid">
-      <div class="detail-item">
-        <strong>סיכון משוקלל:</strong> ${escapeHtml(tool2.weightedRisk?.toFixed(2) ?? 'לא חושב')}
-      </div>
       <div class="detail-item">
         <strong>מצב גיבויים:</strong> ${escapeHtml(tool2.backupsLabel || 'לא צוין')}
       </div>
@@ -604,8 +602,8 @@ export function buildPdfHtml(payload: PdfPayload) {
   <!-- Tool 3: ROI Calculation -->
   <div class="detail-section">
     <h3 style="display: flex; align-items: center; justify-content: space-between;">
-      <span>💰 כלי 3: חישוב ROI והמלצות</span>
-      <span style="font-size: 18px; font-weight: 700; color: #10B981; background: #ECFDF5; padding: 4px 10px; border-radius: 6px;">החזר בחודש ${tool3.breakEvenMonth && tool3.breakEvenMonth <= 6 ? escapeHtml(tool3.breakEvenMonth) : '7+'}</span>
+      <span>💰 הערכת חסכון</span>
+      <span style="font-size: 14px; font-weight: 700; color: #10B981; background: #ECFDF5; padding: 4px 10px; border-radius: 6px;">החזר השקעה בחודש ${tool3.breakEvenMonth && tool3.breakEvenMonth <= 12 ? escapeHtml(String(tool3.breakEvenMonth)) : '—'} | חיסכון כולל: ${sixMonthSavings}</span>
     </h3>
     
     <div class="detail-grid">
@@ -627,14 +625,25 @@ export function buildPdfHtml(payload: PdfPayload) {
       <div class="detail-item">
         <strong>רמת כלי מומלצת:</strong> ${escapeHtml(tool3.recommendedTier || 'לא זמין')}
       </div>
-      <div class="detail-item" style="grid-column: 1 / -1;">
+      <div class="detail-item">
         <strong>פרופיל הטמעה:</strong> ${escapeHtml(tool3.implementationProfileLabel || 'לא צוין')}
       </div>
-      <div class="detail-item" style="grid-column: 1 / -1;">
+      <div class="detail-item">
         <strong>נוחות טכנולוגית:</strong> ${escapeHtml(tool3.technicalComfortLabel || 'לא צוין')}
       </div>
+      <div class="detail-item">&nbsp;</div>
     </div>
 
+  </div>
+  <!-- Confidence / Methodology box placed at end of page 1 -->
+  <div class="methodology-box" style="margin-top:18px;">
+    <h4>🔍 איך חישבנו את הציונים?</h4>
+    <p style="font-size:11px; color:var(--slate-700); line-height:1.6; margin:0;">
+      • הערכת התאמת משימה: מבוסס על סוג משימה (25%), חזרתיות (45%), ותיעוד (30%)
+      <br>• הערכת בטיחות למשימה: שקלול של גיבויים, זיהוי שגיאות, והשלכות
+      <br>• הערכת חסכון עבור המשימה: בהנחות שמרניות - 4.33 שבועות/חודש, עלייה הדרגתית ביעילות
+      <br>• רמת ודאות: ${fitScorePercent >= 70 && safetyScorePercent >= 70 ? 'גבוהה' : 'בינונית'} (מבוסס על איכות הנתונים שסיפקת)
+    </p>
   </div>
 
   <!-- Ensure chart starts on its own page -->
