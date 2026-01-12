@@ -524,7 +524,11 @@ export function buildPdfHtml(payload: PdfPayload) {
     <!-- Date top-right -->
     <div class="date-plain">${escapeHtml(currentDate)}</div>
     <!-- Centered Headline (primary) -->
-    <h1 class="h1">הערכת מוכנות ל-AI - סיכום ביצועים (2 עמודים)</h1>
+    <h1 class="h1">הערכת מוכנות ל-AI - סיכום סימולטור (2 עמודים)</h1>
+    <!-- Subtitle below headline -->
+    <div style="text-align:center; font-size:12px; color:var(--slate-600); margin-top:6px; margin-bottom:8px;">
+      במסמך זה מופיעים הנתונים שהזנת ב-3 הכלים וההערכות שבוצעו בעזרתם.
+    </div>
     <!-- Mission Title (slightly bigger) - show once under headline; reserve space if empty -->
     <div style="text-align: center; font-size:16px; font-weight:700; color:var(--slate-700); margin-bottom: 12px;">
       ${taskDisplayName ? `המשימה: ${taskDisplayName}` : ''}
@@ -575,6 +579,13 @@ export function buildPdfHtml(payload: PdfPayload) {
           <strong>תיעוד ודוגמאות:</strong> ${escapeHtml(tool1.documentationLabel || 'לא צוין')}
         </div>
       </div>
+
+      <div style="margin-top:10px; font-size:11px; color:var(--slate-700);">
+        ההערכה מורכבת מ־3 מרכיבים עיקריים. לכל מרכיב הוקצה משקל לפי חשיבות יחסית.
+        <br>סוג המשימה — משימות שגרתיות ומובנות מתאימות יותר לאוטומציה.
+        <br>חזרתיות — תהליכים עקביים וחוזרים מאפשרים ל-AI ללמוד טוב יותר.
+        <br>תיעוד ודוגמאות — מאגר גדול של דוגמאות משפר את איכות האימון.
+      </div>
   </div>
 
   <!-- Tool 2: Safety Assessment -->
@@ -597,6 +608,14 @@ export function buildPdfHtml(payload: PdfPayload) {
         <strong>יכולת הטמעה:</strong> ${escapeHtml(tool2.capacityLabel || 'לא צוין')}
       </div>
     </div>
+
+    <div style="margin-top:10px; font-size:11px; color:var(--slate-700);">
+      ההערכה מורכבת ממספר מרכיבי סיכון שכל אחד מהם משפיע על היכולת להטמיע את הכלי בבטחה.
+      <br>תשתית וגיבויים - חוסן מערכתי מקטין את הסיכון לאובדן או לשיבושים.
+      <br>שגיאות - טעויות שקשה לגלות או שגורמות לנזק משמעותי מעלות את הסיכון.
+      <br>נתונים - חוסרים, איכות נמוכה או רגישות מידע מגדילים את הסיכון.
+      <br>משאבים - מחסור בזמינות ללמידה, הטמעה וביצוע בדיקות מעלה את הסיכון.
+    </div>
   </div>
 
   <!-- Tool 3: ROI Calculation -->
@@ -606,6 +625,7 @@ export function buildPdfHtml(payload: PdfPayload) {
       <span style="font-size: 14px; font-weight: 700; color: #10B981; background: #ECFDF5; padding: 4px 10px; border-radius: 6px;">החזר השקעה בחודש ${tool3.breakEvenMonth && tool3.breakEvenMonth <= 12 ? escapeHtml(String(tool3.breakEvenMonth)) : '—'} | חיסכון כולל: ${sixMonthSavings}</span>
     </h3>
     
+
     <div class="detail-grid">
       <div class="detail-item">
         <strong>שעות שבועיות למשימה:</strong> ${escapeHtml(tool3.hoursPerWeek ?? 'לא צוין')}
@@ -634,18 +654,12 @@ export function buildPdfHtml(payload: PdfPayload) {
       <div class="detail-item">&nbsp;</div>
     </div>
 
-  </div>
-  <!-- Confidence / Methodology box placed at end of page 1 -->
-  <div class="methodology-box" style="margin-top:18px;">
-    <h4>🔍 איך חישבנו את הציונים?</h4>
-    <p style="font-size:11px; color:var(--slate-700); line-height:1.6; margin:0;">
-      • הערכת התאמת משימה: מבוסס על סוג משימה (25%), חזרתיות (45%), ותיעוד (30%)
-      <br>• הערכת בטיחות למשימה: שקלול של גיבויים, זיהוי שגיאות, והשלכות
-      <br>• הערכת חסכון עבור המשימה: בהנחות שמרניות - 4.33 שבועות/חודש, עלייה הדרגתית ביעילות
-      <br>• רמת ודאות: ${fitScorePercent >= 70 && safetyScorePercent >= 70 ? 'גבוהה' : 'בינונית'} (מבוסס על איכות הנתונים שסיפקת)
-    </p>
-  </div>
+    <div style="margin-top:10px; font-size:11px; color:var(--slate-700);">
+      חישוב החיסכון מבוסס על הפחתת שעות עבודה של אנשים בעקבות הטמעת האוטומציה, בניכוי עלויות למידה נדרשות,
+      תחזוקה ועלויות כלי AI חודשית. החישוב מניח עלייה הדרגתית ביעילות ועלויות קבועות לכלים. נקודת האיזון משקפת את החודש שבו החיסכון המצטבר חוצה את סף העלויות המשולבות.
+    </div>
 
+  </div>
   <!-- Ensure chart starts on its own page -->
   <div class="page-break"></div>
   <!-- Visual ROI Chart -->
