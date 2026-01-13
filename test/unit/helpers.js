@@ -1,5 +1,5 @@
 // Helper functions copied from simulator logic for unit testing
-const adoptionCurve = [0.35, 0.65, 0.85, 0.92, 0.95, 0.95]
+const adoptionCurve = [-0.10, 0.20, 0.50, 0.70, 0.85, 0.90]
 
 function calculateLearningHours(tool1Score, tool2Capacity) {
   const baseHours = 20 - tool1Score * 1.5
@@ -8,9 +8,11 @@ function calculateLearningHours(tool1Score, tool2Capacity) {
 }
 
 function recommendToolTier(tool1Score) {
-  if (tool1Score >= 7) return { tier: 'חינמי', minBudget: 0, maxBudget: 0, maintenance: 1 }
-  if (tool1Score >= 4) return { tier: 'בתשלום', minBudget: 200, maxBudget: 500, maintenance: 2 }
-  return { tier: 'מתקדם', minBudget: 1000, maxBudget: 3000, maintenance: 4 }
+  if (tool1Score >= 9) return { tier: 'כלים פשוטים', minBudget: 50, maxBudget: 150, maintenance: 1 }
+  if (tool1Score >= 7) return { tier: 'כלים בסיסיים', minBudget: 100, maxBudget: 250, maintenance: 1.5 }
+  if (tool1Score >= 5) return { tier: 'כלים בתשלום', minBudget: 200, maxBudget: 500, maintenance: 2 }
+  if (tool1Score >= 3) return { tier: 'כלים מתקדמים', minBudget: 600, maxBudget: 1500, maintenance: 3 }
+  return { tier: 'פתרונות ארגוניים', minBudget: 1500, maxBudget: 4000, maintenance: 5 }
 }
 
 function calculateROI({ hoursPerWeek, numEmployees, hourlyRate, monthlyBudget }, tool1Data, tool2Data, opts) {
@@ -29,7 +31,7 @@ function calculateROI({ hoursPerWeek, numEmployees, hourlyRate, monthlyBudget },
     if (dataRisk >= 7) base *= 1.25
     else if (dataRisk >= 4) base *= 1.1
 
-    const techComfortMap = { high: 0.9, medium: 1.0, low: 1.08, none: 1.15 }
+    const techComfortMap = { high: 0.75, medium: 1.0, low: 1.5, none: 2.2 }
     base *= techComfortMap[opts.techComfort] ?? 1.0
 
     const profileMap = { self: { techMul: 0.9, assistanceFactor: 0 }, minimal: { techMul: 1.0, assistanceFactor: 0.25 }, full: { techMul: 1.15, assistanceFactor: 1.0 } }
@@ -46,7 +48,18 @@ function calculateROI({ hoursPerWeek, numEmployees, hourlyRate, monthlyBudget },
   const monthlyLaborHours = hoursPerWeek * 4.33 * numEmployees
   const monthlyLaborValue = monthlyLaborHours * hourlyRate
 
-  const learningCost = learningHours * hourlyRate * numEmployees
+  const calculateTeamLearningCost = (hours, rate, employees) => {
+    if (employees === 1) return hours * rate
+    let totalHours = hours
+    const smallTeamCount = Math.min(employees - 1, 4)
+    totalHours += smallTeamCount * (hours * 0.75)
+    if (employees > 5) {
+      const largeTeamCount = employees - 5
+      totalHours += largeTeamCount * (hours * 0.85)
+    }
+    return totalHours * rate
+  }
+  const learningCost = calculateTeamLearningCost(learningHours, hourlyRate, numEmployees)
   const maintenanceCostPerMonth = maintenanceHoursPerMonth * hourlyRate
 
   let riskMultiplier = 1.0

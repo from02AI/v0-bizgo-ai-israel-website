@@ -8,8 +8,9 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useSimulator } from "@/contexts/simulator-context"
 
-// Conservative adoption curve
-const adoptionCurve = [0.35, 0.65, 0.85, 0.92, 0.95, 0.95]
+// Conservative adoption curve based on change management research
+// Month 1: -10% (learning dip), then gradual improvement
+const adoptionCurve = [-0.10, 0.20, 0.50, 0.70, 0.85, 0.90]
 
 // Calculate learning hours from Tool1 & Tool2 data
 function calculateLearningHours(tool1Score: number, tool2Capacity: number): number {
@@ -24,19 +25,23 @@ function calculateLearningHours(tool1Score: number, tool2Capacity: number): numb
   return Math.max(2, Math.min(20, Math.round(baseHours * capacityMultiplier)))
 }
 
-// Recommend tool tier based on Tool1 complexity
+// Recommend tool tier based on Tool1 complexity (granular score-based ranges)
 function recommendToolTier(tool1Score: number): { tier: string; minBudget: number; maxBudget: number; maintenance: number } {
-  if (tool1Score >= 7) {
-    // Easy, standardized tasks -> free tools sufficient
-    return { tier: "חינמי", minBudget: 0, maxBudget: 0, maintenance: 1 }
-  } else if (tool1Score >= 4) {
-    // Moderate complexity -> paid tools recommended
-    // Conservative-moderate estimate: slightly higher min to ensure realistic vendor plans
-    return { tier: "בתשלום", minBudget: 200, maxBudget: 500, maintenance: 2 }
+  if (tool1Score >= 9) {
+    // Score 9-10: Very simple, routine tasks
+    return { tier: "כלים פשוטים", minBudget: 50, maxBudget: 150, maintenance: 1 }
+  } else if (tool1Score >= 7) {
+    // Score 7-8: Simple tasks with some customization
+    return { tier: "כלים בסיסיים", minBudget: 100, maxBudget: 250, maintenance: 1.5 }
+  } else if (tool1Score >= 5) {
+    // Score 5-6: Moderate complexity
+    return { tier: "כלים בתשלום", minBudget: 200, maxBudget: 500, maintenance: 2 }
+  } else if (tool1Score >= 3) {
+    // Score 3-4: Complex tasks
+    return { tier: "כלים מתקדמים", minBudget: 600, maxBudget: 1500, maintenance: 3 }
   } else {
-    // Complex/critical tasks -> enterprise tools
-    // Conservative enterprise baseline
-    return { tier: "מתקדם", minBudget: 1000, maxBudget: 3000, maintenance: 4 }
+    // Score 0-2: Very complex/critical tasks
+    return { tier: "פתרונות ארגוניים", minBudget: 1500, maxBudget: 4000, maintenance: 5 }
   }
 }
 
@@ -98,12 +103,12 @@ export function Tool3ROI() {
       if (dataRisk >= 7) base *= 1.25
       else if (dataRisk >= 4) base *= 1.1
 
-      // tech comfort multiplier (how much extra integration/support is needed)
+      // tech comfort multiplier (research-based digital literacy impact)
       const techComfortMap: Record<string, number> = {
-        high: 0.9, // very comfortable -> lower integration cost
-        medium: 1.0,
-        low: 1.08,
-        none: 1.15, // no internal comfort -> higher cost
+        high: 0.75,   // Tech-savvy: 25% faster learning/integration
+        medium: 1.0,  // Baseline
+        low: 1.5,     // 50% more time/support needed
+        none: 2.2,    // Manual workflows transitioning: 2.2x multiplier
       }
       base *= techComfortMap[techComfort] ?? 1.0
 
@@ -137,8 +142,26 @@ export function Tool3ROI() {
     const monthlyLaborHours = hoursPerWeek * 4.33 * numEmployees
     const monthlyLaborValue = monthlyLaborHours * hourlyRate
     
-    // Calculate costs
-    const learningCost = learningHours * hourlyRate * numEmployees // All employees need training
+    // Calculate costs with team learning economies
+    // First employee: full learning time
+    // Employees 2-5: 75% time (peer learning benefit)
+    // Employees 6+: 85% time (diminishing returns + coordination overhead)
+    const calculateTeamLearningCost = (hours: number, rate: number, employees: number): number => {
+      if (employees === 1) return hours * rate
+      
+      let totalHours = hours // First employee
+      const smallTeamCount = Math.min(employees - 1, 4)
+      totalHours += smallTeamCount * (hours * 0.75)
+      
+      if (employees > 5) {
+        const largeTeamCount = employees - 5
+        totalHours += largeTeamCount * (hours * 0.85)
+      }
+      
+      return totalHours * rate
+    }
+    
+    const learningCost = calculateTeamLearningCost(learningHours, hourlyRate, numEmployees)
     const maintenanceCostPerMonth = maintenanceHoursPerMonth * hourlyRate
     
     // Risk adjustment multiplier from Tool2
@@ -265,23 +288,17 @@ export function Tool3ROI() {
             <div className="text-5xl font-black text-[#0b2e7b] mb-2">
               ₪{results.sixMonthTotal.toLocaleString("he-IL", { maximumFractionDigits: 0 })}
             </div>
-            {statusInfo && results.riskAdjusted && (
-              <p className={`text-sm font-medium ${statusInfo.color}`}>
-                {statusInfo.emoji} {statusInfo.text}
-              </p>
-            )}
+            <p className="text-sm text-slate-500 mt-1">
+              טווח אפשרי: ₪{Math.round(results.sixMonthTotal * 0.75).toLocaleString("he-IL")} - ₪{Math.round(results.sixMonthTotal * 1.25).toLocaleString("he-IL")}
+            </p>
+            <p className="text-xs text-slate-400 mt-1">
+              (תלוי בקצב אימוץ בפועל ובעיות טכניות לא צפויות)
+            </p>
+            {/* status line removed per request */}
             <p className="text-slate-600 mt-2 text-sm">
               נקודת איזון: {results.breakEvenMonth <= 6 ? `חודש ${results.breakEvenMonth}` : "מעבר ל-6 חודשים"}
             </p>
-              <div className="mt-4 text-right text-sm text-slate-600 space-y-1">
-              <div>משימה: {tool1Data?.taskName ?? '—'}</div>
-              <div>ציון התאמה (Tool1): {tool1Data?.score ?? '—'}</div>
-              <div>סטטוס בטיחות (Tool2): {tool2Data?.status ?? '—'}</div>
-              <div>נוחות טכנולוגית: {techComfort === 'high' ? 'גבוהה' : techComfort === 'medium' ? 'בינונית' : techComfort === 'low' ? 'נמוכה' : 'אין ניסיון'}</div>
-              <div>אופן הטמעה: {implementationProfile === 'self' ? 'אני בעצמי (ללא עלויות חיצוניות)' : implementationProfile === 'minimal' ? 'נדרשת עזרה חיצונית מינימלית' : implementationProfile === 'full' ? 'נדרשת עזרה חיצונית מלאה' : '—'}</div>
-              <div>הערכת תקציב מינימלית: {tool3Data?.estimatedMinBudget ? `₪${tool3Data.estimatedMinBudget}` : '—'}</div>
-              <div>תקציב בשימוש בחישוב: {tool3Data?.monthlyBudgetUsed ? `₪${tool3Data.monthlyBudgetUsed}` : '—'}</div>
-            </div>
+              {/* detail block removed per request */}
           </div>
 
           <div className="flex items-start gap-3 bg-yellow-50 border border-yellow-100 rounded-xl p-3 mb-4 text-right">
@@ -299,7 +316,7 @@ export function Tool3ROI() {
               }}
               className="w-full bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-6 px-10"
             >
-              שלחו לי את התוצאות למייל ←
+              שלחו לי את התוצאות המלאות למייל ←
             </Button>
           </div>
 
@@ -434,7 +451,7 @@ export function Tool3ROI() {
           <div className="space-y-6">
             <h3 className="text-xl font-bold text-[#0b2e7b] mb-4 text-right">
               {missionTitle
-                ? `מה רמת המוכנות הטכנולוגית של הארגון לאימוץ AI עבור המשימה "${missionTitle}"?`
+                ? `מה רמת המוכנות הטכנולוגית של העסק להטמעת AI עבור המשימה "${missionTitle}"?`
                 : `מה רמת המוכנות הטכנולוגית של הארגון לאימוץ AI?`}
             </h3>
             <div className="space-y-3">
@@ -484,6 +501,7 @@ export function Tool3ROI() {
               <button onClick={() => { setImplementationProfile('full'); setStep(4); }} className="w-full text-right p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-blue-300 rounded-xl transition-all font-medium text-slate-700">
                 <div className="font-semibold">עזרה מלאה</div>
                 <div className="text-sm text-slate-600">הטמעה מלאה על ידי ספק חיצוני כולל פיתוח ותמיכה.</div>
+                <div className="text-xs text-slate-500 mt-1">עלות הטמעה חד-פעמית: ₪3,000 - ₪20,000+ (משתנה לפי מורכבות)</div>
               </button>
             </div>
 

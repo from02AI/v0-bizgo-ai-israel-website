@@ -112,6 +112,8 @@ body {
   padding: 24px;
   max-width: 800px;
   margin: 0 auto;
+  /* extra bottom padding to avoid footer overlapping content */
+  padding-bottom: 120px;
 }
 
 /* Header */
@@ -307,11 +309,13 @@ body {
 /* Footer */
 .footer {
   position: fixed;
-  bottom: 12px;
+  /* move slightly closer to the page bottom */
+  bottom: 6px;
   left: 0;
   right: 0;
-  padding: 8px 0;
-  border-top: 1px solid var(--slate-200);
+  padding: 8px 0 10px 0;
+  /* remove the top divider line so it doesn't cut cards */
+  border-top: none;
   text-align: center;
   font-size: 10px;
   color: var(--slate-600);
@@ -524,15 +528,13 @@ export function buildPdfHtml(payload: PdfPayload) {
     <!-- Date top-right -->
     <div class="date-plain">${escapeHtml(currentDate)}</div>
     <!-- Centered Headline (primary) -->
-    <h1 class="h1">הערכת מוכנות ל-AI - סיכום סימולטור (2 עמודים)</h1>
+    <h1 class="h1">הערכת מוכנות ל-AI: סיכום סימולטור (2 עמודים)</h1>
     <!-- Subtitle below headline -->
     <div style="text-align:center; font-size:12px; color:var(--slate-600); margin-top:6px; margin-bottom:8px;">
       במסמך זה מופיעים הנתונים שהזנת ב-3 הכלים וההערכות שבוצעו בעזרתם.
     </div>
-    <!-- Mission Title (slightly bigger) - show once under headline; reserve space if empty -->
-    <div style="text-align: center; font-size:16px; font-weight:700; color:var(--slate-700); margin-bottom: 12px;">
-      ${taskDisplayName ? `המשימה: ${taskDisplayName}` : ''}
-    </div>
+    <!-- Mission Title (H2) - show once under headline; reserve space if empty -->
+    ${taskDisplayName ? `<h2 style="text-align: center; font-size:16px; font-weight:700; color:var(--slate-700); margin-bottom: 12px;">המשימה: ${taskDisplayName}</h2>` : ''}
   </div>
 
   <!-- Summary Section -->
@@ -621,7 +623,7 @@ export function buildPdfHtml(payload: PdfPayload) {
   <!-- Tool 3: ROI Calculation -->
   <div class="detail-section">
     <h3 style="display: flex; align-items: center; justify-content: space-between;">
-      <span>💰 הערכת חסכון</span>
+      <span>💰 כלי 3: הערכת חסכון ל-6 חודשים</span>
       <span style="font-size: 14px; font-weight: 700; color: #10B981; background: #ECFDF5; padding: 4px 10px; border-radius: 6px;">החזר השקעה בחודש ${tool3.breakEvenMonth && tool3.breakEvenMonth <= 12 ? escapeHtml(String(tool3.breakEvenMonth)) : '—'} | חיסכון כולל: ${sixMonthSavings}</span>
     </h3>
     
@@ -640,7 +642,7 @@ export function buildPdfHtml(payload: PdfPayload) {
         <strong>שעות למידה משוערות:</strong> ${escapeHtml(tool3.learningHours ?? 'לא חושב')}
       </div>
       <div class="detail-item">
-        <strong>תקציב חודשי מומלץ:</strong> ${formatCurrency(tool3.monthlyBudgetUsed ?? 0)}
+        <strong>תקציב חודשי מוערך:</strong> ${formatCurrency(tool3.monthlyBudgetUsed ?? 0)}
       </div>
       <div class="detail-item">
         <strong>רמת כלי מומלצת:</strong> ${escapeHtml(tool3.recommendedTier || 'לא זמין')}
@@ -655,16 +657,17 @@ export function buildPdfHtml(payload: PdfPayload) {
     </div>
 
     <div style="margin-top:10px; font-size:11px; color:var(--slate-700);">
-      חישוב החיסכון מבוסס על הפחתת שעות עבודה של אנשים בעקבות הטמעת האוטומציה, בניכוי עלויות למידה נדרשות,
-      תחזוקה ועלויות כלי AI חודשית. החישוב מניח עלייה הדרגתית ביעילות ועלויות קבועות לכלים. נקודת האיזון משקפת את החודש שבו החיסכון המצטבר חוצה את סף העלויות המשולבות.
+      החישוב מבוסס על הפחתת שעות עבודה של עובדים בעקבות הטמעת האוטומציה, בניכוי עלויות למידה,
+      תחזוקה וכלי AI. החישוב מניח עלייה הדרגתית ביעילות ועלויות קבועות לכלים. נקודת האיזון משקפת את החודש שבו החיסכון המצטבר "מחזיר" את השקעת העלויות.
     </div>
+
 
   </div>
   <!-- Ensure chart starts on its own page -->
   <div class="page-break"></div>
   <!-- Visual ROI Chart -->
   <div class="chart-container">
-    <div class="chart-title">מסלול החיסכון — 6 חודשים</div>
+    <div class="chart-title">הערכת חיסכון — 6 חודשים</div>
     <div class="chart-bars">
       ${tool3.monthlyBreakdown && tool3.monthlyBreakdown.length > 0 ? (() => {
         const maxCumulative = Math.max(...tool3.monthlyBreakdown.map(m => Math.abs(m.cumulativeSavings)), 1)
@@ -685,13 +688,13 @@ export function buildPdfHtml(payload: PdfPayload) {
       })() : '<p style="text-align: center; color: #94A3B8;">אין נתונים</p>'}
     </div>
     <div class="chart-summary">
-      החזר השקעה בחודש ${tool3.breakEvenMonth ?? '—'} | חיסכון כולל: ${sixMonthSavings}
+      החזר הערכת השקעה בחודש ${tool3.breakEvenMonth ?? '—'} | חיסכון כולל: ${sixMonthSavings}
     </div>
   </div>
 
   <!-- 6-Month Breakdown Table -->
   <div class="detail-section">
-    <h3>📊 פירוט חיסכון חודשי (6 חודשים)</h3>
+    <h3>📊 פירוט הערכת חיסכון חודשי (6 חודשים)</h3>
     
     <div class="table-container">
       <table class="roi-table">
@@ -708,6 +711,14 @@ export function buildPdfHtml(payload: PdfPayload) {
           ${tableRowsHtml}
         </tbody>
       </table>
+    </div>
+    <!-- Simple explanations for table columns -->
+    <div style="margin-top:10px; font-size:11px; color:var(--slate-700);">
+      <ul style="margin-top:8px; margin-right:18px;">
+        <li style="margin-bottom:6px;">• "חיסכון עבודה" — סכום הערכה של שעות עבודה שמצטמצמות בעקבות האוטומציה, מחושב לפי שעות שהופחתו × שעת עבודה ממוצעת.</li>
+        <li>• "עלויות כוללות" — סיכום עלויות הלמידה וההטמעה, תחזוקה ועלויות כלי (חודשיות ו/או חד־פעמיות שהוצגו כתוצאה מהפרופיל שנבחר).</li>
+        <li style="margin-top:6px;">• אם ציינת שנדרש סיוע שירותים חיצוניים בהטמעת כלי AI, העלויות הללו נכללות תחת "עלויות כוללות" כתשלום חד־פעמי בחודש 1.</li>
+      </ul>
     </div>
     
     ${tool3.breakEvenMonth && tool3.breakEvenMonth <= 6 
