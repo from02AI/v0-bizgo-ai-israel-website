@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react"
-import Link from "next/link"
+// use plain anchors here to avoid a transient TS typing issue with `next/link` in this workspace
 import { Check, MessageCircle, Mail, BookOpen } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -10,6 +10,7 @@ import { useSimulator } from "@/contexts/simulator-context"
 import { PDFDownloadButton } from "@/components/simulator/PDFDownloadButton"
 
 export function EmailCapture() {
+  // (removed NextLink wrapper; use <a> elements below)
   const { tool1Data, tool2Data, tool3Data } = useSimulator()
   const [email, setEmail] = useState("")
   const [joinWhatsApp, setJoinWhatsApp] = useState(false)
@@ -31,7 +32,7 @@ export function EmailCapture() {
           <p className="text-slate-500 mb-8">הרגע שלחנו הערכת AI מלאה ל־{email}</p>
 
           <div className="grid gap-4 mb-8">
-            <Link
+            <a
               href="/consultation"
               className="flex items-center gap-4 p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors"
             >
@@ -42,7 +43,7 @@ export function EmailCapture() {
                 <p className="font-bold text-[#0b2e7b]">לקבוע ייעוץ חינם</p>
                 <p className="text-sm text-slate-500">שיחה אישית עם מומחה AI</p>
               </div>
-            </Link>
+            </a>
 
             <a
               href="#"
@@ -57,7 +58,7 @@ export function EmailCapture() {
               </div>
             </a>
 
-            <Link
+            <a
               href="/about"
               className="flex items-center gap-4 p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors"
             >
@@ -68,11 +69,11 @@ export function EmailCapture() {
                 <p className="font-bold text-[#0b2e7b]">ללמוד עוד</p>
                 <p className="text-sm text-slate-500">על BizgoAI Israel</p>
               </div>
-            </Link>
+            </a>
           </div>
 
           <Button asChild variant="outline" className="w-full rounded-xl bg-transparent">
-            <Link href="/">חזרה לדף הבית</Link>
+            <a href="/">חזרה לדף הבית</a>
           </Button>
         </div>
       </div>
@@ -82,15 +83,15 @@ export function EmailCapture() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-12">
       <div className="bg-white rounded-3xl shadow-xl p-8">
-        <h2 className="text-2xl font-bold text-[#0b2e7b] mb-2 text-center">רוצים את הפירוט המלא?</h2>
-        <p className="text-slate-600 text-center mb-6">נשלח לכם דוח שלם הכולל:</p>
+        <h2 className="text-2xl font-bold text-[#0b2e7b] mb-2 text-center">לקבלת הניתוח המלא למייל- ללא עלות!</h2>
+        <p className="text-slate-600 text-center mb-6">נשלח לך דוח שלם הכולל:</p>
 
         <ul className="space-y-3 mb-8">
           {[
-            "ניתוח הזדמנות מלא עם המלצות לכלים",
-            "צ'קליסט בטיחות מותאם למצב שלכם",
-            "חישובי ROI מפורטים עם כל ההנחות",
-            "הצעדים הבאים ליישום",
+            "תיעוד של נתוני המשימה שהזנת",
+            "תוצאות הסימולטור ל-3 הכלים: התאמת משימה ל-AI, בדידת בטיחות, החזר חסכון",
+            "גרף וטבלה עם פירוט מלא של החזר החיסכון ל-6 חודשים",
+            "הסברים שיעזרו לך להבין את התוצאות בקלות",
           ].map((item, index) => (
             <li key={index} className="flex items-start gap-3">
               <Check className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
@@ -150,9 +151,9 @@ export function EmailCapture() {
 
         <p className="text-sm text-slate-400 text-center mt-4">אנחנו מכבדים את הפרטיות שלכם. ניתן להסיר בכל עת.</p>
 
-        <Link href="/" className="block text-center text-sm text-slate-500 hover:text-slate-700 mt-4">
-          דלג — אני מסתפק בתצוגה מקדימה
-        </Link>
+        <a href="/" className="block text-center text-sm text-slate-500 hover:text-slate-700 mt-4">
+          אין לי צורך בדוח המלא - חזור לאתר
+        </a>
       </div>
     </div>
   )
