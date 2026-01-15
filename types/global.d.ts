@@ -18,13 +18,22 @@ declare module 'lucide-react' {
   export const Loader2: any;
   export const FileDown: any;
   export const Download: any;
+  // additional lucide icons used in the project
+  export const Search: any;
+  export const ShieldCheck: any;
+  export const TrendingUp: any;
+  export const FileText: any;
+  export const BarChart3: any;
+  export const AlertCircle: any;
+  export const Lightbulb: any;
+  export const ArrowLeft: any;
   const LucideDefault: any;
   export default LucideDefault;
 }
 
 declare module 'next/link' {
-  import React from 'react';
-  const Link: React.ComponentType<any>;
+  // permissive fallback for Next.js Link component to avoid JSX typing errors
+  const Link: any;
   export default Link;
 }
 
