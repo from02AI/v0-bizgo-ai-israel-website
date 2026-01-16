@@ -20,6 +20,34 @@ export function EmailCapture() {
     e.preventDefault()
     console.log("Email submitted:", email, "Join WhatsApp:", joinWhatsApp)
     setSubmitted(true)
+
+    // Save email to provider DB for the same session if possible.
+    // Non-blocking: fire-and-forget background update.
+    ;(async () => {
+      try {
+        const savedId = typeof window !== 'undefined' ? localStorage.getItem('bizgo.savedReportId') : null
+
+        if (savedId) {
+          // Update existing report with email
+          await fetch('/api/update-report', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: savedId, user_email: email }),
+          })
+          return
+        }
+
+        // No existing saved id: create a new report row including the email
+        const payload = { user_email: email, tool1Data, tool2Data, tool3Data }
+        await fetch('/api/save-report', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        })
+      } catch (err) {
+        console.warn('Failed to save email to provider db', err)
+      }
+    })()
   }
 
   if (submitted) {

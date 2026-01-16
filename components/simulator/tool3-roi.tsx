@@ -75,8 +75,9 @@ export function Tool3ROI() {
       cumulativeSavings: number
     }[]
   } | null>(null)
+  const [savedReportId, setSavedReportId] = useState<string | null>(null)
 
-  const calculateROI = () => {
+  const calculateROI = async () => {
     // Defensive sanitization of numeric inputs (clamp to reasonable ranges)
     const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, Number.isFinite(v) ? v : a))
     const hoursPerWeek = clamp(formData.hoursPerWeek, 0, 168)
@@ -269,6 +270,50 @@ export function Tool3ROI() {
       monthlyBreakdown 
     })
     setShowResults(true)
+    // Save report to provider DB (non-blocking for UX). If it fails, we still show results.
+    try {
+      const payload = { tool1Data, tool2Data, tool3Data: {
+        hoursPerWeek,
+        numEmployees,
+        hourlyRate,
+        learningHours,
+        sixMonthTotal,
+        breakEvenMonth,
+        riskAdjusted,
+        monthlyBreakdown,
+        estimatedMinBudget: estimateMinBudget,
+        monthlyBudgetUsed,
+        implementationProfile,
+        tool1Score,
+        tool2Status: tool2Data?.status ?? null,
+        technicalComfort: techComfort,
+        technicalComfortLabel: getTechnicalComfortLabel(techComfort),
+        implementationProfileLabel: getImplementationProfileLabel(implementationProfile),
+        recommendedTier: recommendation.tier,
+        budgetMin: recommendation.minBudget,
+        budgetMax: recommendation.maxBudget
+      }}
+
+      const resp = await fetch('/api/save-report', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+
+      if (resp.ok) {
+        const j = await resp.json()
+        if (j?.id) {
+          const idStr = String(j.id)
+          setSavedReportId(idStr)
+          try { localStorage.setItem('bizgo.savedReportId', idStr) } catch (e) { /* ignore */ }
+        }
+      } else {
+        const text = await resp.text().catch(() => '')
+        console.warn('Failed to save report', resp.status, text)
+      }
+    } catch (err) {
+      console.warn('Error saving report', err)
+    }
   }
 
   if (showResults && results) {
@@ -298,6 +343,9 @@ export function Tool3ROI() {
             <p className="text-slate-600 mt-2 text-sm">
               נקודת איזון: {results.breakEvenMonth <= 6 ? `חודש ${results.breakEvenMonth}` : "מעבר ל-6 חודשים"}
             </p>
+            {savedReportId && (
+              <p className="text-xs text-slate-400 mt-2">זהות הדוח נשמרה: {savedReportId}</p>
+            )}
               {/* detail block removed per request */}
           </div>
 

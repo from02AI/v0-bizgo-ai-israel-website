@@ -43,48 +43,10 @@ export function HowItWorksSection() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-blue-600 drop-shadow-sm mb-4">
             גלה איך AI חוסך לך זמן וכסף
           </h2>
-          <p className="text-lg sm:text-xl text-slate-600">בדיקה מהירה, 3 כלים פשוטים, תשובות מיידיות, מבוסס מחקר, דוח מלא. ללא עלות!</p>
+          <p className="text-lg sm:text-xl text-slate-600">בדיקה מהירה, 3 כלים פשוטים, תשובות מיידיות.<div className="br"></div> דוח מפורט של 2 עמודים למייל- ללא עלות!</p>
         </div>
 
-        {/* Tools Grid with Connection Arrows */}
-        <div className="relative mb-12">
-          <div className="grid md:grid-cols-3 gap-8">
-            {tools.map((tool, index) => (
-              <div key={index} className="relative">
-                {/* Card */}
-                <div className={`bg-white rounded-3xl border-2 ${tool.borderClass} p-6 shadow-lg hover:shadow-2xl hover:border-blue-200 transition-all duration-300 h-full flex flex-col items-center text-center relative overflow-hidden group`}>
-                  {/* Step Number removed per design */}
-                  
-                  {/* Icon */}
-                  <div className={`w-16 h-16 ${tool.iconBg} rounded-2xl flex items-center justify-center mb-5 shadow-lg group-hover:scale-105 transition-transform duration-300`}>
-                    <tool.icon className={`w-8 h-8 ${tool.iconColor} stroke-[2.5]`} />
-                  </div>
-
-                  {/* Content */}
-                  <h3 className="text-xl font-bold text-[#0b2e7b] mb-2">{tool.title}</h3>
-                  <p className="text-slate-600 leading-relaxed">{tool.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Connectors between cards - desktop only. Arrow chevrons positioned in grid gap */}
-          <div className="hidden md:block absolute inset-0 pointer-events-none">
-            {/* Connector 1 (between col 1 and 2) */}
-            <div style={{ left: '33.333%' }} className="absolute top-1/2 transform -translate-y-1/2 -translate-x-1/2">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
-                <ArrowLeft className="w-5 h-5 text-white stroke-[2.5]" />
-              </div>
-            </div>
-
-            {/* Connector 2 (between col 2 and 3) */}
-            <div style={{ left: '66.666%' }} className="absolute top-1/2 transform -translate-y-1/2 -translate-x-1/2">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
-                <ArrowLeft className="w-5 h-5 text-white stroke-[2.5]" />
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Tools cards removed */}
 
         {/* PDF Value Preview Section */}
         <div className="bg-gradient-to-br from-blue-50 via-white to-amber-50 rounded-3xl border-2 border-blue-200 p-8 mb-10 shadow-xl">
@@ -93,7 +55,6 @@ export function HowItWorksSection() {
             {/* Headline + Feature cards (RIGHT side in RTL) */}
             <div className="order-2 md:order-1">
               <div className="text-center mb-6">
-                <h3 className="text-2xl sm:text-3xl font-bold text-[#0b2e7b] mb-2">הדוח המקצועי שתקבלו</h3>
               </div>
 
               {/* Feature cards grid */}
@@ -103,8 +64,10 @@ export function HowItWorksSection() {
                   <Search className="w-7 h-7 text-blue-600" />
                 </div>
                 <div className="text-right">
-                  <p className="font-bold text-[#0b2e7b] text-base">ניתוח התאמת משימה ל-AI</p>
-                  <p className="text-sm text-slate-500">ציון מדויק עם הסבר מפורט</p>
+                  <p className="font-bold text-[#0b2e7b] text-base"> התאמת משימה ל-AI</p>
+                  <p className="text-sm text-slate-500">מגלים איפה AI יכול לעזור בעסק
+
+</p>
                 </div>
               </div>
               
@@ -113,39 +76,41 @@ export function HowItWorksSection() {
                   <ShieldCheck className="w-7 h-7 text-blue-600" />
                 </div>
                 <div className="text-right">
-                  <p className="font-bold text-[#0b2e7b] text-base">מפת סיכונים ובטיחות</p>
-                  <p className="text-sm text-slate-500">זיהוי נקודות תשומת לב</p>
+                  <p className="font-bold text-[#0b2e7b] text-base">בדיקת בטיחות</p>
+                  <p className="text-sm text-slate-500">מאתרים סיכונים לפני שמתחילים
+
+</p>
                 </div>
               </div>
               
-              <div className="flex items-start gap-4 bg-white/90 backdrop-blur rounded-2xl p-6 border border-amber-100">
-                <div className="w-14 h-14 bg-amber-100 rounded-lg flex items-center justify-center shrink-0">
-                  <BarChart3 className="w-7 h-7 text-amber-600" />
+              <div className="flex items-start gap-4 bg-white/90 backdrop-blur rounded-2xl p-6 border border-blue-100">
+                <div className="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
+                  <BarChart3 className="w-7 h-7 text-blue-600" />
                 </div>
                 <div className="text-right">
-                  <p className="font-bold text-[#0b2e7b] text-base">גרף חיסכון 6 חודשים</p>
-                  <p className="text-sm text-slate-500">תחזית פירוט מלאה</p>
+                  <p className="font-bold text-[#0b2e7b] text-base">גרף חסכון</p>
+                  <p className="text-sm text-slate-500">הערכת חיסכון 6 חודשים</p>
                 </div>
               </div>
               
-              <div className="flex items-start gap-4 bg-white/90 backdrop-blur rounded-2xl p-6 border border-amber-100">
-                <div className="w-14 h-14 bg-amber-100 rounded-lg flex items-center justify-center shrink-0">
-                  <Lightbulb className="w-7 h-7 text-amber-600" />
+              <div className="flex items-start gap-4 bg-white/90 backdrop-blur rounded-2xl p-6 border border-blue-100">
+                <div className="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
+                  <Lightbulb className="w-7 h-7 text-blue-600" />
                 </div>
                 <div className="text-right">
-                  <p className="font-bold text-[#0b2e7b] text-base">המלצות כלים מותאמות</p>
-                  <p className="text-sm text-slate-500">פתרונות ספציפיים לעסק שלך</p>
+                  <p className="font-bold text-[#0b2e7b] text-base">הסברים מלאים ודוח מפורט למייל</p>
                 </div>
+
               </div>
             </div>
 
             {/* CTA moved here: below the 4 cards and centered */}
-            <div className="mt-6 flex flex-col items-center col-span-1 sm:col-span-2">
+            <div className="mt-8 flex flex-col items-center col-span-1 sm:col-span-2">
               <div className="flex justify-center w-full">
                 <Button
                   asChild
                   size="lg"
-                  className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl shadow-lg hover:shadow-amber-500/25 transition-all text-xl px-12 py-4"
+                  className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl shadow-lg hover:shadow-amber-500/25 transition-all text-2xl px-14 py-8"
                 >
                   <Link href="/simulator">להתחיל את הסימולטור עכשיו ←</Link>
                 </Button>
@@ -172,13 +137,23 @@ export function HowItWorksSection() {
             {/* PDF Mockup (LEFT side in RTL) - reduced to ~2/3 size */}
             <div className="order-1 md:order-2 mx-auto max-w-xs md:max-w-sm">
               <div className="relative">
+                {/* Fanned PDF previews: bottom card */}
                 <img
                   src="/pdf-preview.png"
-                  alt="דוגמה לדוח: גרף חיסכון לטווח 6 חודשים"
-                  className="w-full rounded-2xl shadow-2xl transform -rotate-2 md:-rotate-3 mx-auto block"
+                  alt="דוגמה לדוח: גרף חיסכון לטווח 6 חודשים - שכבה אחורית"
+                  className="w-full rounded-2xl shadow-2xl transform -rotate-2 md:-rotate-3 origin-bottom-left mx-auto block z-10"
                   loading="lazy"
                 />
-                <div className="absolute top-3 right-3">
+
+                {/* Top card slightly offset/rotated to create a 'fan' */}
+                <img
+                  src="/pdf_preview2.png"
+                  alt="דוגמה לדוח: גרף חיסכון - שכבה קדמית"
+                  className="absolute bottom-0 left-0 md:left-0 w-11/12 md:w-[88%] rounded-2xl shadow-2xl transform rotate-[15deg] origin-bottom-left mx-auto block z-20"
+                  loading="lazy"
+                />
+
+                <div className="absolute top-3 right-3 z-30">
                   <span className="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full">דוגמה</span>
                 </div>
               </div>
