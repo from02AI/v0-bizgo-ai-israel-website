@@ -105,7 +105,7 @@ function CheckIcon({ checked }: { checked: boolean }) {
     <div 
       className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-colors ${
         checked 
-          ? 'bg-amber-500 border-amber-500' 
+          ? 'bg-gray-500 border-gray-500' 
           : 'border-slate-300 bg-white'
       }`}
     >
@@ -169,7 +169,7 @@ export default function ConsultationPage() {
     businessName: "",
     sector: "",
     businessSize: "",
-    websiteUrl: "",
+                websiteUrl: "", // Ensure websiteUrl exists in state
     mainProduct: "",
       revenueRange: "", // Ensure revenueRange exists in state
     // Process focus
@@ -185,6 +185,7 @@ export default function ConsultationPage() {
     mainLimitation: "",
     otherLimitation: "",
     urgency: "",
+    subscribeCommunity: true,
     // Scheduling (removed)
   })
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -274,101 +275,9 @@ export default function ConsultationPage() {
         <main className="max-w-2xl mx-auto px-4 py-16">
           <div className="bg-white rounded-3xl shadow-xl p-8 text-center">
             <div className="text-6xl mb-4">✅</div>
-            <h2 className="text-2xl font-bold text-[#0b2e7b] mb-4">הבקשה התקבלה!</h2>
+            <h2 className="text-2xl font-bold text-[#0b2e7b] mb-4">הטופס התקבל. תודה! </h2>
 
-            <div className="bg-slate-50 rounded-xl p-6 mb-8 text-right">
-              <h3 className="font-bold text-[#0b2e7b] mb-4">מה עכשיו?</h3>
-              <ol className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">
-                    1
-                  </span>
-                  <span className="text-slate-600">נבדוק את כל הבקשות השבוע</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">
-                    2
-                  </span>
-                  <span className="text-slate-600">אם נבחרתם — נשלח מייל לתיאום תוך 3–5 ימים</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">
-                    3
-                  </span>
-                  <span className="text-slate-600">נקבע שיחת ייעוץ (30 דקות, ללא עלות)</span>
-                </li>
-              </ol>
-            </div>
-
-            <div className="bg-blue-50 rounded-xl p-6 mb-8 text-right">
-              <h3 className="font-bold text-blue-800 mb-3">מה לצפות מהייעוץ:</h3>
-              <ul className="space-y-2 text-blue-700">
-                <li className="flex items-start gap-2">
-                  <Icons.Check className="w-5 h-5 mt-0.5 shrink-0" />
-                  <span>ניתוח הצרכים הספציפיים של העסק שלכם</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Icons.Check className="w-5 h-5 mt-0.5 shrink-0" />
-                  <span>המלצות לכלי AI מותאמים</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Icons.Check className="w-5 h-5 mt-0.5 shrink-0" />
-                  <span>תוכנית פעולה ברורה וריאליסטית</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Icons.Check className="w-5 h-5 mt-0.5 shrink-0" />
-                  <span>הערכת עלויות וזמנים צפויים</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="grid gap-4 mb-8">
-              <Link
-                href="/simulator"
-                className="flex items-center gap-4 p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors"
-              >
-                <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
-                  <Icons.BookOpen className="w-6 h-6 text-amber-600" />
-                </div>
-                <div className="text-right">
-                  <p className="font-bold text-[#0b2e7b]">נסו את הסימולטור</p>
-                  <p className="text-sm text-slate-500">בזמן שאתם מחכים</p>
-                </div>
-              </Link>
-
-              <a
-                href="#"
-                className="flex items-center gap-4 p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors"
-              >
-                <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                  <Icons.MessageCircle className="w-6 h-6 text-green-600" />
-                </div>
-                <div className="text-right">
-                  <p className="font-bold text-[#0b2e7b]">הצטרפו ל־WhatsApp</p>
-                  <p className="text-sm text-slate-500">לקהילה התומכת</p>
-                </div>
-              </a>
-
-              <Link
-                href="/about"
-                className="flex items-center gap-4 p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors"
-              >
-                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                  <Icons.AlertCircle className="w-6 h-6 text-blue-600" />
-                </div>
-                <div className="text-right">
-                  <p className="font-bold text-[#0b2e7b]">קראו עלינו</p>
-                  <p className="text-sm text-slate-500">הכירו את BizgoAI Israel</p>
-                </div>
-              </Link>
-            </div>
-
-            <p className="text-sm text-slate-500">
-              שאלות? צרו קשר:{" "}
-              <a href="mailto:hello@bizgoai.co.il" className="text-blue-600 hover:underline">
-                hello@bizgoai.co.il
-              </a>
-            </p>
+            
           </div>
         </main>
         <Footer />
@@ -408,9 +317,6 @@ export default function ConsultationPage() {
         <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-10 flex items-center justify-center">
           <div className="bg-white rounded-xl p-6 w-full max-w-3xl border-t-4 border-blue-200 shadow-xl">
             <form onSubmit={handleSubmit} className="">
-          <div className="mb-6">
-            <p className="text-sm text-slate-600 text-right">לחיצה על "+" לפתיחת כל חלק בשאלון. <br />חשוב לענות על כל השאלות כדי לשלוח את הטופס.</p>
-          </div>
           {/* Section 0 - Threshold Conditions */}
           <CollapsibleSection title="תיאום ציפיות">
             <div className="pb-6 border-b border-slate-200">
@@ -544,7 +450,7 @@ export default function ConsultationPage() {
                 </Label>
                 <Input
                   id="websiteUrl"
-                  type="url"
+                  type="text"
                   value={formData.websiteUrl}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, websiteUrl: e.target.value })}
                   placeholder="https://yourbusiness.co.il"
@@ -864,15 +770,32 @@ export default function ConsultationPage() {
               </div>
             </div>
           </CollapsibleSection>
-
+<div className="mb-6">
+              <p className="text-sm text-slate-600 text-right">לחיצה על "+" לפתיחת כל חלק בשאלון. חשוב לענות על כל השאלות כדי לשלוח את הטופס.</p>
+            </div>
           {/* Scheduling section removed */}
 
           <Button
             type="submit"
             className="w-full bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-6 text-lg"
           >
-            שליחת בקשה ←
+            שליחה ←
           </Button>
+
+          <div
+            onClick={() => setFormData((prev) => ({ ...prev, subscribeCommunity: !prev.subscribeCommunity }))}
+            className={`mt-4 p-3 rounded-xl cursor-pointer transition-all flex items-start gap-3`}
+            id="subscribeCommunity"
+            role="checkbox"
+            aria-checked={formData.subscribeCommunity}
+          >
+            <CheckIcon checked={formData.subscribeCommunity} />
+            <div className="flex-1 text-right">
+              <span className="text-slate-700">צרפו אותי לקהילת AI לעסקים קטנים (ללא עלות) וקבלת מידע וכלים בתחום. <span className="text-sm text-slate-500"></span></span>
+            </div>
+          </div>
+
+            
         </form>
           </div>
         </div>
