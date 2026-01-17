@@ -1,4 +1,8 @@
-import { ChevronLeft, ChevronRight, GraduationCap, DollarSign, Clock, CheckCircle } from "lucide-react"
+"use client"
+
+import { useRef, useState, useEffect } from "react"
+import * as Lucide from "lucide-react"
+const L = Lucide as any
 
 const statCards = [
   {
@@ -12,7 +16,7 @@ const statCards = [
   {
     emoji: "💰",
     stat: "36%",
-    title: "תקציבים עולים",
+    title: "חוסר בטחון",
     description:
       "תקציבי ה־AI החודשיים צפויים לעלות ב־36% ב־2025, אבל רק 39% מהארגונים יודעים להעריך חסכון בביטחון — פער נראות הולך וגדל.",
     source: "CloudZero State of AI Costs, 2025",
@@ -49,20 +53,20 @@ const statCards = [
 
 const quoteCards = [
   {
-    icon: GraduationCap,
+    icon: L.GraduationCap,
     title: "פער ידע",
     quote: "רק שליש מהמשיבים מדווחים שהם מדרגים תוכניות AI בכל הארגון, וחברות גדולות נוטות יותר להגיע לשלב הזה.",
     source: "McKinsey State of AI, 2025",
   },
   {
-    icon: DollarSign,
+    icon: L.DollarSign,
     title: "מגבלות תקציב",
     quote:
       "הפער בין מי שיכולים להרשות השקעה בטכנולוגיות לבין מי שלא — רק יגדל. כדי ש־AI יועיל לכלכלה, חייבים לוודא שעסקים קטנים לא נשארים מאחור.",
     source: "Todd McCracken, President, NSBA",
   },
   {
-    icon: Clock,
+    icon: L.Clock,
     title: "לחץ זמן",
     quote:
       "רוב בעלי העסקים הקטנים שאני מדבר איתם מרגישים מוצפים לגמרי כשזה מגיע ל־AI — יודעים שזה יכול לעזור, אבל לא יודעים מאיפה להתחיל או אילו כלים באמת פותרים את הבעיה שלהם.",
@@ -71,78 +75,139 @@ const quoteCards = [
 ]
 
 export function DataProofsSection() {
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const totalCards = statCards.length + quoteCards.length // 9 total cards
+
+  const scrollToCard = (direction: 'next' | 'prev') => {
+    if (!scrollContainerRef.current) return
+    
+    const cardWidth = 320 + 16 // w-80 (320px) + gap-4 (16px)
+    const container = scrollContainerRef.current
+    
+    if (direction === 'next') {
+      container.scrollBy({ left: cardWidth, behavior: 'smooth' })
+      setCurrentIndex((prev) => Math.min(prev + 1, totalCards - 1))
+    } else {
+      container.scrollBy({ left: -cardWidth, behavior: 'smooth' })
+      setCurrentIndex((prev) => Math.max(prev - 1, 0))
+    }
+  }
+
+  const scrollToIndex = (index: number) => {
+    if (!scrollContainerRef.current) return
+    const cardWidth = 320 + 16
+    scrollContainerRef.current.scrollTo({ left: index * cardWidth, behavior: 'smooth' })
+    setCurrentIndex(index)
+  }
+
   return (
-    <section className="bg-[#4169E1] py-16 md:py-20">
+    <section className="bg-[#0b2e7b] py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white drop-shadow-sm mb-4">
             אתם לא לבד בזה
           </h2>
           <p className="text-lg sm:text-xl text-white">
-            מחקרי תעשייה מאשרים: פער האימוץ של AI בעסקים קטנים — אמיתי
+מחקרים מאשרים את פערי הטמעת AI בעסקים קטנים
           </p>
         </div>
 
-        {/* Horizontal scrollable container */}
-        <div className="overflow-x-auto pb-4 -mx-4 px-4 scroll-snap-x">
-          <div className="flex gap-4" style={{ width: "max-content" }}>
-            {/* Stat cards */}
-            {statCards.map((card, index) => (
-              <div
-                key={index}
-                className="w-80 shrink-0 bg-[#1e3a8a] rounded-2xl p-6 shadow-lg scroll-snap-item"
-              >
-                {/* Emoji at top */}
-                <div className="text-4xl mb-3">{card.emoji}</div>
-                
-                {/* Title in uppercase - small, above stat */}
-                <div className="text-xs font-bold text-cyan-400 uppercase tracking-wide mb-2">{card.title}</div>
-                
-                {/* Huge stat number */}
-                <div className="text-6xl font-black text-amber-400 mb-4">{card.stat}</div>
-                
-                {/* Description */}
-                <p className="text-white text-sm leading-relaxed mb-4">{card.description}</p>
-                
-                {/* Citation with checkmark */}
-                <div className="flex items-start gap-1.5 text-xs text-blue-200">
-                  <CheckCircle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
-                  <span>{card.source}</span>
-                </div>
-              </div>
-            ))}
+        {/* Enhanced horizontal scrollable carousel with navigation */}
+        <div className="relative">
+          {/* compute disabled states for clearer styling */}
+          {/* Previous Arrow Button */}
+          {
+            (() => {
+              const leftDisabled = currentIndex === 0
+              const rightDisabled = currentIndex >= totalCards - 1
+              return (
+                <>
+                  <button
+                    onClick={() => scrollToCard('prev')}
+                    className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg transition-all text-blue-600 disabled:opacity-30 disabled:cursor-not-allowed"
+                    disabled={leftDisabled}
+                    aria-label="כרטיס קודם"
+                  >
+                    <L.ChevronLeft className="w-6 h-6" />
+                  </button>
 
-            {/* Quote cards */}
-            {quoteCards.map((card, index) => (
-              <div
-                key={`quote-${index}`}
-                className="w-80 shrink-0 bg-[#1e3a8a] rounded-2xl p-6 shadow-lg scroll-snap-item"
-              >
-                <div className="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center mb-4">
-                  <card.icon className="w-5 h-5 text-white stroke-2" />
+                  {/* Next Arrow Button */}
+                  <button
+                    onClick={() => scrollToCard('next')}
+                    className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg transition-all text-blue-600 disabled:opacity-30 disabled:cursor-not-allowed"
+                    disabled={rightDisabled}
+                    aria-label="כרטיס הבא"
+                  >
+                    <L.ChevronRight className="w-6 h-6" />
+                  </button>
+                </>
+              )
+            })()
+          }
+
+          {/* Scrollable container with peek effect */}
+          <div 
+            ref={scrollContainerRef}
+            className="overflow-x-auto pb-4 px-12 scroll-smooth snap-x snap-mandatory hide-scrollbar"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            <div className="flex gap-4" style={{ width: "max-content" }}>
+              {/* Stat cards */}
+              {statCards.map((card, index) => (
+                <div
+                  key={index}
+                  className="w-80 shrink-0 bg-blue-600 rounded-2xl p-6 shadow-lg snap-start flex flex-col items-center text-center"
+                >
+                  {/* Emoji at top */}
+                  <div className="text-4xl mb-3">{card.emoji}</div>
+                  
+                  {/* Title in uppercase - small, above stat */}
+                  <div className="text-xs font-bold text-cyan-400 uppercase tracking-wide mb-2">{card.title}</div>
+                  
+                  {/* Huge stat number */}
+                  <div className="text-6xl font-black text-amber-400 mb-4">{card.stat}</div>
+                  
+                  {/* Description */}
+                  <p className="text-white text-sm leading-relaxed mb-4">{card.description}</p>
+                  
+                  {/* Citation with checkmark */}
+                  <div className="flex items-center justify-center gap-1.5 text-xs text-blue-200">
+                    <L.CheckCircle className="w-3.5 h-3.5 shrink-0" />
+                    <span>{card.source}</span>
+                  </div>
                 </div>
-                
-                {/* Title in uppercase */}
-                <div className="text-xs font-bold text-cyan-400 uppercase tracking-wide mb-3">{card.title}</div>
-                
-                <p className="text-white text-sm leading-relaxed mb-4 italic">"{card.quote}"</p>
-                
-                {/* Citation with checkmark */}
-                <div className="flex items-start gap-1.5 text-xs text-blue-200">
-                  <CheckCircle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
-                  <span>{card.source}</span>
+              ))}
+
+              {/* Quote cards */}
+              {quoteCards.map((card, index) => (
+                <div
+                  key={`quote-${index}`}
+                  className="w-80 shrink-0 bg-blue-600 rounded-2xl p-6 shadow-lg snap-start flex flex-col items-center text-center"
+                >
+                  <div className="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center mb-4">
+                    <card.icon className="w-5 h-5 text-white stroke-2" />
+                  </div>
+                  
+                  {/* Title in uppercase */}
+                  <div className="text-xs font-bold text-cyan-400 uppercase tracking-wide mb-3">{card.title}</div>
+                  
+                  <p className="text-white text-sm leading-relaxed mb-4 italic">"{card.quote}"</p>
+                  
+                  {/* Citation with checkmark */}
+                  <div className="flex items-center justify-center gap-1.5 text-xs text-blue-200">
+                    <L.CheckCircle className="w-3.5 h-3.5 shrink-0" />
+                    <span>{card.source}</span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Scroll hint */}
-        <div className="flex items-center justify-center gap-2 mt-4 text-white text-sm">
-          <ChevronRight className="w-4 h-4" />
-          <span>גלול לעוד נתונים</span>
-          <ChevronLeft className="w-4 h-4" />
-        </div>
+        {/* pagination removed per design request */}
+
+      
       </div>
     </section>
   )
