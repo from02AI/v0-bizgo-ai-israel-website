@@ -122,7 +122,7 @@ export function EmailCapture() {
             "הסברים שיעזרו לך להבין את התוצאות בקלות",
           ].map((item, index) => (
             <li key={index} className="flex items-start gap-3">
-              <Check className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+              <Check className="w-5 h-5 text-green-600 mt-0.5 shrink-0" />
               <span className="text-slate-600">{item}</span>
             </li>
           ))}
@@ -171,7 +171,7 @@ export function EmailCapture() {
 
           <Button
             type="submit"
-            className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-6 text-lg"
+            className="w-full bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-6 text-lg"
           >
             שלחו לי את הדוח המלא ←
           </Button>

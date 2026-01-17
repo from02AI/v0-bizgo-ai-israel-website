@@ -49,7 +49,7 @@ export function HowItWorksSection() {
         {/* Tools cards removed */}
 
         {/* PDF Value Preview Section */}
-        <div className="bg-gradient-to-br from-blue-50 via-white to-amber-50 rounded-3xl border-2 border-blue-200 p-8 mb-10 shadow-xl">
+        <div className="bg-linear-to-br from-blue-50 via-white to-amber-50 rounded-3xl border-2 border-blue-200 p-8 mb-10 shadow-xl">
           {/* Side-by-side layout: headline + cards (right/55%) + PDF preview (left/45%) on desktop, stacked on mobile */}
           <div className="grid md:grid-cols-[55%_45%] gap-8 items-start">
             {/* Headline + Feature cards (RIGHT side in RTL) */}
@@ -110,7 +110,7 @@ export function HowItWorksSection() {
                 <Button
                   asChild
                   size="lg"
-                  className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl shadow-lg hover:shadow-amber-500/25 transition-all text-2xl px-14 py-8"
+                  className="bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl shadow-lg hover:shadow-amber-500/25 transition-all text-2xl px-14 py-8"
                 >
                   <Link href="/simulator">להתחיל את הסימולטור עכשיו ←</Link>
                 </Button>
@@ -149,7 +149,7 @@ export function HowItWorksSection() {
                 <img
                   src="/pdf_preview2.png"
                   alt="דוגמה לדוח: גרף חיסכון - שכבה קדמית"
-                  className="absolute bottom-0 left-0 md:left-0 w-11/12 md:w-[88%] rounded-2xl shadow-2xl transform rotate-[15deg] origin-bottom-left mx-auto block z-20"
+                  className="absolute bottom-0 left-0 md:left-0 w-11/12 md:w-[88%] rounded-2xl shadow-2xl transform rotate-15 origin-bottom-left mx-auto block z-20"
                   loading="lazy"
                 />
 

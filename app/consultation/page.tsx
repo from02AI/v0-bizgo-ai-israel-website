@@ -8,15 +8,22 @@ import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { Info, Check, MessageCircle, BookOpen } from "lucide-react"
+import * as Icons from "lucide-react"
 import Link from "next/link"
 
 const sectors = ["מסעדות ומזון", "קמעונאות", "שירותים מקצועיים", "בנייה", "בריאות", "ייצור", "טכנולוגיה", "אחר"]
 
 const businessSizes = ["1–5 עובדים", "6–10", "11–25", "26–50", "50+"]
+
+const revenueRanges = [
+  "עד ₪120,000",
+  "₪120,000–₪750,000",
+  "₪750,000–₪6,000,000",
+  "₪6,000,000–₪20,000,000",
+  "מעדיפ/ה לא לציין",
+]
 
 const challenges = [
   "לא יודעים מאיפה להתחיל",
@@ -34,44 +41,182 @@ const aiExperience = [
   "כן, משתמשים בכלים מתקדמים באופן קבוע",
 ]
 
-const timeSlots = ["בוקר (9:00–12:00)", "צהריים (12:00–15:00)", "אחר הצהריים (15:00–18:00)", "גמיש — כל שעה"]
+// scheduling/time slot selection removed
+
+// customer touchpoints question removed
+
+const processes = [
+  "מענה ללקוחות (וואטסאפ / מייל / אינסטגרם)",
+  "לידים: איסוף + מעקב + הודעות המשך",
+  "יצירת הצעות מחיר / הצעות מסודרות",
+  "תזכורות תשלום / גבייה / מעקב חשבוניות",
+  "תיאום פגישות + אישורים + תזכורות",
+  "יצירת תוכן ושיווק (פוסטים/מודעות/מיילים)",
+  "הזנת נתונים (CRM / גיליונות / הזמנות)",
+  "אונבורדינג לקוחות (הודעת פתיחה, שאלון, מסמכים, FAQ)",
+  "גיוס/סינון מועמדים (מיון קו״ח + הודעות ראשוניות)",
+  "תיעוד תהליכים (SOP / צ׳קליסטים / הדרכת צוות)",
+]
+
+const processFrequency = [
+  "כל יום / כמעט כל יום",
+  "כמה פעמים בשבוע",
+  "פעם בשבוע–שבועיים",
+  "פעם בחודש / לעיתים נדירות",
+]
+
+const weeklyTimeSpent = [
+  "0–10 שעות",
+  "10-20 שעות",
+  "20-30 שעות",
+  "30-40 שעות",
+  "40+ שעות",
+]
+
+const aiMistakeImpact = [
+  "נמוך (אי־נעימות קלה / אפשר לתקן בקלות)",
+  "בינוני (יכול לעלות בזמן/כסף, אבל נשלט)",
+  "גבוה (סיכון ללקוח/כסף/מוניטין/רגולציה)",
+]
+
+const currentTools = [
+  "וואטסאפ",
+  "ג׳ימייל / אאוטלוק",
+  "אקסל / Google Sheets",
+  "אתר (Wix / WordPress / Webflow)",
+  "Shopify / חנות אונליין",
+  "CRM (לדוגמה: HubSpot / Monday / Zoho / אחר)",
+  "מערכת חשבוניות / הנה״ח",
+]
+
+const mainLimitations = [
+  "אין זמן להתנסות/להטמיע",
+  "תקציב / חשש לבזבוז כסף",
+  "לא יודעים מאיפה להתחיל",
+  "לא בטוחים איזה כלי מתאים",
+  "ידע טכני / הטמעה",
+  "מידע רגיש / פרטיות",
+  "התנגדות צוות / שינוי הרגלים",
+]
+
+// Simple presentational checkbox icon - no React state, just visual display
+function CheckIcon({ checked }: { checked: boolean }) {
+  return (
+    <div 
+      className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-colors ${
+        checked 
+          ? 'bg-amber-500 border-amber-500' 
+          : 'border-slate-300 bg-white'
+      }`}
+    >
+      {checked && (
+        <svg 
+          className="w-3 h-3 text-white" 
+          fill="none" 
+          strokeLinecap="round" 
+          strokeLinejoin="round" 
+          strokeWidth="2" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor"
+        >
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+      )}
+    </div>
+  )
+}
+
+function CollapsibleSection({
+  title,
+  children,
+  defaultOpen = false,
+}: {
+  title: string
+  // keep children loosely typed to avoid JSX typing edge-cases in this file
+  children: any
+  defaultOpen?: boolean
+}) {
+  const [open, setOpen] = useState(defaultOpen)
+  return (
+    <div className="mb-10">
+      <div className="relative mb-4">
+        <h2 className="text-xl font-bold text-[#0b2e7b] pr-12">{title}</h2>
+        <button
+          type="button"
+          aria-expanded={open}
+          onClick={() => setOpen((v) => !v)}
+          className="absolute right-0 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-600"
+          aria-label={open ? "סגור קטע" : "פתח קטע"}
+        >
+          <span className="text-lg font-bold">{open ? '−' : '+'}</span>
+        </button>
+      </div>
+      {open && <div>{children}</div>}
+    </div>
+  )
+}
 
 export default function ConsultationPage() {
   const [submitted, setSubmitted] = useState(false)
   const [formData, setFormData] = useState({
+    // Threshold conditions
+    isDecisionMaker: false,
+    canCommitToTrial: false,
+    // Business info
     fullName: "",
     email: "",
     phone: "",
     businessName: "",
     sector: "",
     businessSize: "",
-    challenges: [] as string[],
-    otherChallenge: "",
+    websiteUrl: "",
+    mainProduct: "",
+      revenueRange: "", // Ensure revenueRange exists in state
+    // Process focus
+    selectedProcess: "",
+    processFrequency: "",
+    weeklyTimeSpent: "",
+    aiMistakeImpact: "",
+    // AI challenges (removed: single-question moved out)
     aiExperience: "",
     goal: "",
-    timeSlots: [] as string[],
-    joinWhatsApp: "",
+    currentTools: [] as string[],
+    otherTool: "",
+    mainLimitation: "",
+    otherLimitation: "",
+    urgency: "",
+    // Scheduling (removed)
   })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Validate threshold conditions
+    if (!formData.isDecisionMaker || !formData.canCommitToTrial) {
+      alert("יש לאשר את שני תנאי הסף כדי להמשיך")
+      return
+    }
+    
+    // (customer touchpoints question removed)
+    
+    // Validate at least one tool
+    if (formData.currentTools.length === 0) {
+      alert("יש לבחור לפחות כלי אחד")
+      return
+    }
+    
     console.log("Form submitted:", formData)
     setSubmitted(true)
   }
 
-  const toggleChallenge = (challenge: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      challenges: prev.challenges.includes(challenge)
-        ? prev.challenges.filter((c) => c !== challenge)
-        : [...prev.challenges, challenge],
-    }))
-  }
+  // toggleCustomerTouchpoint removed
 
-  const toggleTimeSlot = (slot: string) => {
+  const toggleTool = (tool: string) => {
     setFormData((prev) => ({
       ...prev,
-      timeSlots: prev.timeSlots.includes(slot) ? prev.timeSlots.filter((s) => s !== slot) : [...prev.timeSlots, slot],
+      currentTools: prev.currentTools.includes(tool)
+        ? prev.currentTools.filter((t) => t !== tool)
+        : [...prev.currentTools, tool],
     }))
   }
 
@@ -112,19 +257,19 @@ export default function ConsultationPage() {
               <h3 className="font-bold text-blue-800 mb-3">מה לצפות מהייעוץ:</h3>
               <ul className="space-y-2 text-blue-700">
                 <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 mt-0.5 shrink-0" />
+                  <Icons.Check className="w-5 h-5 mt-0.5 shrink-0" />
                   <span>ניתוח הצרכים הספציפיים של העסק שלכם</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 mt-0.5 shrink-0" />
+                  <Icons.Check className="w-5 h-5 mt-0.5 shrink-0" />
                   <span>המלצות לכלי AI מותאמים</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 mt-0.5 shrink-0" />
+                  <Icons.Check className="w-5 h-5 mt-0.5 shrink-0" />
                   <span>תוכנית פעולה ברורה וריאליסטית</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 mt-0.5 shrink-0" />
+                  <Icons.Check className="w-5 h-5 mt-0.5 shrink-0" />
                   <span>הערכת עלויות וזמנים צפויים</span>
                 </li>
               </ul>
@@ -136,7 +281,7 @@ export default function ConsultationPage() {
                 className="flex items-center gap-4 p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors"
               >
                 <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
-                  <BookOpen className="w-6 h-6 text-amber-600" />
+                  <Icons.BookOpen className="w-6 h-6 text-amber-600" />
                 </div>
                 <div className="text-right">
                   <p className="font-bold text-[#0b2e7b]">נסו את הסימולטור</p>
@@ -149,7 +294,7 @@ export default function ConsultationPage() {
                 className="flex items-center gap-4 p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors"
               >
                 <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                  <MessageCircle className="w-6 h-6 text-green-600" />
+                  <Icons.MessageCircle className="w-6 h-6 text-green-600" />
                 </div>
                 <div className="text-right">
                   <p className="font-bold text-[#0b2e7b]">הצטרפו ל־WhatsApp</p>
@@ -162,7 +307,7 @@ export default function ConsultationPage() {
                 className="flex items-center gap-4 p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors"
               >
                 <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                  <Info className="w-6 h-6 text-blue-600" />
+                  <Icons.AlertCircle className="w-6 h-6 text-blue-600" />
                 </div>
                 <div className="text-right">
                   <p className="font-bold text-[#0b2e7b]">קראו עלינו</p>
@@ -191,93 +336,148 @@ export default function ConsultationPage() {
         {/* Hero */}
         <div className="text-center mb-10">
           <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-[#0b2e7b] mb-4">
-            ייעוץ AI אישי — 30 דקות, בחינם
+             התאמת כלי AI לעסק שלך
           </h1>
           <p className="text-lg text-slate-600">
-            לא בטוחים מאיפה להתחיל עם AI? נדבר על האתגרים הספציפיים של העסק שלכם.
+            מילוי השאלון אורך כ-5 דקות. <br />
+            מטרתו: הכרות עם העסק שלך, בדיקת התאמה והכנה מירבית לשיחת האבחון המעמיקה.
           </p>
         </div>
 
         {/* Transparency box */}
-        <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-10">
-          <div className="flex items-start gap-3 mb-4">
-            <Info className="w-5 h-5 text-blue-600 mt-0.5 shrink-0" />
-            <div>
-              <h3 className="font-bold text-blue-800 mb-2">שקיפות מלאה: הייעוץ הוא כלי שיווקי</h3>
-              <p className="text-blue-700">
-                אתם ממלאים טופס ומצטרפים לקהילה. אנחנו בוחרים עסקים מתאימים פעם בשבוע ופונים לתאם שיחה.
-              </p>
-            </div>
-          </div>
-          <div className="bg-white rounded-xl p-4 mr-8">
-            <p className="font-semibold text-slate-700 mb-2">למה זה עדיין משתלם לכם:</p>
+        <div className="bg-gray-50 borde rounded-2xl p-6 mb-10 flex items-center justify-center">
+          <div className="bg-white rounded-xl p-4 w-full max-w-3xl border-t-4 border-blue-200">
+            <p className="font-semibold text-slate-700 mb-2">עסקים מתאימים יקבלו</p>
             <ul className="space-y-1 text-slate-600 text-sm">
-              <li>• אסטרטגיית AI מותאמת לעסק</li>
-              <li>• המלצות לכלים ספציפיות</li>
-              <li>• תוכנית פעולה ברורה</li>
-              <li>• גישה לקהילה תומכת</li>
+              <li>• שיחת Zoom אבחון מקצועית</li>
+              <li>• עבודת מחקר צרכים ובדיקת כלי AI מתאימים</li>
+              <li>• מסמך מסכם הכולל תוכנית הטמעה מותאמת אישית</li>
             </ul>
+            <p className="text-base text-slate-700 mt-3 font-semibold">ללא עלות * מספר המקומות מוגבל * בחירת עסקים מתאימים לפי צורך</p>
           </div>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="bg-white rounded-3xl shadow-xl p-8">
+        <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-10 flex items-center justify-center">
+          <div className="bg-white rounded-xl p-6 w-full max-w-3xl border-t-4 border-blue-200 shadow-xl">
+            <form onSubmit={handleSubmit} className="">
+          <div className="mb-6">
+            <p className="text-sm text-slate-600 text-right">לחיצה על "+" לפתיחת כל חלק בשאלון. <br />חשוב לענות על כל השאלות כדי לשלוח את הטופס.</p>
+          </div>
+          {/* Section 0 - Threshold Conditions */}
+          <CollapsibleSection title="תיאום ציפיות">
+            <div className="pb-6 border-b border-slate-200">
+              <div className="space-y-4">
+                <div
+                  onClick={() => setFormData({ ...formData, isDecisionMaker: !formData.isDecisionMaker })}
+                  className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                    formData.isDecisionMaker
+                      ? "border-amber-500 bg-amber-50"
+                      : "border-slate-200 hover:border-slate-300"
+                  }`}
+                >
+                  <div className="flex items-start gap-3">
+                    <CheckIcon checked={formData.isDecisionMaker} />
+                    <div className="flex-1">
+                      <span className="text-slate-700 font-medium">
+                        אני בעל/ת העסק או מוסמך/ת לקבל החלטות בתחום AI בעסק*
+                      </span>
+                      <p className="text-sm text-red-500 mt-1">בלי זה לא נוכל להמשיך</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  onClick={() => setFormData({ ...formData, canCommitToTrial: !formData.canCommitToTrial })}
+                  className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                    formData.canCommitToTrial
+                      ? "border-amber-500 bg-amber-50"
+                      : "border-slate-200 hover:border-slate-300"
+                  }`}
+                >
+                  <div className="flex items-start gap-3">
+                    <CheckIcon checked={formData.canCommitToTrial} />
+                    <div className="flex-1">
+                      <span className="text-slate-700 font-medium">
+                      הבנתי את מלוא מהות ההצעה ואני יכול/ה להתחייב לתהליך איפיון והטמעת AI בעסק *
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CollapsibleSection>
+
           {/* Section 1 */}
-          <div className="mb-10">
-            <h2 className="text-xl font-bold text-[#0b2e7b] mb-6 pb-2 border-b border-slate-200">על העסק שלכם</h2>
-
+          <CollapsibleSection title="על העסק שלך">
             <div className="space-y-6">
-              <div>
-                <Label htmlFor="fullName" className="text-slate-700 font-medium">
-                  שם מלא *
-                </Label>
-                <Input
-                  id="fullName"
-                  required
-                  value={formData.fullName}
-                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                  className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-                />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <Label htmlFor="fullName" className="text-slate-700 font-medium">
+                    שם מלא *
+                  </Label>
+                  <Input
+                    id="fullName"
+                    required
+                    value={formData.fullName}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, fullName: e.target.value })}
+                    className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="email" className="text-slate-700 font-medium">
+                    כתובת אימייל *
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: e.target.value })}
+                    className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <Label htmlFor="phone" className="text-slate-700 font-medium">
+                    מספר טלפון
+                  </Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, phone: e.target.value })}
+                    className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="businessName" className="text-slate-700 font-medium">
+                    שם העסק *
+                  </Label>
+                  <Input
+                    id="businessName"
+                    required
+                    value={formData.businessName}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, businessName: e.target.value })}
+                    className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                  />
+                </div>
               </div>
 
               <div>
-                <Label htmlFor="email" className="text-slate-700 font-medium">
-                  כתובת אימייל *
+                <Label htmlFor="websiteUrl" className="text-slate-700 font-medium">
+                  אתר העסק
                 </Label>
                 <Input
-                  id="email"
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-                />
-                <p className="text-sm text-slate-500 mt-1">נשלח אישור ופרטי הייעוץ</p>
-              </div>
-
-              <div>
-                <Label htmlFor="phone" className="text-slate-700 font-medium">
-                  מספר טלפון
-                </Label>
-                <Input
-                  id="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-                />
-                <p className="text-sm text-slate-500 mt-1">מעדיפים תיאום ב־WhatsApp</p>
-              </div>
-
-              <div>
-                <Label htmlFor="businessName" className="text-slate-700 font-medium">
-                  שם העסק *
-                </Label>
-                <Input
-                  id="businessName"
-                  required
-                  value={formData.businessName}
-                  onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
+                  id="websiteUrl"
+                  type="url"
+                  value={formData.websiteUrl}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, websiteUrl: e.target.value })}
+                  placeholder="https://yourbusiness.co.il"
                   className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
                 />
               </div>
@@ -287,7 +487,7 @@ export default function ConsultationPage() {
                 <Select
                   required
                   value={formData.sector}
-                  onValueChange={(value) => setFormData({ ...formData, sector: value })}
+                  onValueChange={(value: string) => setFormData({ ...formData, sector: value })}
                 >
                   <SelectTrigger className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
                     <SelectValue placeholder="בחרו ענף" />
@@ -300,51 +500,154 @@ export default function ConsultationPage() {
                     ))}
                   </SelectContent>
                 </Select>
-              </div>
+                </div>
 
+                {/* moved: main product + annual revenue */}
+                <div>
+                  <Label htmlFor="mainProduct" className="text-slate-700 font-medium">
+                    מה המוצר/השירות המרכזי של העסק? *
+                  </Label>
+                  <Input
+                    id="mainProduct"
+                    required
+                    value={formData.mainProduct}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, mainProduct: e.target.value })}
+                    placeholder="לדוגמה: שירותי ניקיון, ייעוץ משכנתאות, מסעדה..."
+                    className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                  />
+                </div>
+
+              <div className="space-y-6 mt-4">
+                <div>
+                  <Label className="text-slate-700 font-medium mb-3 block">מה המחזור השנתי של העסק? (מחזור מוערך, לא רווח)</Label>
+                  <Select
+                    value={formData.revenueRange}
+                    onValueChange={(value: string) => setFormData({ ...formData, revenueRange: value })}
+                  >
+                    <SelectTrigger className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                      <SelectValue placeholder="בחרו טווח מחזור" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {revenueRanges.map((r) => (
+                        <SelectItem key={r} value={r}>
+                          {r}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <Label className="text-slate-700 font-medium mb-3 block">מה גודל העסק? *</Label>
+                  <Select
+                    required
+                    value={formData.businessSize}
+                    onValueChange={(value: string) => setFormData({ ...formData, businessSize: value })}
+                  >
+                    <SelectTrigger className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                      <SelectValue placeholder="בחרו גודל" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {businessSizes.map((size) => (
+                        <SelectItem key={size} value={size}>
+                          {size}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+              </div>
+              {/* customer touchpoints question removed */}
+            </div>
+          </CollapsibleSection>
+
+          {/* Section 2 - Process Focus */}
+          <CollapsibleSection title="על מה תרצה/י שנעבוד?">
+            <div className="space-y-6">
               <div>
-                <Label className="text-slate-700 font-medium">גודל העסק *</Label>
+                <Label className="text-slate-700 font-medium mb-3 block">
+                  בחרו תהליך אחד להתמקד בו בייעוץ *
+                </Label>
                 <Select
                   required
-                  value={formData.businessSize}
-                  onValueChange={(value) => setFormData({ ...formData, businessSize: value })}
+                  value={formData.selectedProcess}
+                  onValueChange={(value: string) => setFormData({ ...formData, selectedProcess: value })}
                 >
                   <SelectTrigger className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
-                    <SelectValue placeholder="בחרו גודל" />
+                    <SelectValue placeholder="בחרו תהליך" />
                   </SelectTrigger>
                   <SelectContent>
-                    {businessSizes.map((size) => (
-                      <SelectItem key={size} value={size}>
-                        {size}
+                    {processes.map((process) => (
+                      <SelectItem key={process} value={process}>
+                        {process}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
-            </div>
-          </div>
 
-          {/* Section 2 */}
-          <div className="mb-10">
-            <h2 className="text-xl font-bold text-[#0b2e7b] mb-6 pb-2 border-b border-slate-200">אתגרי ה־AI שלכם</h2>
-
-            <div className="space-y-6">
               <div>
-                <Label className="text-slate-700 font-medium mb-3 block">מה האתגר הגדול ביותר שלכם עם AI? *</Label>
+                <Label className="text-slate-700 font-medium mb-3 block">
+                  בערך כמה סה"כ זמן בשבוע (לכל העובדים) מושקע בתהליך הזה? *
+                </Label>
+                <Select
+                  required
+                  value={formData.weeklyTimeSpent}
+                  onValueChange={(value: string) => setFormData({ ...formData, weeklyTimeSpent: value })}
+                >
+                  <SelectTrigger className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                    <SelectValue placeholder="בחרו טווח שעות" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {weeklyTimeSpent.map((time) => (
+                      <SelectItem key={time} value={time}>
+                        {time}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label className="text-slate-700 font-medium mb-3 block">
+                  אם AI עושה טעות בתהליך הזה — כמה זה יכול להזיק? *
+                </Label>
+                <Select
+                  required
+                  value={formData.aiMistakeImpact}
+                  onValueChange={(value: string) => setFormData({ ...formData, aiMistakeImpact: value })}
+                >
+                  <SelectTrigger className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                    <SelectValue placeholder="בחרו רמת סיכון" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {aiMistakeImpact.map((impact) => (
+                      <SelectItem key={impact} value={impact}>
+                        {impact}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* moved: current tools from Section 3 */}
+              <div>
+                <Label className="text-slate-700 font-medium mb-3 block">באילו כלים אתם משתמשים היום בתהליך הזה? *</Label>
                 <div className="grid sm:grid-cols-2 gap-3">
-                  {challenges.map((challenge) => (
+                  {currentTools.map((tool) => (
                     <div
-                      key={challenge}
-                      onClick={() => toggleChallenge(challenge)}
+                      key={tool}
+                      onClick={() => toggleTool(tool)}
                       className={`p-3 rounded-xl border-2 cursor-pointer transition-all ${
-                        formData.challenges.includes(challenge)
+                        formData.currentTools.includes(tool)
                           ? "border-amber-500 bg-amber-50"
                           : "border-slate-200 hover:border-slate-300"
                       }`}
                     >
                       <div className="flex items-center gap-2">
-                        <Checkbox checked={formData.challenges.includes(challenge)} />
-                        <span className="text-slate-700">{challenge}</span>
+                        <CheckIcon checked={formData.currentTools.includes(tool)} />
+                        <span className="text-slate-700">{tool}</span>
                       </div>
                     </div>
                   ))}
@@ -352,30 +655,71 @@ export default function ConsultationPage() {
                 <div className="mt-3">
                   <Input
                     placeholder="אחר (פרטו)"
-                    value={formData.otherChallenge}
-                    onChange={(e) => setFormData({ ...formData, otherChallenge: e.target.value })}
+                    value={formData.otherTool}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, otherTool: e.target.value })}
                     className="border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
                   />
                 </div>
               </div>
+            </div>
+          </CollapsibleSection>
+
+          {/* Section 3 */}
+          <CollapsibleSection title="העסק שלך ו-AI">
+            <div className="space-y-6">
+              {/* 'What is your biggest challenge with AI?' question removed */}
 
               <div>
                 <Label className="text-slate-700 font-medium mb-3 block">האם השתמשתם בכלי AI בעבר? *</Label>
-                <div className="space-y-2">
-                  {aiExperience.map((exp) => (
-                    <div
-                      key={exp}
-                      onClick={() => setFormData({ ...formData, aiExperience: exp })}
-                      className={`p-3 rounded-xl border-2 cursor-pointer transition-all ${
-                        formData.aiExperience === exp
-                          ? "border-amber-500 bg-amber-50"
-                          : "border-slate-200 hover:border-slate-300"
-                      }`}
-                    >
-                      <span className="text-slate-700">{exp}</span>
-                    </div>
-                  ))}
-                </div>
+                <Select
+                  required
+                  value={formData.aiExperience}
+                  onValueChange={(value: string) => setFormData({ ...formData, aiExperience: value })}
+                >
+                  <SelectTrigger className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                    <SelectValue placeholder="בחרו תשובה" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {aiExperience.map((exp) => (
+                      <SelectItem key={exp} value={exp}>
+                        {exp}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label className="text-slate-700 font-medium mb-3 block">
+                  מה המגבלה המרכזית שלכם כרגע בדרך לשימוש ב-AI? (בחרו אחת) *
+                </Label>
+                <Select
+                  required
+                  value={formData.mainLimitation}
+                  onValueChange={(value: string) => setFormData({ ...formData, mainLimitation: value })}
+                >
+                  <SelectTrigger className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                    <SelectValue placeholder="בחרו מגבלה" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {mainLimitations.map((lim) => (
+                      <SelectItem key={lim} value={lim}>
+                        {lim}
+                      </SelectItem>
+                    ))}
+                    <SelectItem value="אחר (פרטו)">אחר (פרטו)</SelectItem>
+                  </SelectContent>
+                </Select>
+                {formData.mainLimitation === "אחר (פרטו)" && (
+                  <div className="mt-3">
+                    <Input
+                      placeholder="אחר (פרטו)"
+                      value={formData.otherLimitation}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, otherLimitation: e.target.value })}
+                      className="border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                    />
+                  </div>
+                )}
               </div>
 
               <div>
@@ -386,69 +730,29 @@ export default function ConsultationPage() {
                   id="goal"
                   required
                   value={formData.goal}
-                  onChange={(e) => setFormData({ ...formData, goal: e.target.value })}
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData({ ...formData, goal: e.target.value })}
                   placeholder="אני רוצה לאוטומט מעקבי לקוחות, לא בטוח באיזה כלי להשתמש ומה העלות"
-                  className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 min-h-[100px]"
+                  className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 min-h-25"
                 />
                 <p className="text-sm text-slate-500 mt-1">היו ספציפיים — זה עוזר לנו להתכונן ולבחור</p>
               </div>
-            </div>
-          </div>
-
-          {/* Section 3 */}
-          <div className="mb-10">
-            <h2 className="text-xl font-bold text-[#0b2e7b] mb-6 pb-2 border-b border-slate-200">תיאום</h2>
-
-            <div className="space-y-6">
-              <div>
-                <Label className="text-slate-700 font-medium mb-3 block">מתי נוח לשיחה? *</Label>
-                <div className="grid sm:grid-cols-2 gap-3">
-                  {timeSlots.map((slot) => (
-                    <div
-                      key={slot}
-                      onClick={() => toggleTimeSlot(slot)}
-                      className={`p-3 rounded-xl border-2 cursor-pointer transition-all ${
-                        formData.timeSlots.includes(slot)
-                          ? "border-amber-500 bg-amber-50"
-                          : "border-slate-200 hover:border-slate-300"
-                      }`}
-                    >
-                      <div className="flex items-center gap-2">
-                        <Checkbox checked={formData.timeSlots.includes(slot)} />
-                        <span className="text-slate-700">{slot}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
 
               <div>
-                <Label className="text-slate-700 font-medium mb-3 block">להצטרף לקהילת WhatsApp? *</Label>
-                <div className="space-y-2">
-                  <div
-                    onClick={() => setFormData({ ...formData, joinWhatsApp: "yes" })}
-                    className={`p-3 rounded-xl border-2 cursor-pointer transition-all ${
-                      formData.joinWhatsApp === "yes"
-                        ? "border-amber-500 bg-amber-50"
-                        : "border-slate-200 hover:border-slate-300"
-                    }`}
-                  >
-                    <span className="text-slate-700">כן, הוסיפו אותי לקבוצה</span>
-                  </div>
-                  <div
-                    onClick={() => setFormData({ ...formData, joinWhatsApp: "no" })}
-                    className={`p-3 rounded-xl border-2 cursor-pointer transition-all ${
-                      formData.joinWhatsApp === "no"
-                        ? "border-amber-500 bg-amber-50"
-                        : "border-slate-200 hover:border-slate-300"
-                    }`}
-                  >
-                    <span className="text-slate-700">לא, רק ייעוץ</span>
-                  </div>
-                </div>
+                <Label htmlFor="urgency" className="text-slate-700 font-medium">
+                  משפט אחד: למה זה דחוף/חשוב עכשיו? (אופציונלי אבל מומלץ)
+                </Label>
+                <Input
+                  id="urgency"
+                  value={formData.urgency}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, urgency: e.target.value })}
+                  placeholder="לדוגמה: מאבד לקוחות בגלל זמני תגובה איטיים..."
+                  className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                />
               </div>
             </div>
-          </div>
+          </CollapsibleSection>
+
+          {/* Scheduling section removed */}
 
           <Button
             type="submit"
@@ -457,6 +761,8 @@ export default function ConsultationPage() {
             שליחת בקשה ←
           </Button>
         </form>
+          </div>
+        </div>
       </main>
       <Footer />
     </div>
