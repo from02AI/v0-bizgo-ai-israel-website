@@ -1,0 +1,96 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "BizgoAI Israel" [ref=e7] [cursor=pointer]:
+          - /url: /
+        - navigation [ref=e8]:
+          - link "סימולטור AI לעסק" [ref=e9] [cursor=pointer]:
+            - /url: /simulator
+          - link "עזרה מקצועית" [ref=e10] [cursor=pointer]:
+            - /url: /#consultation
+          - link "קהילה" [ref=e11] [cursor=pointer]:
+            - /url: /#community
+          - link "אודות" [ref=e12] [cursor=pointer]:
+            - /url: /about
+    - main [ref=e13]:
+      - generic [ref=e14]:
+        - heading "התאמת כלי AI לעסק שלך" [level=1] [ref=e15]
+        - paragraph [ref=e16]:
+          - text: מילוי השאלון אורך כ-5 דקות.
+          - text: "מטרתו: הכרות עם העסק שלך, בדיקת התאמה והכנה מירבית לשיחת האבחון המעמיקה."
+      - generic [ref=e18]:
+        - paragraph [ref=e19]: עסקים מתאימים יקבלו
+        - list [ref=e20]:
+          - listitem [ref=e21]: • שיחת Zoom אבחון מקצועית
+          - listitem [ref=e22]: • עבודת מחקר צרכים ובדיקת כלי AI מתאימים
+          - listitem [ref=e23]: • מסמך מסכם הכולל תוכנית הטמעה מותאמת אישית
+        - paragraph [ref=e24]: ללא עלות * מספר המקומות מוגבל * בחירת עסקים מתאימים לפי צורך
+      - generic [ref=e27]:
+        - paragraph [ref=e29]:
+          - text: לחיצה על "+" לפתיחת כל חלק בשאלון.
+          - text: חשוב לענות על כל השאלות כדי לשלוח את הטופס.
+        - generic [ref=e31]:
+          - heading "תיאום ציפיות" [level=2] [ref=e32]
+          - button "פתח קטע" [ref=e33]:
+            - generic [ref=e34]: +
+        - generic [ref=e36]:
+          - heading "על העסק שלך" [level=2] [ref=e37]
+          - button "פתח קטע" [ref=e38]:
+            - generic [ref=e39]: +
+        - generic [ref=e41]:
+          - heading "על מה תרצה/י שנעבוד?" [level=2] [ref=e42]
+          - button "פתח קטע" [ref=e43]:
+            - generic [ref=e44]: +
+        - generic [ref=e46]:
+          - heading "העסק שלך ו-AI" [level=2] [ref=e47]
+          - button "פתח קטע" [ref=e48]:
+            - generic [ref=e49]: +
+        - button "שליחת בקשה ←" [ref=e50]
+    - contentinfo [ref=e51]:
+      - generic [ref=e52]:
+        - generic [ref=e53]:
+          - generic [ref=e54]:
+            - heading "BizgoAI Israel" [level=3] [ref=e55]
+            - paragraph [ref=e56]: עסקים קטנים מתקדמים עם AI. בביטחון.
+          - generic [ref=e57]:
+            - heading "ניווט" [level=4] [ref=e58]
+            - list [ref=e59]:
+              - listitem [ref=e60]:
+                - link "דף הבית" [ref=e61] [cursor=pointer]:
+                  - /url: /
+              - listitem [ref=e62]:
+                - link "סימולטור" [ref=e63] [cursor=pointer]:
+                  - /url: /simulator
+              - listitem [ref=e64]:
+                - link "אודות" [ref=e65] [cursor=pointer]:
+                  - /url: /about
+              - listitem [ref=e66]:
+                - link "ייעוץ חינם" [ref=e67] [cursor=pointer]:
+                  - /url: /consultation
+          - generic [ref=e68]:
+            - heading "קהילה" [level=4] [ref=e69]
+            - list [ref=e70]:
+              - listitem [ref=e71]:
+                - link "WhatsApp" [ref=e72] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=e73]:
+                - link "Facebook" [ref=e74] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=e75]:
+                - link "ניוזלטר" [ref=e76] [cursor=pointer]:
+                  - /url: "#"
+          - generic [ref=e77]:
+            - heading "משפטי" [level=4] [ref=e78]
+            - list [ref=e79]:
+              - listitem [ref=e80]:
+                - link "מדיניות פרטיות" [ref=e81] [cursor=pointer]:
+                  - /url: /privacy
+        - generic [ref=e82]: © 2026 BizgoAI Israel. כל הזכויות שמורות
+  - button "Open Next.js Dev Tools" [ref=e88] [cursor=pointer]:
+    - img [ref=e89]
+  - alert [ref=e92]
+```

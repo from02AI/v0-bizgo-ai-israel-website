@@ -187,26 +187,72 @@ export default function ConsultationPage() {
     urgency: "",
     // Scheduling (removed)
   })
+  const [errors, setErrors] = useState<Record<string, string>>({})
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    
-    // Validate threshold conditions
-    if (!formData.isDecisionMaker || !formData.canCommitToTrial) {
-      alert("יש לאשר את שני תנאי הסף כדי להמשיך")
+    // Client-side validation
+    const validate = () => {
+      const errs: Record<string, string> = {}
+      if (!formData.isDecisionMaker) errs.isDecisionMaker = 'יש לאשר שאתם בעלי החלטה כדי להמשיך'
+      if (!formData.canCommitToTrial) errs.canCommitToTrial = 'יש לאשר שאתם יכולים להתחייב לתהליך'
+      if (!formData.fullName?.trim()) errs.fullName = 'יש להזין שם מלא'
+      if (!formData.email?.trim()) errs.email = 'יש להזין כתובת אימייל'
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) errs.email = 'כתובת אימייל לא תקינה'
+      if (!formData.businessName?.trim()) errs.businessName = 'יש להזין שם עסק'
+      if (!formData.sector) errs.sector = 'יש לבחור ענף'
+      if (!formData.mainProduct?.trim()) errs.mainProduct = 'יש לציין את המוצר/שירות המרכזי'
+      if (!formData.businessSize) errs.businessSize = 'יש לבחור את גודל העסק'
+      if (!formData.selectedProcess) errs.selectedProcess = 'יש לבחור תהליך'
+      if (!formData.weeklyTimeSpent) errs.weeklyTimeSpent = 'יש לבחור טווח שעות'
+      if (!formData.aiMistakeImpact) errs.aiMistakeImpact = 'יש לבחור רמת סיכון'
+      if (!formData.aiExperience) errs.aiExperience = 'יש לבחור תשובה'
+      if (!formData.mainLimitation) errs.mainLimitation = 'יש לבחור מגבלה'
+      if (formData.mainLimitation === 'אחר (פרטו)' && !formData.otherLimitation?.trim()) errs.otherLimitation = 'יש לפרט את המגבלה'
+      if (!formData.goal?.trim()) errs.goal = 'יש לציין מה המטרה העיקרית של הייעוץ'
+      if (!formData.currentTools || formData.currentTools.length === 0) errs.currentTools = 'יש לבחור לפחות כלי אחד'
+      return errs
+    }
+
+    const validationErrors = validate()
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors)
+      // focus first error (if possible)
+      const firstField = Object.keys(validationErrors)[0]
+      const el = document.getElementById(firstField)
+      if (el) el.focus()
       return
     }
-    
-    // (customer touchpoints question removed)
-    
-    // Validate at least one tool
-    if (formData.currentTools.length === 0) {
-      alert("יש לבחור לפחות כלי אחד")
-      return
-    }
-    
-    console.log("Form submitted:", formData)
-    setSubmitted(true)
+
+    // Send to server API which saves to Supabase
+    ;(async () => {
+      try {
+        const res = await fetch('/api/consultation', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        })
+
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}))
+          console.error('Save failed', data)
+          if (data && data.errors) {
+            // structured server-side validation errors
+            setErrors(data.errors)
+            return
+          }
+          alert('שגיאה בשליחת הטופס — נסו שוב מאוחר יותר')
+          return
+        }
+
+        const data = await res.json()
+        console.log('Saved consultation id', data.id)
+        setSubmitted(true)
+      } catch (err) {
+        console.error('Unexpected submit error', err)
+        alert('שגיאה בשליחת הטופס — נסו שוב מאוחר יותר')
+      }
+    })()
   }
 
   // toggleCustomerTouchpoint removed
@@ -218,6 +264,7 @@ export default function ConsultationPage() {
         ? prev.currentTools.filter((t) => t !== tool)
         : [...prev.currentTools, tool],
     }))
+    setErrors((prev) => ({ ...prev, currentTools: '' }))
   }
 
   if (submitted) {
@@ -369,7 +416,10 @@ export default function ConsultationPage() {
             <div className="pb-6 border-b border-slate-200">
               <div className="space-y-4">
                 <div
-                  onClick={() => setFormData({ ...formData, isDecisionMaker: !formData.isDecisionMaker })}
+                  onClick={() => {
+                    setFormData({ ...formData, isDecisionMaker: !formData.isDecisionMaker })
+                    setErrors((prev) => ({ ...prev, isDecisionMaker: '' }))
+                  }}
                   className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${
                     formData.isDecisionMaker
                       ? "border-amber-500 bg-amber-50"
@@ -382,13 +432,20 @@ export default function ConsultationPage() {
                       <span className="text-slate-700 font-medium">
                         אני בעל/ת העסק או מוסמך/ת לקבל החלטות בתחום AI בעסק*
                       </span>
-                      <p className="text-sm text-red-500 mt-1">בלי זה לא נוכל להמשיך</p>
+                      {errors.isDecisionMaker ? (
+                        <p className="text-sm text-red-600 mt-1">{errors.isDecisionMaker}</p>
+                      ) : (
+                        <p className="text-sm text-slate-500 mt-1">בלי זה לא נוכל להמשיך</p>
+                      )}
                     </div>
                   </div>
                 </div>
 
                 <div
-                  onClick={() => setFormData({ ...formData, canCommitToTrial: !formData.canCommitToTrial })}
+                  onClick={() => {
+                    setFormData({ ...formData, canCommitToTrial: !formData.canCommitToTrial })
+                    setErrors((prev) => ({ ...prev, canCommitToTrial: '' }))
+                  }}
                   className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${
                     formData.canCommitToTrial
                       ? "border-amber-500 bg-amber-50"
@@ -401,6 +458,7 @@ export default function ConsultationPage() {
                       <span className="text-slate-700 font-medium">
                       הבנתי את מלוא מהות ההצעה ואני יכול/ה להתחייב לתהליך איפיון והטמעת AI בעסק *
                       </span>
+                      {errors.canCommitToTrial && <p className="text-sm text-red-600 mt-1">{errors.canCommitToTrial}</p>}
                     </div>
                   </div>
                 </div>
@@ -420,30 +478,38 @@ export default function ConsultationPage() {
                     id="fullName"
                     required
                     value={formData.fullName}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, fullName: e.target.value })}
-                    className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      setFormData({ ...formData, fullName: e.target.value })
+                      setErrors((prev) => ({ ...prev, fullName: '' }))
+                    }}
+                    className={`mt-2 rounded-xl ${errors.fullName ? 'border-red-500' : 'border-2 border-slate-300'} focus:ring-2 focus:ring-amber-500 focus:border-amber-500`}
                   />
+                  {errors.fullName && <p className="text-sm text-red-600 mt-2">{errors.fullName}</p>}
                 </div>
 
                 <div>
                   <Label htmlFor="email" className="text-slate-700 font-medium">
-                    כתובת אימייל *
+                    כתובת אימייל - חשוב לוודא שתקינה *
                   </Label>
                   <Input
                     id="email"
                     type="email"
                     required
                     value={formData.email}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: e.target.value })}
-                    className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      setFormData({ ...formData, email: e.target.value })
+                      setErrors((prev) => ({ ...prev, email: '' }))
+                    }}
+                    className={`mt-2 rounded-xl ${errors.email ? 'border-red-500' : 'border-2 border-slate-300'} focus:ring-2 focus:ring-amber-500 focus:border-amber-500`}
                   />
+                  {errors.email && <p className="text-sm text-red-600 mt-2">{errors.email}</p>}
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <Label htmlFor="phone" className="text-slate-700 font-medium">
-                    מספר טלפון
+                    מספר טלפון - חשוב לוודא שתקין
                   </Label>
                   <Input
                     id="phone"
@@ -462,9 +528,13 @@ export default function ConsultationPage() {
                     id="businessName"
                     required
                     value={formData.businessName}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, businessName: e.target.value })}
-                    className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      setFormData({ ...formData, businessName: e.target.value })
+                      setErrors((prev) => ({ ...prev, businessName: '' }))
+                    }}
+                    className={`mt-2 rounded-xl ${errors.businessName ? 'border-red-500' : 'border-2 border-slate-300'} focus:ring-2 focus:ring-amber-500 focus:border-amber-500`}
                   />
+                  {errors.businessName && <p className="text-sm text-red-600 mt-2">{errors.businessName}</p>}
                 </div>
               </div>
 
@@ -487,7 +557,10 @@ export default function ConsultationPage() {
                 <Select
                   required
                   value={formData.sector}
-                  onValueChange={(value: string) => setFormData({ ...formData, sector: value })}
+                  onValueChange={(value: string) => {
+                    setFormData({ ...formData, sector: value })
+                    setErrors((prev) => ({ ...prev, sector: '' }))
+                  }}
                 >
                   <SelectTrigger className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
                     <SelectValue placeholder="בחרו ענף" />
@@ -500,6 +573,7 @@ export default function ConsultationPage() {
                     ))}
                   </SelectContent>
                 </Select>
+                {errors.sector && <p className="text-sm text-red-600 mt-2">{errors.sector}</p>}
                 </div>
 
                 {/* moved: main product + annual revenue */}
@@ -511,10 +585,14 @@ export default function ConsultationPage() {
                     id="mainProduct"
                     required
                     value={formData.mainProduct}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, mainProduct: e.target.value })}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      setFormData({ ...formData, mainProduct: e.target.value })
+                      setErrors((prev) => ({ ...prev, mainProduct: '' }))
+                    }}
                     placeholder="לדוגמה: שירותי ניקיון, ייעוץ משכנתאות, מסעדה..."
-                    className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                    className={`mt-2 rounded-xl ${errors.mainProduct ? 'border-red-500' : 'border-2 border-slate-300'} focus:ring-2 focus:ring-amber-500 focus:border-amber-500`}
                   />
+                  {errors.mainProduct && <p className="text-sm text-red-600 mt-2">{errors.mainProduct}</p>}
                 </div>
 
               <div className="space-y-6 mt-4">
@@ -542,7 +620,10 @@ export default function ConsultationPage() {
                   <Select
                     required
                     value={formData.businessSize}
-                    onValueChange={(value: string) => setFormData({ ...formData, businessSize: value })}
+                    onValueChange={(value: string) => {
+                      setFormData({ ...formData, businessSize: value })
+                      setErrors((prev) => ({ ...prev, businessSize: '' }))
+                    }}
                   >
                     <SelectTrigger className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
                       <SelectValue placeholder="בחרו גודל" />
@@ -555,6 +636,7 @@ export default function ConsultationPage() {
                       ))}
                     </SelectContent>
                   </Select>
+                  {errors.businessSize && <p className="text-sm text-red-600 mt-2">{errors.businessSize}</p>}
                 </div>
 
               </div>
@@ -572,7 +654,10 @@ export default function ConsultationPage() {
                 <Select
                   required
                   value={formData.selectedProcess}
-                  onValueChange={(value: string) => setFormData({ ...formData, selectedProcess: value })}
+                  onValueChange={(value: string) => {
+                    setFormData({ ...formData, selectedProcess: value })
+                    setErrors((prev) => ({ ...prev, selectedProcess: '' }))
+                  }}
                 >
                   <SelectTrigger className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
                     <SelectValue placeholder="בחרו תהליך" />
@@ -585,6 +670,7 @@ export default function ConsultationPage() {
                     ))}
                   </SelectContent>
                 </Select>
+                {errors.selectedProcess && <p className="text-sm text-red-600 mt-2">{errors.selectedProcess}</p>}
               </div>
 
               <div>
@@ -594,7 +680,10 @@ export default function ConsultationPage() {
                 <Select
                   required
                   value={formData.weeklyTimeSpent}
-                  onValueChange={(value: string) => setFormData({ ...formData, weeklyTimeSpent: value })}
+                  onValueChange={(value: string) => {
+                    setFormData({ ...formData, weeklyTimeSpent: value })
+                    setErrors((prev) => ({ ...prev, weeklyTimeSpent: '' }))
+                  }}
                 >
                   <SelectTrigger className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
                     <SelectValue placeholder="בחרו טווח שעות" />
@@ -607,6 +696,7 @@ export default function ConsultationPage() {
                     ))}
                   </SelectContent>
                 </Select>
+                {errors.weeklyTimeSpent && <p className="text-sm text-red-600 mt-2">{errors.weeklyTimeSpent}</p>}
               </div>
 
               <div>
@@ -616,7 +706,10 @@ export default function ConsultationPage() {
                 <Select
                   required
                   value={formData.aiMistakeImpact}
-                  onValueChange={(value: string) => setFormData({ ...formData, aiMistakeImpact: value })}
+                  onValueChange={(value: string) => {
+                    setFormData({ ...formData, aiMistakeImpact: value })
+                    setErrors((prev) => ({ ...prev, aiMistakeImpact: '' }))
+                  }}
                 >
                   <SelectTrigger className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
                     <SelectValue placeholder="בחרו רמת סיכון" />
@@ -629,6 +722,7 @@ export default function ConsultationPage() {
                     ))}
                   </SelectContent>
                 </Select>
+                {errors.aiMistakeImpact && <p className="text-sm text-red-600 mt-2">{errors.aiMistakeImpact}</p>}
               </div>
 
               {/* moved: current tools from Section 3 */}
@@ -656,10 +750,14 @@ export default function ConsultationPage() {
                   <Input
                     placeholder="אחר (פרטו)"
                     value={formData.otherTool}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, otherTool: e.target.value })}
-                    className="border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      setFormData({ ...formData, otherTool: e.target.value })
+                      setErrors((prev) => ({ ...prev, currentTools: '' }))
+                    }}
+                    className={`border-slate-300 rounded-xl ${errors.currentTools ? 'border-red-500' : 'border-2 border-slate-300'} focus:ring-2 focus:ring-amber-500 focus:border-amber-500`}
                   />
                 </div>
+                {errors.currentTools && <p className="text-sm text-red-600 mt-2">{errors.currentTools}</p>}
               </div>
             </div>
           </CollapsibleSection>
@@ -674,7 +772,10 @@ export default function ConsultationPage() {
                 <Select
                   required
                   value={formData.aiExperience}
-                  onValueChange={(value: string) => setFormData({ ...formData, aiExperience: value })}
+                  onValueChange={(value: string) => {
+                    setFormData({ ...formData, aiExperience: value })
+                    setErrors((prev) => ({ ...prev, aiExperience: '' }))
+                  }}
                 >
                   <SelectTrigger className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
                     <SelectValue placeholder="בחרו תשובה" />
@@ -687,6 +788,7 @@ export default function ConsultationPage() {
                     ))}
                   </SelectContent>
                 </Select>
+                {errors.aiExperience && <p className="text-sm text-red-600 mt-2">{errors.aiExperience}</p>}
               </div>
 
               <div>
@@ -696,7 +798,10 @@ export default function ConsultationPage() {
                 <Select
                   required
                   value={formData.mainLimitation}
-                  onValueChange={(value: string) => setFormData({ ...formData, mainLimitation: value })}
+                  onValueChange={(value: string) => {
+                    setFormData({ ...formData, mainLimitation: value })
+                    setErrors((prev) => ({ ...prev, mainLimitation: '' }))
+                  }}
                 >
                   <SelectTrigger className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
                     <SelectValue placeholder="בחרו מגבלה" />
@@ -715,9 +820,13 @@ export default function ConsultationPage() {
                     <Input
                       placeholder="אחר (פרטו)"
                       value={formData.otherLimitation}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, otherLimitation: e.target.value })}
-                      className="border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        setFormData({ ...formData, otherLimitation: e.target.value })
+                        setErrors((prev) => ({ ...prev, otherLimitation: '' }))
+                      }}
+                      className={`border-slate-300 rounded-xl ${errors.otherLimitation ? 'border-red-500' : 'border-2 border-slate-300'} focus:ring-2 focus:ring-amber-500 focus:border-amber-500`}
                     />
+                    {errors.otherLimitation && <p className="text-sm text-red-600 mt-2">{errors.otherLimitation}</p>}
                   </div>
                 )}
               </div>
@@ -730,10 +839,14 @@ export default function ConsultationPage() {
                   id="goal"
                   required
                   value={formData.goal}
-                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData({ ...formData, goal: e.target.value })}
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                    setFormData({ ...formData, goal: e.target.value })
+                    setErrors((prev) => ({ ...prev, goal: '' }))
+                  }}
                   placeholder="אני רוצה לאוטומט מעקבי לקוחות, לא בטוח באיזה כלי להשתמש ומה העלות"
                   className="mt-2 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 min-h-25"
                 />
+                {errors.goal && <p className="text-sm text-red-600 mt-2">{errors.goal}</p>}
                 <p className="text-sm text-slate-500 mt-1">היו ספציפיים — זה עוזר לנו להתכונן ולבחור</p>
               </div>
 
