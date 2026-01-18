@@ -10,22 +10,22 @@ export function HeroSection() {
       קהילת AI לעסקים קטנים</h1>
         <h2 className="text-2xl sm:text-3xl font-bold  text-blue-600 mb-4">מתקדמים לבינה המלאכותית, בבטחון. ביחד.</h2>
         <p className="text-lg sm:text-xl text-slate-600 leading-relaxed mb-4 max-w-2xl mx-auto">
-          מתחילים בכלי הערכה חינמי →
+         ← מתחילים בכלי הערכה חינמי 
           <br />
-          מתחברים לקהילה תומכת AI לעסקים קטנים →
+          ← מתחברים לקהילה תומכת AI לעסקים קטנים 
           <br />
-          צומחים עם מגוון כלים ופתרונות →
+          ← צומחים עם מגוון כלים ופתרונות 
         </p>
 
         <Button
           asChild
           size="lg"
-          className="bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl shadow-lg hover:shadow-amber-500/25 transition-all text-lg px-8 py-6"
+          className="mt-5 bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl shadow-lg hover:shadow-amber-500/25 transition-all text-lg px-12 py-8"
         >
           <Link href="/simulator">התחל סימולטור</Link>
         </Button>
 
-        <div className="flex flex-wrap justify-center gap-6 mt-8 text-sm text-slate-600">
+        <div className="flex flex-wrap justify-center gap-5 mt-3 text-sm text-slate-600">
           <div className="flex items-center gap-2">
             <Check className="w-5 h-5  text-blue-600" />
             <span>ללא עלות</span>

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 
 export function ConsultationPreviewSection() {
   return (
-    <section id="consultation" className="bg-gray-50 pt-20 pb-12 md:pt-28 md:pb-16">
+    <section id="consultation" className="bg-gray-50 pt-16 pb-12 md:pt-24 md:pb-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12">
           <div className="text-center mb-10">
