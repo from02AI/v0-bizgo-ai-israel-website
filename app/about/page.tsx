@@ -5,178 +5,162 @@ import { Button } from "@/components/ui/button"
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" dir="rtl">
       <Header />
-      <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
-        {/* Hero */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-[#0b2e7b] mb-4">
-            לעסקים קטנים מגיעה גישה הוגנת ל־AI
-          </h1>
-          <p className="text-xl text-slate-600">BizgoAI Israel קיימת כדי להשוות את המגרש.</p>
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+        {/* Hero Section - Founder Introduction */}
+        <div className="text-center mb-20">
+          <div className="mb-8 flex justify-center">
+            <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-full overflow-hidden shadow-2xl ring-[#0b2e7b]">
+              <img
+                src="/images/founder.jpg"
+                alt="מייסדת BizgoAI"
+                className="object-cover w-full h-full"
+                loading="eager"
+              />
+            </div>
+          </div>
+         
+          <p className="text-2xl sm:text-2xl text-blue-600 font-bold max-w-2xl mx-auto leading-relaxed">
+            הקמתי את BizgoAI כדי לבנות גשרים בין עידן ה-AI <br />לבין המציאות של עסקים קטנים בישראל.
+          </p>
         </div>
 
-        {/* Section 1 */}
+        {/* Personal Journey */}
         <section className="mb-16">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-blue-600 mb-6">פער ה־AI רק גדל</h2>
-          <div className="prose prose-lg text-slate-600 leading-relaxed space-y-4">
-            <p>בישראל יש כ־560,000 עסקים קטנים ובינוניים. הם עמוד השדרה של הכלכלה.</p>
-            <p>אבל כשזה מגיע ל־AI, עסקים קטנים טובעים:</p>
-              <ul className="list-disc list-inside space-y-1">
-              <li>62% חסרים מומחיות להעריך כלים</li>
-              <li>74% מההטמעות שמתחילות מכלי — נכשלות</li>
-              <li>37% חסרי זמן לחקור פתרונות</li>
-              <li>34% לא רואים חסכון ברור</li>
-            </ul>
-            <p>
-              בינתיים, ארגונים גדולים מדרגים AI בהצלחה. יש להם: צוותי IT ייעודיים, תקציבים לניסוי ולכישלון, זמן ומשאבים
-              ליישום נכון, גישה ליועצים מומחים.
-            </p>
-            <p className="font-semibold text-[#0b2e7b]">התוצאה? עסקים קטנים נשארים מאחור. כל יום.</p>
-          </div>
-        </section>
-
-        {/* Section 2 */}
-        <section className="mb-16">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-blue-600 mb-6">זה לא רק טכנולוגיה</h2>
-          <div className="prose prose-lg text-slate-600 leading-relaxed space-y-4">
-            <p>
-              כשעסקים קטנים לא מאמצים AI, הם לא רק מפספסים יעילות — הם מפסידים ביתרון התחרותי. הפער בין מי שמשתמש ב־AI
-              לבין מי שלא — רק גדל.
-            </p>
-            <p>ההשפעות מצטברות: עסקים שמתחילים היום עם AI יהיו שנים קדימה בעוד שנתיים. אלה שמחכים — ירדפו אחרי.</p>
-          </div>
-        </section>
-
-        {/* Section 3 */}
-        <section className="mb-16">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-blue-600 mb-6">בוחרים דרך אחרת</h2>
-          <p className="text-lg text-slate-600 mb-6">
-            BizgoAI Israel היא לא עוד ספקית כלי AI. אנחנו פלטפורמה שמתחילה בקהילה — על ידי עסקים קטנים, בשביל עסקים
-            קטנים.
-          </p>
-
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-xl font-bold text-[#0b2e7b] mb-3">1. מתחילים בהערכה (לא במכירה)</h3>
-              <p className="text-slate-600 leading-relaxed">
-                לפני שמציעים כלים, אנחנו עוזרים לכם להבין אם AI בכלל מתאים למשימה שלכם. הסימולטור שלנו מזהה הזדמנויות,
-                בודק מוכנות, ומחשב חסכון ריאלי — כולל עלויות נסתרות.
+          <div className="rounded-3xl p-8 sm:p-10 shadow-sm">
+            <h2 className="text-2xl sm:text-3xl font-bold text-blue-600 mb-6">למה AI? </h2>
+            <div className="prose prose-lg max-w-none text-slate-700 leading-relaxed space-y-4">
+              <p>
+              שמי שני כרמי רדושיצקי, רואת חשבון בהכשרתי ובמשך 15 שנים יזמתי פרויקטים וניהלתי בתפקידי אופרציה וכספים במגוון ארגונים (עסקים קטנים, חברות, עמותות, קואופרטיבים) ותחומים: הייטק, חינוך, בנקאות ועוד.
               </p>
-            </div>
+              <p className=" text-slate-700">
+                  <span className="font-bold text-[#0b2e7b]">בתחילת שנת 2025 "נפלה עלי ההבנה" ש-AI הולך לשנות הכל <br />תחום העיסוק, התפקידים, העבודה השוטפת...ישתנו או ייעלמו. </span> <br /> <br />
+                  מהר מאוד הבנתי עד כמה העולם הזה עצום.
+                  בעיקר חדש ושונה מכל מה שהכרנו עד היום — ואנחנו רק בהתחלה.
+                  הרשתות החברתיות מגבירות את הרעש וכמויות התוכן (עם הרבה פייק) <br />
+                  הרבה הבטחות שקשה להבחין בין מה שעובד לבין מה שמצולם טוב<div className="br"></div>אפשר בקלות ללכת לאיבוד<div className="br"></div>
 
-            <div>
-              <h3 className="text-xl font-bold text-[#0b2e7b] mb-3">2. לומדים מעמיתים (לא מספקים)</h3>
-              <p className="text-slate-600 leading-relaxed">
-                הקהילה שלנו מבוססת על ניסיון אמיתי. בעלי עסקים משתפים מה עבד, מה נכשל, וכמה באמת עלה. בלי שיווק מנופח,
-                בלי הבטחות ריקות.
+והלחץ "להתקדם ל-AI" רק עולה.
               </p>
-            </div>
-
-            <div>
-              <h3 className="text-xl font-bold text-[#0b2e7b] mb-3">3. בונים ביחד (לא מלמעלה)</h3>
-              <p className="text-slate-600 leading-relaxed">
-                הכלים והפתרונות של BizgoAI Israel נבנים בתגובה לצרכים אמיתיים של הקהילה. אתם אומרים מה אתם צריכים —
-                ואנחנו בונים את זה ביחד.
+              <p>
+                <span className="font-bold text-blue-600">מאז אני ממשיכה לחקור, לומדת, מעמיקה ומתמקדת בבניית פתרונות ומוצרים דיגיטליים עם AI.</span>
               </p>
             </div>
           </div>
         </section>
 
-        {/* Section 4 */}
+     
+
+        {/* The Real Gap */}
         <section className="mb-16">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-blue-600 mb-6">
-            מגובה מחקר, מונע נתונים, נטול הטיות
-          </h2>
+          <div className="rounded-3xl p-8 sm:p-10 text-slate-700 shadow-sm">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-blue-600">למה עסקים קטנים?</h2>
+            <div className="prose prose-lg max-w-none text-slate-700 leading-relaxed space-y-4">
+              <p>
+                הפער האמיתי הוא <span>לא מחסור בכלים</span> — אלא מחסור באמון:
+              </p>
 
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-xl font-bold text-[#0b2e7b] mb-3">ראיות — לא דעות</h3>
-              <p className="text-slate-600 leading-relaxed">
-                כל הנתונים והמחקרים שאנחנו מציגים מגיעים ממקורות מאומתים. אנחנו לא ממציאים סטטיסטיקות — אנחנו מצטטים
-                מחקרים אמיתיים.
+              <ul className="m-0 list-inside space-y-1">
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#0b2e7b] text-xl font-bold">•</span>
+                    <span className="font-semibold text-[#0b2e7b]">?מאיפה להתחיל</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#0b2e7b] text-xl font-bold">•</span>
+                    <span className="font-semibold text-[#0b2e7b]">במה AI יכול לעזור בעסק?</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#0b2e7b] text-xl font-bold">•</span>
+                    <span className="font-semibold text-[#0b2e7b]">מה מתאים לעסק שלי?</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#0b2e7b] text-xl font-bold">•</span>
+                    <span className="font-semibold text-[#0b2e7b]">על מה אפשר לסמוך?</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#0b2e7b] text-xl font-bold">•</span>
+                    <span className="font-semibold text-[#0b2e7b]">ממה כדאי להיזהר?</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#0b2e7b] text-xl font-bold">•</span>
+                    <span className="font-semibold text-[#0b2e7b]">מיוחד לישראל: איך להסתדר בתחום שעדיין לא מונגש טוב לעברית?</span>
+                  </li>
+              </ul>
+
+              <div className="mt-4 pt-2">
+                <ul className="m-0 list-inside space-y-1">
+                  
+                </ul>
+                <p>
+                  <span className=" font-bold text-blue-600">לעסקים קטנים יש יכולת נמוכה להשקיע משאבי זמן, תקציב וידע טכנולוגיים נדרשים <br />כדי לנווט בעולם החדש של AI - ואז הכאוס הופך לסיכון ממשי
+.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Title for the Solution cards (not in a card) */}
+        <section className="mb-8 text-center mt-24">
+          <h2 className="text-3xl sm:text-4xl font-black text-[#0b2e7b] mb-3">BizgoAI נבנית בדיוק עבור זה</h2>
+          <p className="text-lg sm:text-xl text-slate-700">לבנות גשרים. לחבר בין אנשים. ולצמוח ביחד.</p>
+        </section>
+
+      
+        
+        {/* Moved: The Solution cards */}
+        <section className="mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+            <div className="bg-white rounded-2xl p-6 border-r-4 border-blue-600 shadow-sm flex flex-col items-start justify-center min-h-[120px]">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-2xl">👥</span>
+                <h3 className="text-lg font-bold text-[#0b2e7b]">קהילה</h3>
+              </div>
+              <p className="text-slate-700 text-sm">
+                קהילה של עסקים קטנים בישראל לשיתוף, תמיכה וצמיחה משותפת.
               </p>
             </div>
 
-            <div>
-              <h3 className="text-xl font-bold text-[#0b2e7b] mb-3">שקיפות — לא אינטרסים חבויים</h3>
-              <p className="text-slate-600 leading-relaxed">
-                כשאנחנו ממליצים על כלי, אנחנו אומרים למה. אם יש לנו שותפות עם ספק — תדעו. המטרה שלנו היא שתקבלו את
-                ההחלטה הטובה ביותר עבורכם.
+            <div className="bg-white rounded-2xl p-6 border-r-4 border-blue-600 shadow-sm flex flex-col items-start justify-center min-h-[120px]">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-2xl">📚</span>
+                <h3 className="text-lg font-bold text-[#0b2e7b]">מאגר ידע בעברית</h3>
+              </div>
+              <p className="text-slate-700 text-sm">
+                מה עובד לעסקים קטנים, מה הצרכים בפועל, ואילו פתרונות באמת מתאימים.
               </p>
             </div>
 
-            <div>
-              <h3 className="text-xl font-bold text-[#0b2e7b] mb-3">ולידציה קהילתית — לא הבטחות ספקים</h3>
-              <p className="text-slate-600 leading-relaxed">
-                לפני שכלי נכנס להמלצות שלנו, הוא עובר בדיקה של בעלי עסקים אמיתיים. לא מספיק שהספק מבטיח — צריך שמישהו
-                מהקהילה ישתמש ויאשר.
+            <div className="bg-white rounded-2xl p-6 border-r-4 border-blue-600 shadow-sm flex flex-col items-start justify-center min-h-[120px]">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-2xl">🛠️</span>
+                <h3 className="text-lg font-bold text-[#0b2e7b]">פתרונות וכלים </h3>
+              </div>
+              <p className="text-slate-700 text-sm">
+                שמאפשרים להעביר את הידע הזה מהר ובקלות — להרבה אנשים.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Section 5 */}
-        <section className="mb-16">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-blue-600 mb-6">נבנה על ידי מי שמבין את השטח</h2>
-          <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
-            <p className="text-slate-500 italic text-center">סיפור המייסד יתווסף כאן</p>
-          </div>
-        </section>
-
-        {/* Section 6 */}
-        <section className="mb-16">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-blue-600 mb-6">לאן אנחנו הולכים</h2>
-
-          <div className="space-y-6">
-            <div className="bg-white rounded-xl border border-slate-200 p-6">
-              <h3 className="text-lg font-bold text-[#0b2e7b] mb-2">שלב 1: תשתית קהילה (עכשיו)</h3>
-              <p className="text-slate-600">
-                בניית הקהילה, כלי ההערכה החינמיים, והייעוץ הראשוני. המטרה: להוכיח ערך ולבנות אמון.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl border border-slate-200 p-6">
-              <h3 className="text-lg font-bold text-[#0b2e7b] mb-2">שלב 2: כלים מונעי־קהילה (6–12 חודשים)</h3>
-              <p className="text-slate-600">
-                פיתוח כלים וטמפלטים מבוססי הצרכים שעולים מהקהילה. שותפויות עם ספקי AI שעומדים בסטנדרטים שלנו.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl border border-slate-200 p-6">
-              <h3 className="text-lg font-bold text-[#0b2e7b] mb-2">שלב 3: צמיחת האקוסיסטם (12+ חודשים)</h3>
-              <p className="text-slate-600">
-                הרחבה לתעשיות ספציפיות, תוכניות הכשרה, ושותפויות אסטרטגיות עם ארגוני עסקים קטנים.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Final CTA */}
-        <section className="text-center bg-linear-to-br from-blue-50 to-white rounded-3xl p-8 border border-blue-100">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-blue-600 mb-4">להיות חלק מהפתרון</h2>
-          <p className="text-lg text-slate-600 mb-8 max-w-xl mx-auto">
-            לעסקים קטנים בישראל מגיע יותר משיווק מנופח וכלים שלא עובדים. ביחד — בונים דרך טובה יותר.
+{/* Final CTA */}
+        <section className="text-center bg-blue-600 rounded-3xl p-10 border-2 shadow-lg">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">בואו נצא למסע הזה ביחד</h2>
+          <p className="text-lg text-white mb-8 max-w-2xl mx-auto leading-relaxed">
+            אם אתם עסק קטן בישראל שרוצה להתקדם ל-AI בבטחון — אתם במקום הנכון.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               asChild
-              className="bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl px-8 py-6"
+              className="bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl px-8 py-6 shadow-lg hover:shadow-xl transition-all"
             >
-              <Link href="/simulator">סימולטור</Link>
+              <Link href="/simulator">הצטרפו לקהילת AI לעסקים קטנים </Link>
             </Button>
-            <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl px-8 py-6">
-              <Link href="/consultation">ייעוץ חינם</Link>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              className="border-green-600 text-green-600 hover:bg-green-50 font-bold rounded-xl px-8 py-6 bg-transparent"
-            >
-              <a href="#">WhatsApp</a>
-            </Button>
+            
           </div>
         </section>
+
       </main>
       <Footer />
     </div>
