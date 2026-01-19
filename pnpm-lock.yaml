@@ -96,8 +96,8 @@ importers:
         specifier: ^4.3.2
         version: 4.3.2(react@19.2.0)
       '@sparticuz/chromium':
-        specifier: ^131.0.0
-        version: 131.0.1
+        specifier: 133.0.0
+        version: 133.0.0
       '@supabase/supabase-js':
         specifier: ^2.90.1
         version: 2.90.1
@@ -1956,8 +1956,8 @@ packages:
   '@sinonjs/fake-timers@13.0.5':
     resolution: {integrity: sha512-36/hTbH2uaWuGVERyC6da9YwGWnzUZXuPro/F2LfsdOsLnCojz/iSH8MxUt/FD2S5XBSVPhmArFUXcpCQ2Hkiw==}
 
-  '@sparticuz/chromium@131.0.1':
-    resolution: {integrity: sha512-VfmHkQmb/Px0zjwdSQwjRMwFw63Qfj+g4Giumz4jiAGEpXHgIZk6xEwlUz6yiUHVDveK2TEgMR2MR6I3okOE7w==}
+  '@sparticuz/chromium@133.0.0':
+    resolution: {integrity: sha512-wioNxMtSxRI+Y6ymc/UFPX9lY7A1SDgBezjFITH6arwe5CONfWosNDGpgflUGYajxxGktb1k3kjJ83jWzbccBw==}
     engines: {node: '>= 16'}
 
   '@stablelib/base64@1.0.1':
@@ -5687,7 +5687,7 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.1
 
-  '@sparticuz/chromium@131.0.1':
+  '@sparticuz/chromium@133.0.0':
     dependencies:
       follow-redirects: 1.15.11
       tar-fs: 3.1.1
