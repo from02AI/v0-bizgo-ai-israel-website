@@ -11,8 +11,6 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
   console.warn("Supabase env vars not set: SUPABASE_URL or SUPABASE_SERVICE_KEY")
 }
 
-const supabase = createClient(SUPABASE_URL || "", SUPABASE_SERVICE_KEY || "")
-
 export async function POST(request: NextRequest) {
   if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
     return NextResponse.json({ error: "Server not configured for Supabase" }, { status: 500 })
@@ -31,6 +29,8 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    const supabase = createClient(SUPABASE_URL || "", SUPABASE_SERVICE_KEY || "")
+
     const { data, error } = await supabase
       .from('simulator_reports')
       .update({ user_email })

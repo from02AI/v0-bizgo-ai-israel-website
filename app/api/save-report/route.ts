@@ -15,8 +15,6 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
   console.warn("Supabase env vars not set: SUPABASE_URL or SUPABASE_SERVICE_KEY")
 }
 
-const supabase = createClient(SUPABASE_URL || "", SUPABASE_SERVICE_KEY || "")
-
 function mapNumeric(v: unknown) {
   if (v === undefined || v === null) return null
   const n = Number(v)
@@ -95,6 +93,9 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    // create supabase client at runtime
+    const supabase = createClient(SUPABASE_URL || "", SUPABASE_SERVICE_KEY || "")
+
     const { data, error } = await supabase
       .from('simulator_reports')
       .insert([record])
