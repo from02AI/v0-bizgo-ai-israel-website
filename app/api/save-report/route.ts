@@ -110,8 +110,16 @@ export async function POST(request: NextRequest) {
     // Attempt to send welcome email with PDF when an email was provided
     let emailSent = false
     const recipient = user_email || null
+    
+    console.log('[DEBUG] Email send check:', {
+      hasRecipient: !!recipient,
+      recipient,
+      hasResendKey: !!process.env.RESEND_API_KEY,
+      resendKeyPrefix: process.env.RESEND_API_KEY?.substring(0, 8)
+    })
 
     if (recipient && process.env.RESEND_API_KEY) {
+      console.log('[DEBUG] Starting email send...')
       try {
         const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -150,15 +158,18 @@ export async function POST(request: NextRequest) {
           })
 
           emailSent = true
+          console.log('[DEBUG] Email sent successfully!')
         } finally {
           if (browser) {
             try { await browser.close() } catch (err) { console.warn('Failed closing browser after send', err) }
           }
         }
       } catch (err) {
-        console.error('Failed sending welcome email with PDF', err)
+        console.error('[ERROR] Failed sending welcome email with PDF', err)
         // Don't fail the request because of email issues
       }
+    } else {
+      console.log('[DEBUG] Skipped email send - recipient or API key missing')
     }
 
     return NextResponse.json({ id: data.id, emailSent }, { status: 201 })
