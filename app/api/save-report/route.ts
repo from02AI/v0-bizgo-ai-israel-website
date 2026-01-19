@@ -141,17 +141,22 @@ export async function POST(request: NextRequest) {
           const page = await browser.newPage()
           await page.setContent(html, { waitUntil: 'networkidle0' })
 
-          const pdfBuffer = await page.pdf({
+          const pdfUint8Array = await page.pdf({
             format: 'A4',
             printBackground: true,
             margin: { top: '20mm', bottom: '20mm', left: '15mm', right: '15mm' },
           })
 
+          // CRITICAL FIX: page.pdf() returns Uint8Array, NOT Buffer!
+          // Must explicitly wrap with Buffer.from() for correct base64 encoding
+          const pdfBuffer = Buffer.from(pdfUint8Array)
+
           console.log('[DEBUG] PDF generated, size:', pdfBuffer.length, 'bytes')
-          console.log('[DEBUG] PDF Buffer is valid:', Buffer.isBuffer(pdfBuffer))
+          console.log('[DEBUG] Is Uint8Array:', pdfUint8Array instanceof Uint8Array)
+          console.log('[DEBUG] Is Buffer after wrap:', Buffer.isBuffer(pdfBuffer))
           console.log('[DEBUG] PDF first 20 bytes:', pdfBuffer.slice(0, 20).toString('hex'))
 
-          // CRITICAL FIX: Convert to base64 ONCE and log details
+          // Now base64 encoding will work correctly
           const base64Content = pdfBuffer.toString('base64')
           console.log('[DEBUG] Base64 length:', base64Content.length, 'bytes')
           console.log('[DEBUG] Base64 first 50 chars:', base64Content.substring(0, 50))
