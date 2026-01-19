@@ -5,8 +5,17 @@ import puppeteer from 'puppeteer-core'
 import chromium from '@sparticuz/chromium'
 import { buildPdfHtml } from '@/lib/pdf-template'
 
+// Debug: log when module is loaded (helps validate that the route is deployed and imports run on cold start)
+console.log('[UPDATE-REPORT] Module loaded. SUPABASE_URL present:', !!process.env.SUPABASE_URL, 'RESEND_API_KEY present:', !!process.env.RESEND_API_KEY)
+
 export const runtime = "nodejs"
 export const dynamic = "force-dynamic"
+
+// Simple GET handler to confirm route is reachable
+export async function GET() {
+  console.log('[UPDATE-REPORT] GET ping received')
+  return NextResponse.json({ ok: true })
+}
 
 const SUPABASE_URL = process.env.SUPABASE_URL
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY
