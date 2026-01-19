@@ -203,6 +203,7 @@ export async function POST(request: NextRequest) {
               {
                 filename: `BizgoAI-Report-${id}.pdf`,
                 content: pdfBuffer.toString('base64'),
+                contentType: 'application/pdf',
               },
             ],
           })
