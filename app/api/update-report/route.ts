@@ -143,31 +143,55 @@ export async function POST(request: NextRequest) {
           await resend.emails.send({
             from: process.env.RESEND_FROM || 'BizgoAI Israel <onboarding@resend.dev>',
             to: [user_email],
-            subject: 'ðŸš€ ×"×•×— ×"×›× ×•×ª AI ×©×œ×š - BizgoAI Israel',
-            html: `
-              <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-                <h1 style="color: #0b2e7b;">×©×œ×•×!</h1>
-                <p style="font-size: 16px; line-height: 1.6;">
-                  ×ž×¦×•×¨×£ ×"×•×— ×"×"×›× ×•×ª ×©×œ×š ×œ-AI, ×›×•×œ×œ:
-                </p>
-                <ul style="font-size: 14px; line-height: 1.8;">
-                  <li>× ×™×§×•×" ×"×ª××ž×ª ×"×ž×©×™×ž×" ×œ-AI</li>
-                  <li>×"×¢×¨×›×ª ×'×˜×™×—×•×ª AI</li>
-                  <li>×—×™×©×•×' ROI ×•×"×—×–×¨ ×"×©×§×¢×"</li>
-                </ul>
-                <p style="font-size: 16px; line-height: 1.6;">
-                  × ×™×ª×Ÿ ×œ×¤×ª×•×— ××ª ×"×§×•×'×¥ ×"×ž×¦×•×¨×£ ×•×œ×¢×™×™×Ÿ ×'× ×•×—×•×ª.
-                </p>
-                <p style="font-size: 14px; color: #666;">
-                  ×'×'×¨×›×",<br />
-                  ×¦×•×•×ª BizgoAI Israel
-                </p>
-              </div>
-            `,
+            subject: 'דוח הערכת מוכנות AI שלך - BizgoAI Israel',
+            html: `<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;">
+  <div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <div style="background: linear-gradient(135deg, #0b2e7b 0%, #1a4ba8 100%); padding: 30px; text-align: center;">
+      <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: bold;">BizgoAI Israel</h1>
+      <p style="color: #e0e7ff; margin: 10px 0 0 0; font-size: 14px;">פלטפורמת הערכת מוכנות AI</p>
+    </div>
+    <div style="padding: 40px 30px;">
+      <h2 style="color: #0b2e7b; font-size: 22px; margin: 0 0 20px 0;">שלום!</h2>
+      <p style="color: #333333; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
+        תודה שהשתמשת בסימולטור ההערכה שלנו! מצורף דוח מפורט עם תוצאות הניתוח שלך.
+      </p>
+      <div style="background-color: #f8f9fa; border-right: 4px solid #0b2e7b; padding: 20px; margin: 20px 0; border-radius: 4px;">
+        <h3 style="color: #0b2e7b; font-size: 18px; margin: 0 0 15px 0;">הדוח כולל:</h3>
+        <ul style="color: #555555; font-size: 15px; line-height: 1.8; margin: 0; padding: 0 20px 0 0; list-style-position: inside;">
+          <li>ניקוד התאמת המשימה לבינה מלאכותית</li>
+          <li>הערכת בטיחות ואבטחת מידע</li>
+          <li>חישוב ROI והחזר השקעה צפוי</li>
+          <li>המלצות מותאמות אישית</li>
+        </ul>
+      </div>
+      <p style="color: #333333; font-size: 16px; line-height: 1.6; margin: 20px 0;">
+        ניתן לפתוח את הקובץ המצורף ולעיין בניתוח המפורט.
+      </p>
+      <div style="background-color: #e8f4f8; border-radius: 6px; padding: 20px; margin: 30px 0; text-align: center;">
+        <p style="color: #0b2e7b; font-size: 15px; margin: 0; font-weight: 600;">💡 זקוקים לייעוץ נוסף?</p>
+        <p style="color: #555555; font-size: 14px; margin: 10px 0 0 0;">אנחנו כאן כדי לעזור לכם ליישם AI בצורה הטובה ביותר</p>
+      </div>
+      <p style="color: #666666; font-size: 14px; line-height: 1.6; margin: 30px 0 0 0;">
+        בברכה,<br/>
+        <strong style="color: #0b2e7b;">צוות BizgoAI Israel</strong>
+      </p>
+    </div>
+    <div style="background-color: #f8f9fa; padding: 20px 30px; text-align: center; border-top: 1px solid #e0e0e0;">
+      <p style="color: #999999; font-size: 12px; margin: 0;">© 2026 BizgoAI Israel. כל הזכויות שמורות.</p>
+    </div>
+  </div>
+</body>
+</html>`,
             attachments: [
               {
                 filename: `BizgoAI-Report-${id}.pdf`,
-                content: pdfBuffer,
+                content: pdfBuffer.toString('base64'),
               },
             ],
           })
