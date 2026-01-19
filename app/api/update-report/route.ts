@@ -81,40 +81,47 @@ export async function POST(request: NextRequest) {
       try {
         const resend = new Resend(process.env.RESEND_API_KEY)
 
+        // Build payload with CORRECT fields that match pdf-template.ts interfaces
         const payload = {
-          user_email: data.user_email,
           tool1Data: {
             taskName: data.tool1_task_name,
-            q1: data.tool1_q1,
-            q2: data.tool1_q2,
-            q3: data.tool1_q3,
-            q4: data.tool1_q4,
-            q5: data.tool1_q5,
-            q6: data.tool1_q6,
+            taskTypeLabel: data.tool1_task_type_label,
+            repetitivenessLabel: data.tool1_repetitiveness_label,
+            documentationLabel: data.tool1_documentation_label,
             score: data.tool1_score,
-            level: data.tool1_level,
-            color: data.tool1_color,
+            fitLabel: data.tool1_fit_label,
           },
           tool2Data: {
-            hasDataPolicy: data.tool2_has_data_policy,
-            hasAiGovernance: data.tool2_has_ai_governance,
-            hasRiskFramework: data.tool2_has_risk_framework,
-            hasIncidentPlan: data.tool2_has_incident_plan,
-            hasExternalAudit: data.tool2_has_external_audit,
-            score: data.tool2_score,
-            level: data.tool2_level,
-            color: data.tool2_color,
+            safetyScore: data.tool2_safety_score,
+            status: data.tool2_status,
+            safetyLabel: data.tool2_safety_label,
+            backupsLabel: data.tool2_backups_label,
+            errorDetectionLabel: data.tool2_error_detection_label,
+            errorConsequenceLabel: data.tool2_error_consequence_label,
+            capacityLabel: data.tool2_capacity_label,
+            weightedRisk: data.tool2_weighted_risk,
           },
           tool3Data: {
             hoursPerWeek: data.tool3_hours_per_week,
+            numEmployees: data.tool3_num_employees,
             hourlyRate: data.tool3_hourly_rate,
-            automationPercentage: data.tool3_automation_percentage,
-            toolCostPerMonth: data.tool3_tool_cost_per_month,
-            monthlySavings: data.tool3_monthly_savings,
-            roi: data.tool3_roi,
+            sixMonthTotal: data.tool3_six_month_total,
+            breakEvenMonth: data.tool3_break_even_month,
+            monthlyBudgetUsed: data.tool3_monthly_budget_used,
+            implementationProfileLabel: data.tool3_implementation_profile_label,
+            learningHours: data.tool3_learning_hours,
+            technicalComfortLabel: data.tool3_technical_comfort_label,
+            recommendedTier: data.tool3_recommended_tier,
+            budgetMin: data.tool3_budget_min,
+            budgetMax: data.tool3_budget_max,
+            riskAdjusted: data.tool3_risk_adjusted,
+            monthlyBreakdown: data.tool3_monthly_breakdown,
           },
         }
 
+        console.log('[UPDATE-REPORT] Payload built with correct fields')
+        console.log('[UPDATE-REPORT] Tool1 taskName:', payload.tool1Data.taskName)
+        console.log('[UPDATE-REPORT] Tool1 score:', payload.tool1Data.score)
         console.log('[UPDATE-REPORT] Building HTML template')
         const html = buildPdfHtml(payload)
 
