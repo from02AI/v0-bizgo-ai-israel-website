@@ -131,7 +131,8 @@ export async function POST(request: NextRequest) {
         console.log('[CONSULTATION] Starting email send process to:', data.email)
         
         const resend = new Resend(process.env.RESEND_API_KEY)
-        const fromAddress = process.env.RESEND_FROM || 'BizgoAI Israel <reports@bizgoai.co.il>'
+        // CRITICAL: Use onboarding@resend.dev (verified domain) until bizgoai.co.il is verified in Resend
+        const fromAddress = process.env.RESEND_FROM || 'BizgoAI Israel <onboarding@resend.dev>'
         
         console.log('[CONSULTATION] Email from address:', fromAddress)
         
@@ -278,10 +279,22 @@ export async function POST(request: NextRequest) {
     console.log('[CONSULTATION] Final email status:', { emailSent, hasError: !!emailError })
     console.log('[CONSULTATION] Returning success response with ID:', data.id)
 
+    // Serialize error properly for JSON response
+    let errorMessage: string | undefined = undefined
+    if (emailError) {
+      if (typeof emailError === 'string') {
+        errorMessage = emailError
+      } else if (emailError.message) {
+        errorMessage = emailError.message
+      } else {
+        errorMessage = JSON.stringify(emailError)
+      }
+    }
+
     return NextResponse.json({ 
       id: data.id,
       emailSent,
-      emailError: emailError ? String(emailError) : undefined
+      emailError: errorMessage
     }, { status: 201 })
   } catch (err: any) {
     console.error('[CONSULTATION] Unexpected save error:', err)
