@@ -7,7 +7,7 @@ export function HeroSection() {
     <section className="bg-linear-to-b from-neutral-50 to-white py-16 md:py-24">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight text-[#0b2e7b] mb-6 text-balance">
-      קהילת AI לעסקים קטנים</h1>
+     BizGoAI לעסקים קטנים</h1>
         <h2 className="text-2xl sm:text-3xl font-bold  text-blue-600 mb-4">מתקדמים לבינה המלאכותית, בבטחון. ביחד.</h2>
         <p className="text-lg sm:text-xl text-slate-600 leading-relaxed mb-4 max-w-2xl mx-auto">
          ← מתחילים בכלי הערכה חינמי 

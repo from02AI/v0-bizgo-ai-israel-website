@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@supabase/supabase-js"
+import { Resend } from 'resend'
 
 export const runtime = "nodejs"
 export const dynamic = "force-dynamic"
@@ -90,7 +91,7 @@ export async function POST(request: NextRequest) {
     const { data, error } = await supabase
       .from('consultation_requests')
       .insert([record])
-      .select('id')
+      .select('id, email, full_name')
       .single()
 
     console.log('Supabase insert response', { data, error })
@@ -99,6 +100,29 @@ export async function POST(request: NextRequest) {
       console.error('Supabase insert error', error)
       return NextResponse.json({ error: 'Failed to save consultation request', detail: error.message }, { status: 500 })
     }
+
+    // Send a simple welcome/confirmation email (non-blocking to client success)
+    (async () => {
+      try {
+        if (data?.email && process.env.RESEND_API_KEY) {
+          const resend = new Resend(process.env.RESEND_API_KEY)
+          const fromAddress = process.env.RESEND_FROM || 'BizgoAI Israel <reports@bizgoai.co.il>'
+          const html = `<!doctype html><html lang="he" dir="rtl"><body><div style="font-family: Arial, Helvetica, sans-serif; direction: rtl;">` +
+            `<h2>תודה על פנייתך, ${data.full_name || ''}</h2>` +
+            `<p>קיבלנו את בקשת הייעוץ שלך. צוות BizgoAI יחזור אליך בהקדם לתיאום שיחה.</p>` +
+            `<p>בברכה,<br/>צוות BizgoAI Israel</p></div></body></html>`
+
+          await resend.emails.send({
+            from: fromAddress,
+            to: data.email,
+            subject: 'אישור קבלת בקשת ייעוץ — BizgoAI Israel',
+            html,
+          })
+        }
+      } catch (err) {
+        console.error('Failed sending consultation email', err)
+      }
+    })()
 
     return NextResponse.json({ id: data.id }, { status: 201 })
   } catch (err: any) {

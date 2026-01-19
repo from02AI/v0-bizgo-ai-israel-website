@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@supabase/supabase-js"
+import { Resend } from 'resend'
+import puppeteer from 'puppeteer'
+import { buildPdfHtml } from '@/lib/pdf-template'
 
 export const runtime = "nodejs"
 export const dynamic = "force-dynamic"
@@ -103,7 +106,61 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to save report', detail: error.message }, { status: 500 })
     }
 
-    return NextResponse.json({ id: data.id }, { status: 201 })
+    // Attempt to send welcome email with PDF when an email was provided
+    let emailSent = false
+    const recipient = user_email || null
+
+    if (recipient && process.env.RESEND_API_KEY) {
+      try {
+        const resend = new Resend(process.env.RESEND_API_KEY)
+
+        // Build HTML and render PDF via puppeteer (same settings as /api/generate-pdf)
+        const html = buildPdfHtml({ tool1Data, tool2Data, tool3Data })
+        let browser = null
+        try {
+          browser = await puppeteer.launch({
+            headless: true,
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+          })
+
+          const page = await browser.newPage()
+          await page.setContent(html, { waitUntil: 'networkidle0' })
+
+          const pdfBuffer = await page.pdf({
+            format: 'A4',
+            printBackground: true,
+            margin: { top: '20mm', bottom: '20mm', left: '15mm', right: '15mm' },
+          })
+
+          const fromAddress = process.env.RESEND_FROM || 'BizgoAI Israel <reports@bizgoai.co.il>'
+          const subject = `דוח הערכת מוכנות AI: ${record.tool1_task_name ?? 'דוח'}`
+
+          await resend.emails.send({
+            from: fromAddress,
+            to: recipient,
+            subject,
+            html: `<!doctype html><html lang="he" dir="rtl"><body><p>שלום,</p><p>צרפנו את דוח ההערכה שלך כקובץ PDF.</p></body></html>`,
+            attachments: [
+              {
+                filename: `AI-Readiness-Report-${(record.tool1_task_name || 'report').toString().replace(/[^a-z0-9]/gi, '-')}.pdf`,
+                content: pdfBuffer,
+              },
+            ],
+          })
+
+          emailSent = true
+        } finally {
+          if (browser) {
+            try { await browser.close() } catch (err) { console.warn('Failed closing browser after send', err) }
+          }
+        }
+      } catch (err) {
+        console.error('Failed sending welcome email with PDF', err)
+        // Don't fail the request because of email issues
+      }
+    }
+
+    return NextResponse.json({ id: data.id, emailSent }, { status: 201 })
   } catch (err: any) {
     console.error('Unexpected save error', err)
     return NextResponse.json({ error: 'Unexpected server error' }, { status: 500 })
