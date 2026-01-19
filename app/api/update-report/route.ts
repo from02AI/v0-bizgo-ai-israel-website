@@ -15,19 +15,28 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
 }
 
 export async function POST(request: NextRequest) {
+  console.log('[UPDATE-REPORT] ========== REQUEST RECEIVED ==========')
+  console.log('[UPDATE-REPORT] Timestamp:', new Date().toISOString())
+  
   if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
+    console.log('[UPDATE-REPORT] ERROR: Supabase env vars not set')
     return NextResponse.json({ error: "Server not configured for Supabase" }, { status: 500 })
   }
 
   let body: any
   try {
     body = await request.json()
+    console.log('[UPDATE-REPORT] Received body:', JSON.stringify(body, null, 2))
   } catch (err) {
+    console.log('[UPDATE-REPORT] ERROR: Invalid JSON')
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 })
   }
 
   const { id, user_email } = body || {}
+  console.log('[UPDATE-REPORT] Extracted values:', { id, user_email, hasId: !!id, hasEmail: !!user_email })
+  
   if (!id || !user_email) {
+    console.log('[UPDATE-REPORT] ERROR: Missing id or user_email')
     return NextResponse.json({ error: "Missing id or user_email" }, { status: 400 })
   }
 
@@ -49,8 +58,15 @@ export async function POST(request: NextRequest) {
 
     // Send email with PDF if email was provided and API key is set
     let emailSent = false
+    console.log('[UPDATE-REPORT] Checking email send conditions:', { 
+      hasEmail: !!user_email, 
+      email: user_email,
+      hasResendKey: !!process.env.RESEND_API_KEY,
+      resendKeyPrefix: process.env.RESEND_API_KEY?.substring(0, 8)
+    })
+    
     if (user_email && process.env.RESEND_API_KEY) {
-      console.log('[DEBUG update-report] Sending email to:', user_email)
+      console.log('[UPDATE-REPORT] Sending email to:', user_email)
       try {
         const resend = new Resend(process.env.RESEND_API_KEY)
         
@@ -134,19 +150,20 @@ export async function POST(request: NextRequest) {
           })
 
           emailSent = true
-          console.log('[DEBUG update-report] Email sent successfully!')
+          console.log('[UPDATE-REPORT] Email sent successfully!')
         } finally {
           if (browser) {
-            try { await browser.close() } catch (err) { console.warn('Failed closing browser', err) }
+            try { await browser.close() } catch (err) { console.warn('[UPDATE-REPORT] Failed closing browser', err) }
           }
         }
       } catch (err) {
-        console.error('[ERROR update-report] Failed sending email', err)
+        console.error('[UPDATE-REPORT ERROR] Failed sending email:', err)
       }
     } else {
-      console.log('[DEBUG update-report] Skipped email - no email or API key')
+      console.log('[UPDATE-REPORT] Skipped email send - missing email or API key')
     }
 
+    console.log('[UPDATE-REPORT] Returning response:', { id: data.id, emailSent })
     return NextResponse.json({ id: data.id, emailSent }, { status: 200 })
   } catch (err) {
     console.error('Unexpected update error', err)
