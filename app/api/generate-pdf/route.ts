@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
-import puppeteer, { type Browser } from "puppeteer"
+import puppeteer, { type Browser } from "puppeteer-core"
+import chromium from '@sparticuz/chromium'
 import { buildPdfHtml, type PdfPayload } from "@/lib/pdf-template"
 
 export const runtime = "nodejs"
@@ -29,8 +30,10 @@ export async function POST(request: NextRequest) {
 
   try {
     browser = await puppeteer.launch({
-      headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
     })
 
     const page = await browser.newPage()
