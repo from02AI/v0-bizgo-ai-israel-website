@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@supabase/supabase-js"
 import { Resend } from 'resend'
-import puppeteer from 'puppeteer'
+import puppeteer from 'puppeteer-core'
+import chromium from '@sparticuz/chromium'
 import { buildPdfHtml } from '@/lib/pdf-template'
 
 export const runtime = "nodejs"
@@ -131,8 +132,10 @@ export async function POST(request: NextRequest) {
         let browser = null
         try {
           browser = await puppeteer.launch({
-            headless: true,
-            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            args: chromium.args,
+            defaultViewport: chromium.defaultViewport,
+            executablePath: await chromium.executablePath(),
+            headless: chromium.headless,
           })
 
           const page = await browser.newPage()
