@@ -135,9 +135,20 @@ export async function POST(request: NextRequest) {
           await page.setContent(html, { waitUntil: 'networkidle0' })
           
           console.log('[UPDATE-REPORT] Generating PDF buffer')
-          const pdfBuffer = await page.pdf({ format: 'A4', printBackground: true })
+          const pdfBuffer = await page.pdf({ 
+            format: 'A4', 
+            printBackground: true,
+            margin: {
+              top: '20mm',
+              bottom: '20mm',
+              left: '15mm',
+              right: '15mm',
+            },
+          })
           
           console.log('[UPDATE-REPORT] PDF generated, size:', pdfBuffer.length, 'bytes')
+          console.log('[UPDATE-REPORT] PDF Buffer is valid:', Buffer.isBuffer(pdfBuffer))
+          console.log('[UPDATE-REPORT] PDF first 20 bytes:', pdfBuffer.slice(0, 20).toString('hex'))
 
           console.log('[UPDATE-REPORT] Sending email via Resend')
           await resend.emails.send({
@@ -191,7 +202,7 @@ export async function POST(request: NextRequest) {
             attachments: [
               {
                 filename: `BizgoAI-Report-${id}.pdf`,
-                content: pdfBuffer,
+                content: pdfBuffer.toString('base64'),
               },
             ],
           })

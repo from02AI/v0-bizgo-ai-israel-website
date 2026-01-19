@@ -202,7 +202,7 @@ export async function POST(request: NextRequest) {
             attachments: [
               {
                 filename: `BizgoAI-Report-${(record.tool1_task_name || 'report').toString().replace(/[^a-z0-9]/gi, '-')}.pdf`,
-                content: pdfBuffer,
+                content: pdfBuffer.toString('base64'),
               },
             ],
           })
