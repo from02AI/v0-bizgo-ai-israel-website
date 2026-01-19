@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
   try {
     const resend = new Resend(process.env.RESEND_API_KEY)
     
-    const testEmail = 'shanniecarmi@gmail.com' // your test email
+    const testEmail = 'bizgoai.il@gmail.com' // Resend account email (sandbox mode)
     
     console.log('[TEST] Sending test email to:', testEmail)
     
