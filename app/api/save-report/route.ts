@@ -147,11 +147,25 @@ export async function POST(request: NextRequest) {
             margin: { top: '20mm', bottom: '20mm', left: '15mm', right: '15mm' },
           })
 
+          console.log('[DEBUG] PDF generated, size:', pdfBuffer.length, 'bytes')
+          console.log('[DEBUG] PDF Buffer is valid:', Buffer.isBuffer(pdfBuffer))
+          console.log('[DEBUG] PDF first 20 bytes:', pdfBuffer.slice(0, 20).toString('hex'))
+
+          // CRITICAL FIX: Convert to base64 ONCE and log details
+          const base64Content = pdfBuffer.toString('base64')
+          console.log('[DEBUG] Base64 length:', base64Content.length, 'bytes')
+          console.log('[DEBUG] Base64 first 50 chars:', base64Content.substring(0, 50))
+          console.log('[DEBUG] Base64 last 50 chars:', base64Content.substring(base64Content.length - 50))
+          
+          // Calculate ratio to verify encoding
+          const ratio = (base64Content.length / pdfBuffer.length).toFixed(2)
+          console.log('[DEBUG] Base64 expansion ratio:', ratio, '(should be ~1.33)')
+
           const fromAddress = process.env.RESEND_FROM || 'BizgoAI Israel <onboarding@resend.dev>'
           const taskName = record.tool1_task_name ?? 'דוח'
           const subject = `דוח הערכת מוכנות AI שלך - BizgoAI Israel`
 
-          await resend.emails.send({
+          const emailResult = await resend.emails.send({
             from: fromAddress,
             to: recipient,
             subject,
@@ -202,12 +216,13 @@ export async function POST(request: NextRequest) {
             attachments: [
               {
                 filename: `BizgoAI-Report-${(record.tool1_task_name || 'report').toString().replace(/[^a-z0-9]/gi, '-')}.pdf`,
-                content: pdfBuffer.toString('base64'),
-                contentType: 'application/pdf',
+                content: base64Content,
+                // CRITICAL FIX: Removed contentType - let Resend infer from .pdf filename
               },
             ],
           })
 
+          console.log('[DEBUG] Email send result:', JSON.stringify(emailResult))
           emailSent = true
           console.log('[DEBUG] Email sent successfully!')
         } finally {

@@ -150,8 +150,18 @@ export async function POST(request: NextRequest) {
           console.log('[UPDATE-REPORT] PDF Buffer is valid:', Buffer.isBuffer(pdfBuffer))
           console.log('[UPDATE-REPORT] PDF first 20 bytes:', pdfBuffer.slice(0, 20).toString('hex'))
 
+          // CRITICAL FIX: Convert to base64 ONCE and log details
+          const base64Content = pdfBuffer.toString('base64')
+          console.log('[UPDATE-REPORT] Base64 length:', base64Content.length, 'bytes')
+          console.log('[UPDATE-REPORT] Base64 first 50 chars:', base64Content.substring(0, 50))
+          console.log('[UPDATE-REPORT] Base64 last 50 chars:', base64Content.substring(base64Content.length - 50))
+          
+          // Calculate ratio to verify encoding
+          const ratio = (base64Content.length / pdfBuffer.length).toFixed(2)
+          console.log('[UPDATE-REPORT] Base64 expansion ratio:', ratio, '(should be ~1.33)')
+
           console.log('[UPDATE-REPORT] Sending email via Resend')
-          await resend.emails.send({
+          const emailResult = await resend.emails.send({
             from: process.env.RESEND_FROM || 'BizgoAI Israel <onboarding@resend.dev>',
             to: [user_email],
             subject: 'דוח הערכת מוכנות AI שלך - BizgoAI Israel',
@@ -202,11 +212,13 @@ export async function POST(request: NextRequest) {
             attachments: [
               {
                 filename: `BizgoAI-Report-${id}.pdf`,
-                content: pdfBuffer.toString('base64'),
-                contentType: 'application/pdf',
+                content: base64Content,
+                // CRITICAL FIX: Removed contentType - let Resend infer from .pdf filename
               },
             ],
           })
+
+          console.log('[UPDATE-REPORT] Email send result:', JSON.stringify(emailResult))
 
           emailSent = true
           console.log('[UPDATE-REPORT] Email sent successfully!')
