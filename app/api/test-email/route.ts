@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
     
     console.log('[TEST] Sending test email to:', testEmail)
     
-    const result = await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: process.env.RESEND_FROM || 'BizgoAI Test <onboarding@resend.dev>',
       to: [testEmail],
       subject: '🧪 Resend API Test - BizgoAI',
@@ -48,12 +48,22 @@ export async function GET(request: NextRequest) {
       `,
     })
     
-    console.log('[TEST] Email sent successfully:', result)
+    console.log('[TEST] Resend response:', { data, error })
+    
+    if (error) {
+      console.error('[TEST] Resend API error:', error)
+      return NextResponse.json({ 
+        success: false,
+        error: error.message,
+        errorDetails: error,
+        checks 
+      }, { status: 400 })
+    }
     
     return NextResponse.json({ 
       success: true, 
-      emailId: result.data?.id,
-      result: result.data,
+      emailId: data?.id,
+      data,
       checks 
     }, { status: 200 })
   } catch (err: any) {
