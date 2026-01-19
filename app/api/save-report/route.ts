@@ -33,6 +33,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 })
   }
 
+  console.log('[SAVE-REPORT] Received request body keys:', Object.keys(body || {}))
+  console.log('[SAVE-REPORT] user_email value:', body?.user_email, 'type:', typeof body?.user_email)
+
   const { tool1Data, tool2Data, tool3Data, user_email } = body || {}
 
   if (!tool1Data && !tool2Data && !tool3Data) {

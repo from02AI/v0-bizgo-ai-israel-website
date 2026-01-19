@@ -18,7 +18,15 @@ export function EmailCapture() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    
+    // Validate email is not empty
+    if (!email || email.trim() === '') {
+      alert('נא להזין כתובת אימייל')
+      return
+    }
+    
     console.log("Email submitted:", email, "Join WhatsApp:", joinWhatsApp)
+    console.log("Full submission data:", { email, tool1Data, tool2Data, tool3Data })
     setSubmitted(true)
 
     // Save email to provider DB for the same session if possible.
@@ -26,26 +34,33 @@ export function EmailCapture() {
     ;(async () => {
       try {
         const savedId = typeof window !== 'undefined' ? localStorage.getItem('bizgo.savedReportId') : null
+        console.log('[EMAIL-CAPTURE] SavedId from localStorage:', savedId)
 
         if (savedId) {
           // Update existing report with email
-          await fetch('/api/update-report', {
+          console.log('[EMAIL-CAPTURE] Calling update-report with:', { id: savedId, user_email: email })
+          const response = await fetch('/api/update-report', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: savedId, user_email: email }),
           })
+          const result = await response.json()
+          console.log('[EMAIL-CAPTURE] Update-report response:', result)
           return
         }
 
         // No existing saved id: create a new report row including the email
         const payload = { user_email: email, tool1Data, tool2Data, tool3Data }
-        await fetch('/api/save-report', {
+        console.log('[EMAIL-CAPTURE] Calling save-report with payload:', payload)
+        const response = await fetch('/api/save-report', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
         })
+        const result = await response.json()
+        console.log('[EMAIL-CAPTURE] Save-report response:', result)
       } catch (err) {
-        console.warn('Failed to save email to provider db', err)
+        console.error('[EMAIL-CAPTURE] Failed to save email to provider db', err)
       }
     })()
   }
