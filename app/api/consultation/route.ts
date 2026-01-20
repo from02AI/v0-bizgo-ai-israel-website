@@ -185,7 +185,8 @@ export async function POST(request: NextRequest) {
     }
     .highlight-box {
       background-color: #f0f7ff;
-      border-right: 4px solid #0b2e7b;
+      /* In RTL emails the accent border is better on the left side */
+      border-left: 4px solid #0b2e7b;
       padding: 15px;
       margin: 20px 0;
       border-radius: 5px;
@@ -204,42 +205,46 @@ export async function POST(request: NextRequest) {
     }
   </style>
 </head>
-<body>
-  <div class="container">
-    <div class="header">
-      <h1>🎉 ברוכים הבאים ל-BizgoAI Israel</h1>
+<!--
+  Email clients often strip <head> styles; to ensure RTL displays correctly we add
+  explicit dir and inline styles on body and major containers.
+-->
+<body dir="rtl" style="direction: rtl; unicode-bidi: embed; text-align: right; margin:0; padding:0; background-color:#f5f5f5;">
+  <div class="container" dir="rtl" style="direction: rtl; unicode-bidi: embed; text-align: right;">
+    <div class="header" dir="rtl" style="direction: rtl; text-align: center;">
+      <h1 dir="rtl" style="direction: rtl; margin:0;">🎉 ברוכים הבאים ל-BizgoAI Israel</h1>
     </div>
-    <div class="content">
-      <h2>שלום ${data.full_name || 'יקר/ה'},</h2>
-      <p>
-        תודה רבה על הפנייה שלך לקבלת ייעוץ מקצועי להטמעת AI בעסק שלך. 
+    <div class="content" dir="rtl" style="direction: rtl; text-align: right;">
+      <h2 dir="rtl" style="direction: rtl;">שלום ${data.full_name || 'יקר/ה'},</h2>
+      <p dir="rtl" style="direction: rtl; text-align: right;">
+        תודה רבה על הפנייה שלך לקבלת ייעוץ מקצועי להטמעת AI בעסק שלך.
         <strong>קיבלנו את בקשתך בהצלחה!</strong>
       </p>
-      
-      <div class="highlight-box">
-        <p><strong>מה הלאה?</strong></p>
-        <ul style="margin: 10px 0; padding-right: 20px;">
-          <li>צוות BizgoAI יבדוק את הפנייה שלך בקפידה</li>
-          <li>נחזור אליך תוך 24-48 שעות עבודה</li>
-          <li>נתאם שיחת אבחון ראשונית (Zoom)</li>
-          <li>נכין עבורך תוכנית הטמעה מותאמת אישית</li>
+
+      <div class="highlight-box" dir="rtl" style="direction: rtl; text-align: right;">
+        <p dir="rtl" style="direction: rtl;"><strong>מה הלאה?</strong></p>
+        <ul dir="rtl" style="margin: 10px 0; padding-right: 20px; text-align: right;">
+          <li dir="rtl">צוות BizgoAI יבדוק את הפנייה שלך בקפידה</li>
+          <li dir="rtl">נחזור אליך תוך 24-48 שעות עבודה</li>
+          <li dir="rtl">נתאם שיחת אבחון ראשונית (Zoom)</li>
+          <li dir="rtl">נכין עבורך תוכנית הטמעה מותאמת אישית</li>
         </ul>
       </div>
-      
-      <p>
-        בינתיים, אם יש לך שאלות נוספות או מידע שברצונך להוסיף, 
+
+      <p dir="rtl" style="direction: rtl; text-align: right;">
+        בינתיים, אם יש לך שאלות נוספות או מידע שברצונך להוסיף,
         אתם מוזמנים לענות ישירות לאימייל זה.
       </p>
-      
-      <p class="signature">
+
+      <p class="signature" dir="rtl" style="direction: rtl; text-align: right;">
         בברכה,<br/>
         צוות BizgoAI Israel<br/>
         <span style="font-weight: normal; font-size: 14px;">עסקים קטנים מתקדמים עם AI. בביטחון.</span>
       </p>
     </div>
-    <div class="footer">
-      <p>© 2025 BizgoAI Israel | <a href="https://bizgoai.co.il" style="color: #0b2e7b;">bizgoai.co.il</a></p>
-      <p style="font-size: 12px; margin-top: 10px;">
+    <div class="footer" dir="rtl" style="direction: rtl; text-align: center;">
+      <p dir="rtl">© 2025 BizgoAI Israel | <a href="https://bizgoai.co.il" style="color: #0b2e7b;">bizgoai.co.il</a></p>
+      <p dir="rtl" style="font-size: 12px; margin-top: 10px;">
         קיבלת מייל זה כי פנית לקבלת ייעוץ דרך האתר שלנו
       </p>
     </div>
