@@ -8,6 +8,33 @@ import { buildPdfHtml } from '@/lib/pdf-template'
 export const runtime = "nodejs"
 export const dynamic = "force-dynamic"
 
+// Check if running locally (not in Vercel serverless)
+const isLocal = process.env.NODE_ENV === 'development' || !process.env.VERCEL
+
+// Common Chrome paths for local development
+const LOCAL_CHROME_PATHS = {
+  win32: [
+    'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+    'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+    (process.env.LOCALAPPDATA || '') + '\\Google\\Chrome\\Application\\chrome.exe',
+  ],
+  darwin: ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'],
+  linux: ['/usr/bin/google-chrome', '/usr/bin/chromium-browser'],
+}
+
+async function getLocalChromePath(): Promise<string | null> {
+  const platform = process.platform as keyof typeof LOCAL_CHROME_PATHS
+  const paths = LOCAL_CHROME_PATHS[platform] || []
+  
+  for (const p of paths) {
+    try {
+      const fs = await import('fs')
+      if (fs.existsSync(p)) return p
+    } catch { /* ignore */ }
+  }
+  return null
+}
+
 const SUPABASE_URL = process.env.SUPABASE_URL
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY
 
@@ -131,12 +158,32 @@ export async function POST(request: NextRequest) {
         const html = buildPdfHtml({ tool1Data, tool2Data, tool3Data })
         let browser = null
         try {
-          browser = await puppeteer.launch({
-            args: chromium.args,
-            defaultViewport: chromium.defaultViewport,
-            executablePath: await chromium.executablePath(),
-            headless: chromium.headless,
-          })
+          // Use local Chrome for development, @sparticuz/chromium for Vercel
+          let launchOptions
+          
+          if (isLocal) {
+            const localChrome = await getLocalChromePath()
+            if (!localChrome) {
+              console.warn('[SAVE-REPORT] No local Chrome found, skipping PDF generation for email')
+              throw new Error('No local Chrome')
+            }
+            console.log('[SAVE-REPORT] Using local Chrome:', localChrome)
+            launchOptions = {
+              executablePath: localChrome,
+              headless: true,
+              args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            }
+          } else {
+            console.log('[SAVE-REPORT] Using Vercel chromium')
+            launchOptions = {
+              args: chromium.args,
+              defaultViewport: chromium.defaultViewport,
+              executablePath: await chromium.executablePath(),
+              headless: chromium.headless,
+            }
+          }
+          
+          browser = await puppeteer.launch(launchOptions)
 
           const page = await browser.newPage()
           await page.setContent(html, { waitUntil: 'networkidle0' })

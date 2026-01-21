@@ -749,37 +749,52 @@ export function buildPdfHtml(payload: PdfPayload) {
         הצטרפ/י לפעילות בערוצים השונים וקבל/י מידע חיוני AI לעסקים קטנים, חומרים, כלים ופתרונות נוספים
       </p>
     </div>
-    <!-- Social Media Icons -->
-    <div style="display: flex; justify-content: center; gap: 16px; margin-top: 10px;">
+    <!-- Social Media Icons (high-quality badges) -->
+    <div style="display: flex; justify-content: center; gap: 20px; margin-top: 16px;">
       <div style="text-align: center;">
-        <div style="width: 32px; height: 32px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">
-          <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px auto; box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);">
+          <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
+            <circle cx="12" cy="12" r="10" fill="none" stroke="white" stroke-width="2"/>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="white" stroke-width="2" fill="none"/>
+          </svg>
         </div>
-        <div style="font-size: 8px; color: var(--slate-600);">WhatsApp</div>
+        <div style="font-size: 10px; color: var(--slate-700); font-weight: 600;">Website</div>
       </div>
+
       <div style="text-align: center;">
-        <div style="width: 32px; height: 32px; background: #1877F2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">
-          <svg width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M13 3h3v3h-3c-1.657 0-3 1.567-3 3.5V12h-3v3h3v6h3v-6h2.5l.5-3H13V9.5c0-.276.224-.5.5-.5z"/></svg>
+        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px auto; box-shadow: 0 4px 8px rgba(245, 87, 108, 0.3);">
+          <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
+            <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
-        <div style="font-size: 8px; color: var(--slate-600);">Facebook</div>
+        <div style="font-size: 10px; color: var(--slate-700); font-weight: 600;">Newsletter</div>
       </div>
+
       <div style="text-align: center;">
-        <div style="width: 32px; height: 32px; background: #0A66C2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">
-          <svg width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M6 9H3V21h3V9zM4.5 6A1.5 1.5 0 1 1 4.5 3a1.5 1.5 0 0 1 0 3zM21 21h-3v-5.5c0-1.328-.497-2.5-1.743-2.5-1.09 0-1.743.73-2.032 1.437-.104.237-.13.566-.13.883V21h-3s.04-11 0-12h3v1.7c.398-.614 1.11-1.486 2.7-1.486C19.21 9.214 21 11.08 21 14.8V21z"/></svg>
+        <div style="width: 48px; height: 48px; background: #0A66C2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px auto; box-shadow: 0 4px 8px rgba(10, 102, 194, 0.3);">
+          <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="16" font-weight="700" font-family="Arial, sans-serif">in</text>
+          </svg>
         </div>
-        <div style="font-size: 8px; color: var(--slate-600);">LinkedIn</div>
+        <div style="font-size: 10px; color: var(--slate-700); font-weight: 600;">LinkedIn</div>
       </div>
+
       <div style="text-align: center;">
-        <div style="width: 32px; height: 32px; background: #EA4335; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">
-          <svg width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v0.01L12 13 3 6.01V6zM3 8.236V18a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.236l-9 5.625-9-5.625z"/></svg>
+        <div style="width: 48px; height: 48px; background: #1877F2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px auto; box-shadow: 0 4px 8px rgba(24, 119, 242, 0.3);">
+          <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="18" font-weight="700" font-family="Arial, sans-serif">f</text>
+          </svg>
         </div>
-        <div style="font-size: 8px; color: var(--slate-600);">Newsletter</div>
+        <div style="font-size: 10px; color: var(--slate-700); font-weight: 600;">Facebook</div>
       </div>
+
       <div style="text-align: center;">
-        <div style="width: 32px; height: 32px; background: #6366F1; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">
-          <svg width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-4 13h2v4H8v-4zm0-8h2v6H8V7zm6 4h2v8h-2v-8z"/></svg>
+        <div style="width: 48px; height: 48px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px auto; box-shadow: 0 4px 8px rgba(37, 211, 102, 0.3);">
+          <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="16" font-weight="700" font-family="Arial, sans-serif">W</text>
+          </svg>
         </div>
-        <div style="font-size: 8px; color: var(--slate-600);">Website</div>
+        <div style="font-size: 10px; color: var(--slate-700); font-weight: 600;">WhatsApp</div>
       </div>
     </div>
   </div>
