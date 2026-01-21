@@ -237,43 +237,81 @@ export async function POST(request: NextRequest) {
           const emailResult = await resend.emails.send({
             from: finalFrom,
             to: [user_email],
-            subject: 'דוח הערכת מוכנות AI שלך - BizGoAI',
+            subject: 'דוח הערכת מוכנות AI שלך',
             html: `<!DOCTYPE html>
 <html lang="he">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+<head>
 <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4; direction: rtl;">
   <div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); direction: rtl;">
     <div style="background: linear-gradient(135deg, #0b2e7b 0%, #1a4ba8 100%); padding: 30px; text-align: center; direction: rtl;">
       <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: bold; direction: rtl;">BizGoAI</h1>
-      <p style="color: #e0e7ff; margin: 10px 0 0 0; font-size: 14px; direction: rtl;">פלטפורמת הערכת מוכנות AI</p>
+      <p style="color: #e0e7ff; margin: 10px 0 0 0; font-size: 14px; direction: rtl;">הערכת מוכנות AI לעסק שלך</p>
     </div>
     <div style="padding: 40px 30px; direction: rtl; text-align: right;">
       <h2 style="color: #0b2e7b; font-size: 22px; margin: 0 0 20px 0; text-align: right;">שלום!</h2>
       <p style="color: #333333; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0; text-align: right;">
-        תודה שהשתמשת בסימולטור ההערכה שלנו! מצורף דוח מפורט עם תוצאות הניתוח שלך.
+תודה שהשתמשת בסימולטור BizGoAI. <br/> מצורף למייל קובץ PDF עם דוח התוצאות המפורט לעסק שלך.
       </p>
       <div style="background-color: #f8f9fa; border-right: 4px solid #0b2e7b; padding: 20px; margin: 20px 0; border-radius: 4px; direction: rtl;">
         <h3 style="color: #0b2e7b; font-size: 18px; margin: 0 0 15px 0; text-align: right;">הדוח כולל:</h3>
         <ul style="color: #555555; font-size: 15px; line-height: 1.8; margin: 0; padding: 0 20px 0 0; list-style-position: inside; text-align: right;">
-          <li style="text-align: right;">ניקוד התאמת המשימה לבינה מלאכותית</li>
-          <li style="text-align: right;">הערכת בטיחות ואבטחת מידע</li>
-          <li style="text-align: right;">חישוב ROI והחזר השקעה צפוי</li>
-          <li style="text-align: right;">המלצות מותאמות אישית</li>
+          <li style="text-align: right;">הערכת התאמת המשימה ל-AI</li>
+          <li style="text-align: right;">בדיקת בטיחות</li>
+          <li style="text-align: right;">הערכת חסכון ל-6 חודשים </li>
         </ul>
       </div>
       <p style="color: #333333; font-size: 16px; line-height: 1.6; margin: 20px 0; text-align: right;">
         ניתן לפתוח את הקובץ המצורף ולעיין בניתוח המפורט.
       </p>
-      <div style="background-color: #e8f4f8; border-radius: 6px; padding: 20px; margin: 30px 0; text-align: center; direction: rtl;">
-        <p style="color: #0b2e7b; font-size: 15px; margin: 0; font-weight: 600;">💡 זקוקים לייעוץ נוסף?</p>
-        <p style="color: #555555; font-size: 14px; margin: 10px 0 0 0;">אנחנו כאן כדי לעזור לכם ליישם AI בצורה הטובה ביותר</p>
-      </div>
-      <p style="color: #666666; font-size: 14px; line-height: 1.6; margin: 30px 0 0 0; text-align: right;">
+        <!-- Social badges section (added) -->
+        <div style="padding:20px 24px; text-align:center; direction: rtl;">
+          <p style="margin:0;font-size:16px;color:#0b2e7b;font-weight:bold;">הצטרפו אלינו בערוצים השונים</p>
+          <p style="margin:8px 0 14px;color:#666;font-size:14px;">קבל/י עדכונים, חומרים והמלצות כלים שיעזרו לך להטמיע AI בעסק</p>
+          <div style="margin:0 auto; max-width:420px; text-align:center;">
+            <table role="presentation" style="margin:0 auto; border-collapse:collapse;">
+              <tr>
+                <td style="padding:6px 8px; text-align:center;">
+                  <a href="#" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" style="text-decoration:none; color:inherit;">
+                    <div style="width:44px;height:44px;background:#25D366;border-radius:22px;display:inline-block;line-height:44px;text-align:center;color:white;font-weight:700;box-shadow:0 4px 8px rgba(37,211,102,0.25);">W</div>
+                    <div style="font-size:12px;color:#333;margin-top:6px;">WhatsApp</div>
+                  </a>
+                </td>
+                <td style="padding:6px 8px; text-align:center;">
+                  <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook" style="text-decoration:none; color:inherit;">
+                    <div style="width:44px;height:44px;background:#1877F2;border-radius:22px;display:inline-block;line-height:44px;text-align:center;color:white;font-weight:700;box-shadow:0 4px 8px rgba(24,119,242,0.25);">f</div>
+                    <div style="font-size:12px;color:#333;margin-top:6px;">Facebook</div>
+                  </a>
+                </td>
+                <td style="padding:6px 8px; text-align:center;">
+                  <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="text-decoration:none; color:inherit;">
+                    <div style="width:44px;height:44px;background:#0A66C2;border-radius:22px;display:inline-block;line-height:44px;text-align:center;color:white;font-weight:700;box-shadow:0 4px 8px rgba(10,102,194,0.25);">in</div>
+                    <div style="font-size:12px;color:#333;margin-top:6px;">LinkedIn</div>
+                  </a>
+                </td>
+                <td style="padding:6px 8px; text-align:center;">
+                  <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Newsletter" style="text-decoration:none; color:inherit;">
+                    <div style="width:44px;height:44px;background:linear-gradient(135deg, #f093fb 0%, #f5576c 100%);border-radius:22px;display:inline-block;line-height:44px;text-align:center;color:white;font-weight:700;box-shadow:0 4px 8px rgba(245,87,108,0.25);">✉</div>
+                    <div style="font-size:12px;color:#333;margin-top:6px;">Newsletter</div>
+                  </a>
+                </td>
+                <td style="padding:6px 8px; text-align:center;">
+                  <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Website" style="text-decoration:none; color:inherit;">
+                    <div style="width:44px;height:44px;background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);border-radius:22px;display:inline-block;line-height:44px;text-align:center;color:white;font-weight:700;box-shadow:0 4px 8px rgba(102,126,234,0.25);">🌐</div>
+                    <div style="font-size:12px;color:#333;margin-top:6px;">Website</div>
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      <p class="signature" dir="rtl" style="direction: rtl; text-align: right;">
         בברכה,<br/>
-        <strong style="color: #0b2e7b;">צוות BizGoAI</strong>
+        שני כרמי רדושיצקי
+        מייסדת BizGoAI <br/>
+        <span style="font-weight: normal; font-size: 14px;">עסקים קטנים מתקדמים עם AI. בביטחון.</span>
       </p>
     </div>
     <div style="background-color: #f8f9fa; padding: 20px 30px; text-align: center; border-top: 1px solid #e0e0e0; direction: rtl;">

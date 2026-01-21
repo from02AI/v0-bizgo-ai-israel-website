@@ -343,9 +343,7 @@ export function Tool3ROI() {
             <p className="text-slate-600 mt-2 text-sm">
               נקודת איזון: {results.breakEvenMonth <= 6 ? `חודש ${results.breakEvenMonth}` : "מעבר ל-6 חודשים"}
             </p>
-            {savedReportId && (
-              <p className="text-xs text-slate-400 mt-2">זהות הדוח נשמרה: {savedReportId}</p>
-            )}
+            
               {/* detail block removed per request */}
           </div>
 
