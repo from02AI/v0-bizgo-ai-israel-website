@@ -226,7 +226,7 @@ export async function POST(request: NextRequest) {
             fromAddress = 'BizGoAI <contact@bizgoai.co.il>'
           }
           const taskName = record.tool1_task_name ?? 'דוח'
-          const subject = `דוח הערכת מוכנות AI שלך - BizgoAI Israel`
+          const subject = `דוח הערכת מוכנות AI: ${taskName}`
 
           const emailResult = await resend.emails.send({
             from: fromAddress,

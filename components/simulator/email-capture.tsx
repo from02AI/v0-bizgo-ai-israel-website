@@ -16,6 +16,15 @@ export function EmailCapture() {
   const [joinWhatsApp, setJoinWhatsApp] = useState(false)
   const [submitted, setSubmitted] = useState(false)
 
+  // Placeholder social links — will be replaced with real URLs when provided
+  const socialLinks = {
+    website: '#',
+    newsletter: '#',
+    linkedin: '#',
+    facebook: '#',
+    whatsapp: '#',
+  }
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     
@@ -70,53 +79,58 @@ export function EmailCapture() {
       <div className="max-w-2xl mx-auto px-4 py-12">
         <div className="bg-white rounded-3xl shadow-xl p-8 text-center">
           <div className="text-6xl mb-4">✅</div>
-          <h2 className="text-2xl font-bold text-[#0b2e7b] mb-2">הדוח נשלח!</h2>
-          <p className="text-slate-600 mb-8">בדקו את תיבת המייל.</p>
-          <p className="text-slate-500 mb-8">הרגע שלחנו הערכת AI מלאה ל־{email}</p>
+          <h2 className="text-2xl font-bold text-[#0b2e7b] mb-2">דוח הערכת מוכנות AI שלך נשלח ל-{email}</h2>
+          <p className="text-slate-600 mb-8">בדקו את תיבת המייל. יכול להגיע לתיקיות שונות/ספאם.</p>
 
-          <div className="grid gap-4 mb-8">
-            <a
-              href="/consultation"
-              className="flex items-center gap-4 p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors"
-            >
-              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                <Mail className="w-6 h-6 text-blue-600" />
-              </div>
-              <div className="text-right">
-                <p className="font-bold text-[#0b2e7b]">לקבוע ייעוץ חינם</p>
-                <p className="text-sm text-slate-500">שיחה אישית עם מומחה AI</p>
-              </div>
-            </a>
+          {/* CTA moved to bottom of card (replaced previous 'back to home' action) */}
 
-            <a
-              href="#"
-              className="flex items-center gap-4 p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors"
-            >
-              <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                <MessageCircle className="w-6 h-6 text-green-600" />
-              </div>
-              <div className="text-right">
-                <p className="font-bold text-[#0b2e7b]">להצטרף לקהילה</p>
-                <p className="text-sm text-slate-500">WhatsApp, ניוזלטר</p>
-              </div>
-            </a>
+          {/* Social section copied from pdf-template.ts (visual badges) */}
+          <div className="mb-6">
+            <div className="text-center mb-4">
+              <p className="text-lg font-bold text-[#0b2e7b] mb-0">תודה שהשתמשת בסימולטור של BizgoAI</p>
+              <p className="text-sm text-slate-600 mt-1">הצטרפ/י לפעילות בערוצים השונים וקבל/י מידע חיוני AI לעסקים קטנים, חומרים, כלים ופתרונות נוספים</p>
+            </div>
 
-            <a
-              href="/about"
-              className="flex items-center gap-4 p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors"
-            >
-              <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
-                <BookOpen className="w-6 h-6 text-amber-600" />
-              </div>
-              <div className="text-right">
-                <p className="font-bold text-[#0b2e7b]">ללמוד עוד</p>
-                <p className="text-sm text-slate-500">על BizgoAI Israel</p>
-              </div>
-            </a>
+            <div className="flex justify-center gap-6 mt-4">
+              <a href={socialLinks.website} target="_blank" rel="noopener noreferrer" className="text-center" aria-label="Website">
+                <div style={{width:48,height:48,background:'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',borderRadius:24,display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 6px auto',boxShadow:'0 4px 8px rgba(102, 126, 234, 0.3)'}}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="none" stroke="white" strokeWidth="2"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="white" strokeWidth="2" fill="none"/></svg>
+                </div>
+                <div className="text-xs text-slate-700 font-semibold">Website</div>
+              </a>
+
+              <a href={socialLinks.newsletter} target="_blank" rel="noopener noreferrer" className="text-center" aria-label="Newsletter">
+                <div style={{width:48,height:48,background:'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',borderRadius:24,display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 6px auto',boxShadow:'0 4px 8px rgba(245, 87, 108, 0.3)'}}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </div>
+                <div className="text-xs text-slate-700 font-semibold">Newsletter</div>
+              </a>
+
+              <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="text-center" aria-label="LinkedIn">
+                <div style={{width:48,height:48,background:'#0A66C2',borderRadius:24,display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 6px auto',boxShadow:'0 4px 8px rgba(10, 102, 194, 0.3)'}}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="16" fontWeight="700" fontFamily="Arial, sans-serif">in</text></svg>
+                </div>
+                <div className="text-xs text-slate-700 font-semibold">LinkedIn</div>
+              </a>
+
+              <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="text-center" aria-label="Facebook">
+                <div style={{width:48,height:48,background:'#1877F2',borderRadius:24,display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 6px auto',boxShadow:'0 4px 8px rgba(24, 119, 242, 0.3)'}}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="18" fontWeight="700" fontFamily="Arial, sans-serif">f</text></svg>
+                </div>
+                <div className="text-xs text-slate-700 font-semibold">Facebook</div>
+              </a>
+
+              <a href={socialLinks.whatsapp} target="_blank" rel="noopener noreferrer" className="text-center" aria-label="WhatsApp">
+                <div style={{width:48,height:48,background:'#25D366',borderRadius:24,display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 6px auto',boxShadow:'0 4px 8px rgba(37, 211, 102, 0.3)'}}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="16" fontWeight="700" fontFamily="Arial, sans-serif">W</text></svg>
+                </div>
+                <div className="text-xs text-slate-700 font-semibold">WhatsApp</div>
+              </a>
+            </div>
           </div>
 
-          <Button asChild variant="outline" className="w-full rounded-xl bg-transparent">
-            <a href="/">חזרה לדף הבית</a>
+          <Button asChild className="w-full py-4 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold flex items-center justify-center shadow-md focus:outline-none focus:ring-4 focus:ring-amber-200">
+            <a href="/#consultation" aria-label="המשך להתאמת כלי AI בחינם לעסק שלך">המשך להתאמת כלי AI בחינם לעסק שלך</a>
           </Button>
         </div>
       </div>
