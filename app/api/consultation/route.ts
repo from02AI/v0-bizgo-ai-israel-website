@@ -131,10 +131,42 @@ export async function POST(request: NextRequest) {
         console.log('[CONSULTATION] Starting email send process to:', data.email)
         
         const resend = new Resend(process.env.RESEND_API_KEY)
-        // CRITICAL: Use onboarding@resend.dev (verified domain) until bizgoai.co.il is verified in Resend
-        const fromAddress = process.env.RESEND_FROM || 'BizgoAI Israel <onboarding@resend.dev>'
-        
-        console.log('[CONSULTATION] Email from address:', fromAddress)
+
+        // Normalize and validate RESEND_FROM to avoid malformed characters (non-breaking spaces, underscores, zero-width, etc.)
+        const rawFrom = process.env.RESEND_FROM || ''
+        const normalizeFrom = (s: string) => {
+          return s
+            // Replace common non-standard space characters with normal space
+            .replace(/\u00A0|\u202F|\uFEFF|\u200B/g, ' ')
+            // Replace underscores (often introduced by copy/paste) with spaces
+            .replace(/_/g, ' ')
+            // Collapse repeated whitespace to single space
+            .replace(/\s+/g, ' ')
+            .trim()
+        }
+
+        const codepoints = (s: string) => s.split('').map(ch => `${ch} U+${ch.charCodeAt(0).toString(16).toUpperCase().padStart(4,'0')}`).join(', ')
+
+        const normalizedFrom = normalizeFrom(rawFrom)
+        console.log('[CONSULTATION] RESEND_FROM raw:', JSON.stringify(rawFrom))
+        console.log('[CONSULTATION] RESEND_FROM normalized:', JSON.stringify(normalizedFrom))
+        console.log('[CONSULTATION] RESEND_FROM codepoints:', codepoints(rawFrom || normalizedFrom))
+
+        // Accept either: plain email (email@domain.tld) OR display name with angle brackets (Name <email@domain.tld>)
+        const fromValidRegex = /^(.*<[^@\s]+@[^>]+>|[^@\s]+@[^@\s]+\.[^@\s]+)$/
+        let fromAddress = ''
+        if (normalizedFrom && fromValidRegex.test(normalizedFrom)) {
+          fromAddress = normalizedFrom
+        } else if (normalizedFrom && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(normalizedFrom)) {
+          fromAddress = normalizedFrom
+        } else {
+          // Fall back to a plain verified email to avoid blocking sends.
+          // If you prefer to fail loudly instead, we can change this to return a 500 error.
+          console.warn('[CONSULTATION] RESEND_FROM is missing or invalid after normalization. Falling back to verified plain email contact@bizgoai.co.il')
+          fromAddress = 'contact@bizgoai.co.il'
+        }
+
+        console.log('[CONSULTATION] Email from address (final):', fromAddress)
         
         const html = `<!doctype html>
 <html lang="he" dir="rtl">
