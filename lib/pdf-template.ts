@@ -569,7 +569,7 @@ export function buildPdfHtml(payload: PdfPayload) {
   <!-- Tool 1: Opportunity Assessment -->
   <div class="detail-section">
     <h3 style="display: flex; align-items: center; justify-content: space-between;">
-      <span style="display:flex; align-items:center; gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="margin-inline-start:6px;"><circle cx="12" cy="12" r="9" fill="none" stroke="#0b2e7b" stroke-width="1.2"/><circle cx="12" cy="12" r="4" fill="#0b2e7b"/></svg><span>כלי 1: ניתוח התאמה למשימה</span></span>
+      <span>🎯 כלי 1: ניתוח התאמה למשימה</span>
       <span style="font-size: 12px; font-weight: 800; color: ${tool1Score >= 7 ? '#10B981' : tool1Score >= 4 ? '#F59E0B' : '#EF4444'}; background: ${tool1Score >= 7 ? '#ECFDF5' : tool1Score >= 4 ? '#FFFBEB' : '#FEE2E2'}; padding: 2px 6px; border-radius: 4px; white-space: nowrap;">${escapeHtml(tool1Score)}/10 — ${escapeHtml(tool1.fitLabel || '')}</span>
     </h3>
       <div class="detail-grid">
@@ -595,7 +595,7 @@ export function buildPdfHtml(payload: PdfPayload) {
   <!-- Tool 2: Safety Assessment -->
   <div class="detail-section">
     <h3 style="display: flex; align-items: center; justify-content: space-between;">
-      <span style="display:flex; align-items:center; gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="margin-inline-start:6px;"><path d="M12 2l7 4v5c0 5-3.58 9.74-7 11-3.42-1.26-7-6-7-11V6l7-4z" fill="#0b2e7b"/></svg><span>כלי 2: בדיקת בטיחות וסיכונים</span></span>
+      <span>🛡️ כלי 2: בדיקת בטיחות וסיכונים</span>
       <span style="font-size: 12px; font-weight: 800; color: ${tool2Score >= 7 ? '#10B981' : tool2Score >= 4 ? '#F59E0B' : '#EF4444'}; background: ${tool2Score >= 7 ? '#ECFDF5' : tool2Score >= 4 ? '#FFFBEB' : '#FEE2E2'}; padding: 2px 6px; border-radius: 4px; white-space: nowrap;">${escapeHtml(tool2Score)}/10 — ${escapeHtml(tool2.safetyLabel || '')}</span>
     </h3>
     <div class="detail-grid">
@@ -625,7 +625,7 @@ export function buildPdfHtml(payload: PdfPayload) {
   <!-- Tool 3: ROI Calculation -->
   <div class="detail-section">
     <h3 style="display: flex; align-items: center; justify-content: space-between;">
-      <span style="display:flex; align-items:center; gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="margin-inline-start:6px;"><circle cx="12" cy="12" r="9" fill="#0b2e7b"/><rect x="9" y="8" width="6" height="8" fill="#fff" rx="1"/></svg><span>כלי 3: הערכת חסכון ל-6 חודשים</span></span>
+      <span>🔥 כלי 3: הערכת חסכון ל-6 חודשים</span>
       <span style="font-size: 14px; font-weight: 700; color: #10B981; background: #ECFDF5; padding: 4px 10px; border-radius: 6px;">החזר השקעה בחודש ${tool3.breakEvenMonth && tool3.breakEvenMonth <= 12 ? escapeHtml(String(tool3.breakEvenMonth)) : '—'} | חיסכון כולל: ${sixMonthSavings}</span>
     </h3>
     
@@ -696,7 +696,7 @@ export function buildPdfHtml(payload: PdfPayload) {
 
   <!-- 6-Month Breakdown Table -->
   <div class="detail-section">
-    <h3 style="display:flex; align-items:center; gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="10" width="4" height="11" fill="#0b2e7b"/><rect x="10" y="6" width="4" height="15" fill="#0b2e7b"/><rect x="17" y="2" width="4" height="19" fill="#0b2e7b"/></svg><span>פירוט הערכת חיסכון חודשי (6 חודשים)</span></h3>
+    <h3>📊 פירוט הערכת חיסכון חודשי (6 חודשים)</h3>
     
     <div class="table-container">
       <table class="roi-table">
