@@ -459,16 +459,13 @@ const statusText = (status?: RiskStatus) => {
   }
 }
 
-// Return small inline SVG dots (no font required) so icons render reliably in headless Chromium/PDF
-const svgDot = (color: string, size = 18) =>
-  `<span style="direction: ltr; unicode-bidi: embed; display: inline-block;"><svg width="${size}" height="${size}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle; margin-inline-start:6px;"><circle cx="12" cy="12" r="8" fill="${color}" /></svg></span>`
-
+// Return emoji circles for score icons (renders reliably in PDFs)
 const getScoreIcon = (score?: number) => {
-  if (score === undefined || score === null) return `<span style="direction: ltr; unicode-bidi: embed; display: inline-block;"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle; margin-inline-start:6px;"><circle cx="12" cy="12" r="8" fill="#E5E7EB" /></svg></span>`
-  if (score >= 8) return svgDot('#10B981')
-  if (score >= 6) return svgDot('#F59E0B')
-  if (score >= 4) return svgDot('#F97316')
-  return svgDot('#EF4444')
+  if (score === undefined || score === null) return '⚪'
+  if (score >= 8) return '🟢'
+  if (score >= 6) return '🟡'
+  if (score >= 4) return '🟠'
+  return '🔴'
 }
 
 export function buildPdfHtml(payload: PdfPayload) {
