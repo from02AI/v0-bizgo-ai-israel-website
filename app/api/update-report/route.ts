@@ -182,8 +182,8 @@ export async function POST(request: NextRequest) {
           if (normalizedFrom && fromValidRegex.test(normalizedFrom)) {
             finalFrom = normalizedFrom
           } else {
-            console.warn('[UPDATE-REPORT] RESEND_FROM invalid or missing after normalization; falling back to contact@bizgoai.co.il')
-            finalFrom = 'contact@bizgoai.co.il'
+            console.warn('[UPDATE-REPORT] RESEND_FROM invalid or missing after normalization; falling back to BizGoAI <contact@bizgoai.co.il>')
+            finalFrom = 'BizGoAI <contact@bizgoai.co.il>'
           }
 
           const emailResult = await resend.emails.send({

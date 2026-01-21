@@ -175,8 +175,8 @@ export async function POST(request: NextRequest) {
           if (normalizedFrom && fromValidRegex.test(normalizedFrom)) {
             fromAddress = normalizedFrom
           } else {
-            console.warn('[SAVE-REPORT] RESEND_FROM invalid or missing after normalization; falling back to contact@bizgoai.co.il')
-            fromAddress = 'contact@bizgoai.co.il'
+            console.warn('[SAVE-REPORT] RESEND_FROM invalid or missing after normalization; falling back to BizGoAI <contact@bizgoai.co.il>')
+            fromAddress = 'BizGoAI <contact@bizgoai.co.il>'
           }
           const taskName = record.tool1_task_name ?? 'דוח'
           const subject = `דוח הערכת מוכנות AI שלך - BizgoAI Israel`

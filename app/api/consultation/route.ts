@@ -160,10 +160,9 @@ export async function POST(request: NextRequest) {
         } else if (normalizedFrom && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(normalizedFrom)) {
           fromAddress = normalizedFrom
         } else {
-          // Fall back to a plain verified email to avoid blocking sends.
-          // If you prefer to fail loudly instead, we can change this to return a 500 error.
-          console.warn('[CONSULTATION] RESEND_FROM is missing or invalid after normalization. Falling back to verified plain email contact@bizgoai.co.il')
-          fromAddress = 'contact@bizgoai.co.il'
+          // Fall back to a verified display-name + email to ensure recipient sees BizGoAI as sender
+          console.warn('[CONSULTATION] RESEND_FROM is missing or invalid after normalization. Falling back to BizGoAI <contact@bizgoai.co.il>')
+          fromAddress = 'BizGoAI <contact@bizgoai.co.il>'
         }
 
         console.log('[CONSULTATION] Email from address (final):', fromAddress)
