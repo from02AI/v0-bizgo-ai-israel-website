@@ -448,23 +448,28 @@ const formatCurrency = (value?: number | null) => {
   return new Intl.NumberFormat('he-IL', { style: 'currency', currency: 'ILS', maximumFractionDigits: 0 }).format(value)
 }
 
+// Return plain status text (no emoji) to avoid font/emoji fallback issues in PDF rendering
 const statusText = (status?: RiskStatus) => {
   switch (status) {
     case 'green':
-      return '✓ סיכון נמוך — מוכן להטמעה'
+      return 'סיכון נמוך — מוכן להטמעה'
     case 'red':
-      return '⚠ סיכון גבוה — נדרשת בדיקה מעמיקה'
+      return 'סיכון גבוה — נדרשת בדיקה מעמיקה'
     default:
-      return '⚡ סיכון בינוני — נדרשת היערכות'
+      return 'סיכון בינוני — נדרשת היערכות'
   }
 }
 
+// Return small inline SVG dots (no font required) so icons render reliably in headless Chromium/PDF
+const svgDot = (color: string, size = 18) =>
+  `<svg width="${size}" height="${size}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle; margin-inline-start:6px;"><circle cx="12" cy="12" r="8" fill="${color}" /></svg>`
+
 const getScoreIcon = (score?: number) => {
-  if (!score) return '⚪'
-  if (score >= 8) return '🟢'
-  if (score >= 6) return '🟡'
-  if (score >= 4) return '🟠'
-  return '🔴'
+  if (score === undefined || score === null) return `<svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle; margin-inline-start:6px;"><circle cx="12" cy="12" r="8" fill="#E5E7EB" /></svg>`
+  if (score >= 8) return svgDot('#10B981')
+  if (score >= 6) return svgDot('#F59E0B')
+  if (score >= 4) return svgDot('#F97316')
+  return svgDot('#EF4444')
 }
 
 export function buildPdfHtml(payload: PdfPayload) {
@@ -567,7 +572,7 @@ export function buildPdfHtml(payload: PdfPayload) {
   <!-- Tool 1: Opportunity Assessment -->
   <div class="detail-section">
     <h3 style="display: flex; align-items: center; justify-content: space-between;">
-      <span>🎯 כלי 1: ניתוח התאמה למשימה</span>
+      <span style="display:flex; align-items:center; gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="margin-inline-start:6px;"><circle cx="12" cy="12" r="9" fill="none" stroke="#0b2e7b" stroke-width="1.2"/><circle cx="12" cy="12" r="4" fill="#0b2e7b"/></svg><span>כלי 1: ניתוח התאמה למשימה</span></span>
       <span style="font-size: 12px; font-weight: 800; color: ${tool1Score >= 7 ? '#10B981' : tool1Score >= 4 ? '#F59E0B' : '#EF4444'}; background: ${tool1Score >= 7 ? '#ECFDF5' : tool1Score >= 4 ? '#FFFBEB' : '#FEE2E2'}; padding: 2px 6px; border-radius: 4px; white-space: nowrap;">${escapeHtml(tool1Score)}/10 — ${escapeHtml(tool1.fitLabel || '')}</span>
     </h3>
       <div class="detail-grid">
@@ -593,7 +598,7 @@ export function buildPdfHtml(payload: PdfPayload) {
   <!-- Tool 2: Safety Assessment -->
   <div class="detail-section">
     <h3 style="display: flex; align-items: center; justify-content: space-between;">
-      <span>🛡️ כלי 2: בדיקת בטיחות וסיכונים</span>
+      <span style="display:flex; align-items:center; gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="margin-inline-start:6px;"><path d="M12 2l7 4v5c0 5-3.58 9.74-7 11-3.42-1.26-7-6-7-11V6l7-4z" fill="#0b2e7b"/></svg><span>כלי 2: בדיקת בטיחות וסיכונים</span></span>
       <span style="font-size: 12px; font-weight: 800; color: ${tool2Score >= 7 ? '#10B981' : tool2Score >= 4 ? '#F59E0B' : '#EF4444'}; background: ${tool2Score >= 7 ? '#ECFDF5' : tool2Score >= 4 ? '#FFFBEB' : '#FEE2E2'}; padding: 2px 6px; border-radius: 4px; white-space: nowrap;">${escapeHtml(tool2Score)}/10 — ${escapeHtml(tool2.safetyLabel || '')}</span>
     </h3>
     <div class="detail-grid">
@@ -623,7 +628,7 @@ export function buildPdfHtml(payload: PdfPayload) {
   <!-- Tool 3: ROI Calculation -->
   <div class="detail-section">
     <h3 style="display: flex; align-items: center; justify-content: space-between;">
-      <span>💰 כלי 3: הערכת חסכון ל-6 חודשים</span>
+      <span style="display:flex; align-items:center; gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="margin-inline-start:6px;"><circle cx="12" cy="12" r="9" fill="#0b2e7b"/><rect x="9" y="8" width="6" height="8" fill="#fff" rx="1"/></svg><span>כלי 3: הערכת חסכון ל-6 חודשים</span></span>
       <span style="font-size: 14px; font-weight: 700; color: #10B981; background: #ECFDF5; padding: 4px 10px; border-radius: 6px;">החזר השקעה בחודש ${tool3.breakEvenMonth && tool3.breakEvenMonth <= 12 ? escapeHtml(String(tool3.breakEvenMonth)) : '—'} | חיסכון כולל: ${sixMonthSavings}</span>
     </h3>
     
@@ -681,7 +686,7 @@ export function buildPdfHtml(payload: PdfPayload) {
               <div class="bar-value">${displayValue}₪</div>
               <div class="bar-fill" style="height: ${heightPx}px; background-color: ${isPositive ? '#10B981' : '#EF4444'};"></div>
               <div class="bar-label">ח${month.month}</div>
-              ${isBreakeven ? '<div class="breakeven-mark">✓ איזון</div>' : ''}
+              ${isBreakeven ? '<div class="breakeven-mark" style="display:inline-flex; align-items:center; gap:6px;"><svg width="12" height="12" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19.2 20 8.2 18.6 6.8z" fill="#059669"/></svg><span>איזון</span></div>' : ''}
             </div>
           `
         }).join('')
@@ -694,7 +699,7 @@ export function buildPdfHtml(payload: PdfPayload) {
 
   <!-- 6-Month Breakdown Table -->
   <div class="detail-section">
-    <h3>📊 פירוט הערכת חיסכון חודשי (6 חודשים)</h3>
+    <h3 style="display:flex; align-items:center; gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="10" width="4" height="11" fill="#0b2e7b"/><rect x="10" y="6" width="4" height="15" fill="#0b2e7b"/><rect x="17" y="2" width="4" height="19" fill="#0b2e7b"/></svg><span>פירוט הערכת חיסכון חודשי (6 חודשים)</span></h3>
     
     <div class="table-container">
       <table class="roi-table">
@@ -722,11 +727,11 @@ export function buildPdfHtml(payload: PdfPayload) {
     </div>
     
     ${tool3.breakEvenMonth && tool3.breakEvenMonth <= 6 
-      ? `<p style="text-align: center; margin-top: 12px; font-weight: 600; color: #059669;">
-          ✓ נקודת איזון משוערת: חודש ${escapeHtml(tool3.breakEvenMonth)}
+        ? `<p style="text-align: center; margin-top: 12px; font-weight: 600; color: #059669;">
+          נקודת איזון משוערת: חודש ${escapeHtml(tool3.breakEvenMonth)}
          </p>`
-      : `<p style="text-align: center; margin-top: 12px; font-weight: 600; color: #92400E;">
-          ⚠ נקודת איזון חורגת מ-6 חודשים
+        : `<p style="text-align: center; margin-top: 12px; font-weight: 600; color: #92400E;">
+          נקודת איזון חורגת מ-6 חודשים
          </p>`
     }
   </div>
@@ -743,31 +748,31 @@ export function buildPdfHtml(payload: PdfPayload) {
     <div style="display: flex; justify-content: center; gap: 16px; margin-top: 10px;">
       <div style="text-align: center;">
         <div style="width: 32px; height: 32px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">
-          <span style="color: white; font-size: 18px; font-weight: 700;">W</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </div>
         <div style="font-size: 8px; color: var(--slate-600);">WhatsApp</div>
       </div>
       <div style="text-align: center;">
         <div style="width: 32px; height: 32px; background: #1877F2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">
-          <span style="color: white; font-size: 18px; font-weight: 700;">f</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M13 3h3v3h-3c-1.657 0-3 1.567-3 3.5V12h-3v3h3v6h3v-6h2.5l.5-3H13V9.5c0-.276.224-.5.5-.5z"/></svg>
         </div>
         <div style="font-size: 8px; color: var(--slate-600);">Facebook</div>
       </div>
       <div style="text-align: center;">
         <div style="width: 32px; height: 32px; background: #0A66C2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">
-          <span style="color: white; font-size: 18px; font-weight: 700;">in</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M6 9H3V21h3V9zM4.5 6A1.5 1.5 0 1 1 4.5 3a1.5 1.5 0 0 1 0 3zM21 21h-3v-5.5c0-1.328-.497-2.5-1.743-2.5-1.09 0-1.743.73-2.032 1.437-.104.237-.13.566-.13.883V21h-3s.04-11 0-12h3v1.7c.398-.614 1.11-1.486 2.7-1.486C19.21 9.214 21 11.08 21 14.8V21z"/></svg>
         </div>
         <div style="font-size: 8px; color: var(--slate-600);">LinkedIn</div>
       </div>
       <div style="text-align: center;">
         <div style="width: 32px; height: 32px; background: #EA4335; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">
-          <span style="color: white; font-size: 16px; font-weight: 700;">✉</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v0.01L12 13 3 6.01V6zM3 8.236V18a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.236l-9 5.625-9-5.625z"/></svg>
         </div>
         <div style="font-size: 8px; color: var(--slate-600);">Newsletter</div>
       </div>
       <div style="text-align: center;">
         <div style="width: 32px; height: 32px; background: #6366F1; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">
-          <span style="color: white; font-size: 18px; font-weight: 700;">🌐</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-4 13h2v4H8v-4zm0-8h2v6H8V7zm6 4h2v8h-2v-8z"/></svg>
         </div>
         <div style="font-size: 8px; color: var(--slate-600);">Website</div>
       </div>
