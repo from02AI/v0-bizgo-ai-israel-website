@@ -197,9 +197,11 @@ export default function ConsultationPage() {
     // Scheduling (removed)
   })
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [submitAttempted, setSubmitAttempted] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    setSubmitAttempted(true)
     // Client-side validation
     const validate = () => {
       const errs: Record<string, string> = {}
@@ -844,7 +846,7 @@ export default function ConsultationPage() {
 <div className="mb-6">
               <p className="text-sm text-slate-600 text-right">לחיצה על "+" לפתיחת כל חלק בשאלון. חשוב לענות על כל השאלות כדי לשלוח את הטופס.</p>
             </div>
-          {Object.keys(errors).length > 0 && (
+          {submitAttempted && Object.keys(errors).length > 0 && (
             <div className="mb-4 p-3 bg-red-50 border border-red-300 text-red-700 rounded-xl text-right">
               מידע חסר או לא תקין. יש לבדוק שכל הנתונים הוזנו בהתאם להנחיות, לתקן ולשלוח שוב
             </div>

@@ -141,7 +141,7 @@ export function HowItWorksSection() {
                 <img
                   src="/pdf-preview.png"
                   alt="דוגמה לדוח: גרף חיסכון לטווח 6 חודשים - שכבה אחורית"
-                  className="w-full h-auto rounded-2xl shadow-2xl transform -rotate-2 md:-rotate-3 origin-bottom-left mx-auto block z-10"
+                  className="w-full h-auto rounded-2xl shadow-2xl transform -rotate-6 md:-rotate-8 origin-bottom-left mx-auto block z-10"
                   loading="lazy"
                 />
 
@@ -149,7 +149,7 @@ export function HowItWorksSection() {
                 <img
                   src="/pdf_preview2.png"
                   alt="דוגמה לדוח: גרף חיסכון - שכבה קדמית"
-                  className="absolute bottom-0 left-0 md:left-0 w-11/12 md:w-[88%] h-auto rounded-2xl shadow-2xl transform rotate-1 md:rotate-2 origin-bottom-left mx-auto block z-20"
+                  className="absolute bottom-0 left-0 md:left-0 w-11/12 md:w-[88%] h-auto rounded-2xl shadow-2xl transform rotate-6 md:rotate-8 origin-bottom-left mx-auto block z-20"
                   loading="lazy"
                 />
 

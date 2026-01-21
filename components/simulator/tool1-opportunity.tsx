@@ -185,6 +185,17 @@ export function Tool1Opportunity() {
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <Button
+              onClick={() => {
+                setCurrentTool(2)
+                setShowResults(false)
+                setQuestionIndex(0)
+                setAnswers([])
+              }}
+              className="flex-1 bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-4 sm:py-6 text-base sm:text-lg min-h-[44px]"
+            >
+              המשך לבדיקת בטיחות ←
+            </Button>
+            <Button
               variant="outline"
               onClick={() => {
                 resetSimulator()
@@ -197,17 +208,6 @@ export function Tool1Opportunity() {
             >
               <RotateCcw className="w-4 h-4 ml-2" />
               התחלה מחדש
-            </Button>
-            <Button
-              onClick={() => {
-                setCurrentTool(2)
-                setShowResults(false)
-                setQuestionIndex(0)
-                setAnswers([])
-              }}
-              className="flex-1 bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-4 sm:py-6 text-base sm:text-lg min-h-[44px]"
-            >
-              המשך לבדיקת בטיחות ←
             </Button>
           </div>
         </div>

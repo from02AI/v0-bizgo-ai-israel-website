@@ -259,6 +259,17 @@ export function Tool2Safety() {
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <Button
+              onClick={() => {
+                setCurrentTool(3)
+                setShowResults(false)
+                setQuestionIndex(0)
+                setAnswers([])
+              }}
+              className="flex-1 bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-4 sm:py-6 text-base sm:text-lg min-h-[44px]"
+            >
+              לחישוב חסכון לעסק ←
+            </Button>
+            <Button
               variant="outline"
               onClick={() => {
                 resetSimulator()
@@ -269,17 +280,6 @@ export function Tool2Safety() {
               className="flex-1 rounded-xl py-4 sm:py-6 min-h-[44px]"
             >
               בחר משימה אחרת
-            </Button>
-            <Button
-              onClick={() => {
-                setCurrentTool(3)
-                setShowResults(false)
-                setQuestionIndex(0)
-                setAnswers([])
-              }}
-              className="flex-1 bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-4 sm:py-6 text-base sm:text-lg min-h-[44px]"
-            >
-              לחישוב חסכון לעסק ←
             </Button>
           </div>
         </div>

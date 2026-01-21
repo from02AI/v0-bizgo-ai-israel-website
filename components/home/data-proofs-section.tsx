@@ -125,21 +125,21 @@ export function DataProofsSection() {
                 <>
                   <button
                     onClick={() => scrollToCard('prev')}
-                    className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg transition-all text-blue-600 disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="flex absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-2 sm:p-3 shadow-lg transition-all text-blue-600 disabled:opacity-30 disabled:cursor-not-allowed"
                     disabled={leftDisabled}
                     aria-label="כרטיס קודם"
                   >
-                    <L.ChevronLeft className="w-6 h-6" />
+                    <L.ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
                   </button>
 
                   {/* Next Arrow Button */}
                   <button
                     onClick={() => scrollToCard('next')}
-                    className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg transition-all text-blue-600 disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="flex absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-2 sm:p-3 shadow-lg transition-all text-blue-600 disabled:opacity-30 disabled:cursor-not-allowed"
                     disabled={rightDisabled}
                     aria-label="כרטיס הבא"
                   >
-                    <L.ChevronRight className="w-6 h-6" />
+                    <L.ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
                   </button>
                 </>
               )
