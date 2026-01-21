@@ -13,7 +13,8 @@ export function EmailCapture() {
   // (removed NextLink wrapper; use <a> elements below)
   const { tool1Data, tool2Data, tool3Data } = useSimulator()
   const [email, setEmail] = useState("")
-  const [joinWhatsApp, setJoinWhatsApp] = useState(false)
+  // default checked per request: user is opted-in by default and can uncheck
+  const [joinWhatsApp, setJoinWhatsApp] = useState(true)
   const [submitted, setSubmitted] = useState(false)
 
   // Placeholder social links — will be replaced with real URLs when provided
@@ -194,7 +195,7 @@ export function EmailCapture() {
               onCheckedChange={(checked: boolean) => setJoinWhatsApp(checked)}
             />
             <label htmlFor="whatsapp" className="text-slate-600 cursor-pointer">
-              הוסיפו אותי גם לקהילת ה־WhatsApp להמלצות כלים שוטפות
+              צרפו אותי לקהילת AI לעסקים קטנים (ללא עלות) לקבלת מידע, כלים ופתרונות בתחום.
             </label>
           </div>
 

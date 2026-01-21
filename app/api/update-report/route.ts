@@ -237,7 +237,7 @@ export async function POST(request: NextRequest) {
           const emailResult = await resend.emails.send({
             from: finalFrom,
             to: [user_email],
-            subject: 'דוח הערכת מוכנות AI שלך - BizgoAI Israel',
+            subject: 'דוח הערכת מוכנות AI שלך - BizGoAI',
             html: `<!DOCTYPE html>
 <html lang="he">
 <head>
@@ -247,7 +247,7 @@ export async function POST(request: NextRequest) {
 <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4; direction: rtl;">
   <div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); direction: rtl;">
     <div style="background: linear-gradient(135deg, #0b2e7b 0%, #1a4ba8 100%); padding: 30px; text-align: center; direction: rtl;">
-      <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: bold; direction: rtl;">BizgoAI Israel</h1>
+      <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: bold; direction: rtl;">BizGoAI</h1>
       <p style="color: #e0e7ff; margin: 10px 0 0 0; font-size: 14px; direction: rtl;">פלטפורמת הערכת מוכנות AI</p>
     </div>
     <div style="padding: 40px 30px; direction: rtl; text-align: right;">
@@ -273,11 +273,11 @@ export async function POST(request: NextRequest) {
       </div>
       <p style="color: #666666; font-size: 14px; line-height: 1.6; margin: 30px 0 0 0; text-align: right;">
         בברכה,<br/>
-        <strong style="color: #0b2e7b;">צוות BizgoAI Israel</strong>
+        <strong style="color: #0b2e7b;">צוות BizGoAI</strong>
       </p>
     </div>
     <div style="background-color: #f8f9fa; padding: 20px 30px; text-align: center; border-top: 1px solid #e0e0e0; direction: rtl;">
-      <p style="color: #999999; font-size: 12px; margin: 0;">© 2026 BizgoAI Israel. כל הזכויות שמורות.</p>
+      <p style="color: #999999; font-size: 12px; margin: 0;">© 2026 BizGoAI. כל הזכויות שמורות.</p>
     </div>
   </div>
 </body>

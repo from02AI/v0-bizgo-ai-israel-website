@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
 
     // Send email with Resend
     const { data, error } = await resend.emails.send({
-      from: 'BizgoAI Israel <reports@bizgoai.co.il>',
+      from: 'BizGoAI <reports@bizgoai.co.il>',
       to: email,
       subject: `דוח הערכת מוכנות AI: ${reportData.taskName}`,
       html: `
@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
           </div>
           
           <p>שלום,</p>
-          <p>תודה שהשתמשת בסימולטור מוכנות AI של BizgoAI Israel. הדוח המלא שלך מצורף למייל זה כקובץ PDF.</p>
+          <p>תודה שהשתמשת בסימולטור מוכנות AI של BizGoAI. הדוח המלא שלך מצורף למייל זה כקובץ PDF.</p>
           
           <div class="metric-card">
             <div class="metric-label">ציון התאמה</div>
@@ -154,7 +154,7 @@ export async function POST(request: NextRequest) {
               month: 'long', 
               day: 'numeric' 
             })}</p>
-            <p>© ${new Date().getFullYear()} BizgoAI Israel. כל הזכויות שמורות.</p>
+            <p>© ${new Date().getFullYear()} BizGoAI. כל הזכויות שמורות.</p>
             <p style="margin-top: 10px;">
               <a href="https://bizgoai.co.il/privacy" style="color: #667eea; text-decoration: none;">מדיניות פרטיות</a>
             </p>

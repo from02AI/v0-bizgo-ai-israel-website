@@ -25,7 +25,7 @@ export async function GET() {
 
   try {
     const result = await resend.emails.send({
-      from: process.env.RESEND_FROM || 'BizgoAI Israel <onboarding@resend.dev>',
+      from: process.env.RESEND_FROM || 'BizGoAI <onboarding@resend.dev>',
       to: ['bizgoai.il@gmail.com'],
       subject: 'Test PDF Attachment - Tiny PDF',
       html: '<p>Testing PDF attachment encoding with minimal PDF</p><p>If you can open this PDF, the encoding is correct.</p>',
