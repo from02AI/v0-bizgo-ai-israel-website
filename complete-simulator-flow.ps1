@@ -62,7 +62,7 @@ try {
     $emailBytes = [System.Text.Encoding]::UTF8.GetBytes($emailPayload)
     $emailResponse = Invoke-WebRequest -Uri "https://v0-bizgo-ai-israel-website.vercel.app/api/send-report" -Method POST -ContentType "application/json" -Body $emailBytes -UseBasicParsing
     
-    $emailResult = $emailResponse.Content | ConvertFrom-Json
+    [void]($emailResponse.Content | ConvertFrom-Json)
     
     Write-Host "[OK] Email Sent Successfully!" -ForegroundColor Green
     Write-Host ""

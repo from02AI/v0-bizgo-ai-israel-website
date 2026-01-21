@@ -53,7 +53,7 @@ try {
         -Body ([System.Text.Encoding]::UTF8.GetBytes($emailPayload)) `
         -UseBasicParsing
     
-    $emailResult = $emailResponse.Content | ConvertFrom-Json
+    [void]($emailResponse.Content | ConvertFrom-Json)
     
     Write-Host "[OK] Email sent successfully!" -ForegroundColor Green
     Write-Host "  Response: $($emailResponse.Content)" -ForegroundColor Gray

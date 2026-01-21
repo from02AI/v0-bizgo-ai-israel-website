@@ -15,7 +15,7 @@ export function ProgressBar({ currentTool, toolName }: ProgressBarProps) {
   const progress = (currentTool / 3) * 100
 
   return (
-    <div className="sticky top-0 z-50 bg-white border-b border-slate-100 py-4 relative">
+    <div className="sticky top-0 z-50 bg-white border-b border-slate-100 py-4">
       {/* Logo pinned to far left of the viewport */}
       <Link href="/" className="absolute left-4 top-3 text-2xl font-bold text-[#0b2e7b] z-50">
         BizgoAI Israel
