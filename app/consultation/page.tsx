@@ -708,7 +708,18 @@ export default function ConsultationPage() {
                     placeholder="אחר (פרטו)"
                     value={formData.otherTool}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      setFormData({ ...formData, otherTool: e.target.value })
+                      const val = e.target.value
+                      setFormData((prev) => {
+                        const trimmed = val.trim()
+                        // remove previous otherTool value from tools list if present
+                        const prevOther = prev.otherTool && prev.otherTool.trim() ? prev.otherTool : null
+                        let tools = prev.currentTools.filter((t) => t !== prevOther)
+                        if (trimmed) {
+                          // add the typed value as a chosen tool (if not present)
+                          if (!tools.includes(trimmed)) tools = [...tools, trimmed]
+                        }
+                        return { ...prev, otherTool: val, currentTools: tools }
+                      })
                       setErrors((prev) => ({ ...prev, currentTools: '' }))
                     }}
                     className={`border-slate-300 rounded-xl ${errors.currentTools ? 'border-red-500' : 'border-2 border-slate-300'} focus:ring-2 focus:ring-amber-500 focus:border-amber-500`}
@@ -778,8 +789,17 @@ export default function ConsultationPage() {
                       placeholder="אחר (פרטו)"
                       value={formData.otherLimitation}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        setFormData({ ...formData, otherLimitation: e.target.value })
-                        setErrors((prev) => ({ ...prev, otherLimitation: '' }))
+                        const val = e.target.value
+                        setFormData((prev) => {
+                          const trimmed = val.trim()
+                          const next: any = { ...prev, otherLimitation: val }
+                          // typing into the "other" field should count as choosing that option
+                          if (trimmed && prev.mainLimitation !== 'אחר (פרטו)') {
+                            next.mainLimitation = 'אחר (פרטו)'
+                          }
+                          return next
+                        })
+                        setErrors((prev) => ({ ...prev, otherLimitation: '', mainLimitation: '' }))
                       }}
                       className={`border-slate-300 rounded-xl ${errors.otherLimitation ? 'border-red-500' : 'border-2 border-slate-300'} focus:ring-2 focus:ring-amber-500 focus:border-amber-500`}
                     />
@@ -824,6 +844,11 @@ export default function ConsultationPage() {
 <div className="mb-6">
               <p className="text-sm text-slate-600 text-right">לחיצה על "+" לפתיחת כל חלק בשאלון. חשוב לענות על כל השאלות כדי לשלוח את הטופס.</p>
             </div>
+          {Object.keys(errors).length > 0 && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-300 text-red-700 rounded-xl text-right">
+              מידע חסר או לא תקין. יש לבדוק שכל הנתונים הוזנו בהתאם להנחיות, לתקן ולשלוח שוב
+            </div>
+          )}
           {/* Scheduling section removed */}
 
           <Button

@@ -243,40 +243,84 @@ export async function POST(request: NextRequest) {
 <body dir="rtl" style="direction: rtl; unicode-bidi: embed; text-align: right; margin:0; padding:0; background-color:#f5f5f5;">
   <div class="container" dir="rtl" style="direction: rtl; unicode-bidi: embed; text-align: right;">
     <div class="header" dir="rtl" style="direction: rtl; text-align: center;">
-      <h1 dir="rtl" style="direction: rtl; margin:0;">🎉 ברוכים הבאים ל-BizgoAI Israel</h1>
+      <h1 dir="rtl" style="direction: rtl; margin:0;"> BizGoAI</h1>
     </div>
     <div class="content" dir="rtl" style="direction: rtl; text-align: right;">
       <h2 dir="rtl" style="direction: rtl;">שלום ${data.full_name || 'יקר/ה'},</h2>
       <p dir="rtl" style="direction: rtl; text-align: right;">
-        תודה רבה על הפנייה שלך לקבלת ייעוץ מקצועי להטמעת AI בעסק שלך.
-        <strong>קיבלנו את בקשתך בהצלחה!</strong>
+      טופס הבקשה לקבלת התאמת כלי AI בחינם לעסק שלך - התקבל בהצלחה!
       </p>
 
       <div class="highlight-box" dir="rtl" style="direction: rtl; text-align: right;">
         <p dir="rtl" style="direction: rtl;"><strong>מה הלאה?</strong></p>
         <ul dir="rtl" style="margin: 10px 0; padding-right: 20px; text-align: right;">
-          <li dir="rtl">צוות BizgoAI יבדוק את הפנייה שלך בקפידה</li>
-          <li dir="rtl">נחזור אליך תוך 24-48 שעות עבודה</li>
-          <li dir="rtl">נתאם שיחת אבחון ראשונית (Zoom)</li>
-          <li dir="rtl">נכין עבורך תוכנית הטמעה מותאמת אישית</li>
+          <li dir="rtl">אני בודקת את כל הפניות בקפידה</li>
+          <li dir="rtl">אצור קשר עם עסקים מתאימים לתהליך בהקדם האפשרי ובהתאם לצורך</li>
+          <li dir="rtl">עסקים מתאימים יקבלו
+• שיחת Zoom אבחון מקצועית
+• עבודת מחקר צרכים ובדיקת כלי AI מתאימים
+• מסמך מסכם הכולל תוכנית הטמעה מותאמת אישית </li>
+<li dir="rtl">ללא עלות * מספר המקומות מוגבל * בחירת עסקים מתאימים לפי צורך</li>
         </ul>
       </div>
 
       <p dir="rtl" style="direction: rtl; text-align: right;">
         בינתיים, אם יש לך שאלות נוספות או מידע שברצונך להוסיף,
-        אתם מוזמנים לענות ישירות לאימייל זה.
+        ניתן להשיב למייל זה.
       </p>
 
       <p class="signature" dir="rtl" style="direction: rtl; text-align: right;">
         בברכה,<br/>
-        צוות BizgoAI Israel<br/>
+        שני כרמי רדושיצקי
+        מייסדת BizGoAI <br/>
         <span style="font-weight: normal; font-size: 14px;">עסקים קטנים מתקדמים עם AI. בביטחון.</span>
       </p>
     </div>
+        <!-- Social badges section (added) -->
+        <div style="padding:20px 24px; text-align:center; direction: rtl;">
+          <p style="margin:0;font-size:16px;color:#0b2e7b;font-weight:bold;">הצטרפו אלינו בערוצים השונים</p>
+          <p style="margin:8px 0 14px;color:#666;font-size:14px;">קבל/י עדכונים, חומרים והמלצות כלים שיעזרו לך להטמיע AI בעסק</p>
+          <div style="margin:0 auto; max-width:420px; text-align:center;">
+            <table role="presentation" style="margin:0 auto; border-collapse:collapse;">
+              <tr>
+                <td style="padding:6px 8px; text-align:center;">
+                  <a href="#" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" style="text-decoration:none; color:inherit;">
+                    <div style="width:44px;height:44px;background:#25D366;border-radius:22px;display:inline-block;line-height:44px;text-align:center;color:white;font-weight:700;box-shadow:0 4px 8px rgba(37,211,102,0.25);">W</div>
+                    <div style="font-size:12px;color:#333;margin-top:6px;">WhatsApp</div>
+                  </a>
+                </td>
+                <td style="padding:6px 8px; text-align:center;">
+                  <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook" style="text-decoration:none; color:inherit;">
+                    <div style="width:44px;height:44px;background:#1877F2;border-radius:22px;display:inline-block;line-height:44px;text-align:center;color:white;font-weight:700;box-shadow:0 4px 8px rgba(24,119,242,0.25);">f</div>
+                    <div style="font-size:12px;color:#333;margin-top:6px;">Facebook</div>
+                  </a>
+                </td>
+                <td style="padding:6px 8px; text-align:center;">
+                  <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="text-decoration:none; color:inherit;">
+                    <div style="width:44px;height:44px;background:#0A66C2;border-radius:22px;display:inline-block;line-height:44px;text-align:center;color:white;font-weight:700;box-shadow:0 4px 8px rgba(10,102,194,0.25);">in</div>
+                    <div style="font-size:12px;color:#333;margin-top:6px;">LinkedIn</div>
+                  </a>
+                </td>
+                <td style="padding:6px 8px; text-align:center;">
+                  <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Newsletter" style="text-decoration:none; color:inherit;">
+                    <div style="width:44px;height:44px;background:linear-gradient(135deg, #f093fb 0%, #f5576c 100%);border-radius:22px;display:inline-block;line-height:44px;text-align:center;color:white;font-weight:700;box-shadow:0 4px 8px rgba(245,87,108,0.25);">✉</div>
+                    <div style="font-size:12px;color:#333;margin-top:6px;">Newsletter</div>
+                  </a>
+                </td>
+                <td style="padding:6px 8px; text-align:center;">
+                  <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Website" style="text-decoration:none; color:inherit;">
+                    <div style="width:44px;height:44px;background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);border-radius:22px;display:inline-block;line-height:44px;text-align:center;color:white;font-weight:700;box-shadow:0 4px 8px rgba(102,126,234,0.25);">🌐</div>
+                    <div style="font-size:12px;color:#333;margin-top:6px;">Website</div>
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
     <div class="footer" dir="rtl" style="direction: rtl; text-align: center;">
-      <p dir="rtl">© 2025 BizgoAI Israel | <a href="https://bizgoai.co.il" style="color: #0b2e7b;">bizgoai.co.il</a></p>
+      <p dir="rtl">© 2026 BizGoAI | <a href="https://www.BizGoAI.co.il" style="color: #0b2e7b;">bizgoai.co.il</a></p>
       <p dir="rtl" style="font-size: 12px; margin-top: 10px;">
-        קיבלת מייל זה כי פנית לקבלת ייעוץ דרך האתר שלנו
+        קיבלת מייל זה כי פנית דרך האתר שלנו
       </p>
     </div>
   </div>
@@ -288,7 +332,7 @@ export async function POST(request: NextRequest) {
         const emailResult = await resend.emails.send({
           from: fromAddress,
           to: data.email,
-          subject: 'אישור קבלת בקשת ייעוץ — BizgoAI Israel',
+          subject: 'אישור קבלת בקשה — BizGoAI',
           html,
         })
 
