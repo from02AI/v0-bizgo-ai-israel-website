@@ -7,7 +7,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 sm:gap-8 mb-8">
           {/* Logo & Tagline */}
           <div className="text-center md:text-right">
-            <h3 className="text-xl sm:text-2xl font-bold mb-2">BizgoAI Israel</h3>
+            <h3 className="text-xl sm:text-2xl font-bold mb-2">BizGoAI</h3>
             <p className="text-xs sm:text-sm text-blue-200">עסקים קטנים מתקדמים עם AI. בביטחון.</p>
           </div>
 

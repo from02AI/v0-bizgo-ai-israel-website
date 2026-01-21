@@ -76,7 +76,7 @@ export function ConsultationPreviewSection() {
             <Button
               asChild
               size="lg"
-              className="bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold rounded-xl shadow-lg hover:shadow-blue-500/25 transition-all text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 min-h-[44px]"
+              className="w-full sm:w-auto bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold rounded-xl shadow-lg hover:shadow-blue-500/25 transition-all text-sm sm:text-base md:text-lg px-6 sm:px-8 py-4 sm:py-6 min-h-[44px]"
             >
               <Link href="/consultation">הגישו בקשה לאבחון והתאמת כלי AI ללא עלות ←</Link>
             </Button>
