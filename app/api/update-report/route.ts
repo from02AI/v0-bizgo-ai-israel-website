@@ -173,8 +173,21 @@ export async function POST(request: NextRequest) {
           console.log('[UPDATE-REPORT] Base64 expansion ratio:', ratio, '(should be ~1.33)')
 
           console.log('[UPDATE-REPORT] Sending email via Resend')
+          // Normalize and validate RESEND_FROM to prevent malformed characters from blocking sends
+          const rawFrom = process.env.RESEND_FROM || ''
+          const normalizeFrom = (s: string) => s.replace(/\u00A0|\u202F|\uFEFF|\u200B/g, ' ').replace(/_/g, ' ').replace(/\s+/g, ' ').trim()
+          const normalizedFrom = normalizeFrom(rawFrom)
+          const fromValidRegex = /^(.*<[^@\s]+@[^>]+>|[^@\s]+@[^@\s]+\.[^@\s]+)$/
+          let finalFrom = ''
+          if (normalizedFrom && fromValidRegex.test(normalizedFrom)) {
+            finalFrom = normalizedFrom
+          } else {
+            console.warn('[UPDATE-REPORT] RESEND_FROM invalid or missing after normalization; falling back to contact@bizgoai.co.il')
+            finalFrom = 'contact@bizgoai.co.il'
+          }
+
           const emailResult = await resend.emails.send({
-            from: process.env.RESEND_FROM || 'BizgoAI Israel <onboarding@resend.dev>',
+            from: finalFrom,
             to: [user_email],
             subject: 'דוח הערכת מוכנות AI שלך - BizgoAI Israel',
             html: `<!DOCTYPE html>

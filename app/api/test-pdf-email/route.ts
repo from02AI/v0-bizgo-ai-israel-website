@@ -16,6 +16,13 @@ export async function GET() {
 
   const resend = new Resend(process.env.RESEND_API_KEY)
 
+  // Normalize and validate RESEND_FROM to prevent malformed characters from blocking sends
+  const rawFrom = process.env.RESEND_FROM || ''
+  const normalizeFrom = (s: string) => s.replace(/\u00A0|\u202F|\uFEFF|\u200B/g, ' ').replace(/_/g, ' ').replace(/\s+/g, ' ').trim()
+  const normalizedFrom = normalizeFrom(rawFrom)
+  const fromValidRegex = /^(.*<[^@\s]+@[^>]+>|[^@\s]+@[^@\s]+\.[^@\s]+)$/
+  const fromAddress = (normalizedFrom && fromValidRegex.test(normalizedFrom)) ? normalizedFrom : 'contact@bizgoai.co.il'
+
   try {
     const result = await resend.emails.send({
       from: process.env.RESEND_FROM || 'BizgoAI Israel <onboarding@resend.dev>',

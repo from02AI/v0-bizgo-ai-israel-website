@@ -166,7 +166,18 @@ export async function POST(request: NextRequest) {
           const ratio = (base64Content.length / pdfBuffer.length).toFixed(2)
           console.log('[DEBUG] Base64 expansion ratio:', ratio, '(should be ~1.33)')
 
-          const fromAddress = process.env.RESEND_FROM || 'BizgoAI Israel <onboarding@resend.dev>'
+          // Normalize and validate RESEND_FROM to prevent malformed characters from blocking sends
+          const rawFrom = process.env.RESEND_FROM || ''
+          const normalizeFrom = (s: string) => s.replace(/\u00A0|\u202F|\uFEFF|\u200B/g, ' ').replace(/_/g, ' ').replace(/\s+/g, ' ').trim()
+          const normalizedFrom = normalizeFrom(rawFrom)
+          const fromValidRegex = /^(.*<[^@\s]+@[^>]+>|[^@\s]+@[^@\s]+\.[^@\s]+)$/
+          let fromAddress = ''
+          if (normalizedFrom && fromValidRegex.test(normalizedFrom)) {
+            fromAddress = normalizedFrom
+          } else {
+            console.warn('[SAVE-REPORT] RESEND_FROM invalid or missing after normalization; falling back to contact@bizgoai.co.il')
+            fromAddress = 'contact@bizgoai.co.il'
+          }
           const taskName = record.tool1_task_name ?? 'דוח'
           const subject = `דוח הערכת מוכנות AI שלך - BizgoAI Israel`
 
