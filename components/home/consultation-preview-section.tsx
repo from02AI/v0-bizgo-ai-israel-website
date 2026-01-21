@@ -6,11 +6,11 @@ export function ConsultationPreviewSection() {
   return (
     <section id="consultation" className="bg-gray-50 pt-16 pb-12 md:pt-24 md:pb-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12">
+        <div className="bg-white rounded-3xl shadow-2xl p-6 sm:p-8 md:p-12">
           <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0b2e7b] drop-shadow-sm mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#0b2e7b] drop-shadow-sm mb-4">
 התאמת כלי AI בחינם לעסק שלך          </h2>
-            <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-2xl mx-auto">
               לא ברור מאיפה להתחיל עם AI או מה הצעד הנכון הבא? <br /><br />
               אני בונה מאגר ידע וכלים פרקטיים ל"קהילת AI לעסקים קטנים" <br />
               ומציעה לך להצטרף למספר מוגבל של עסקים <br />
@@ -76,7 +76,7 @@ export function ConsultationPreviewSection() {
             <Button
               asChild
               size="lg"
-              className="bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold rounded-xl shadow-lg hover:shadow-blue-500/25 transition-all text-lg px-8 py-6"
+              className="bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold rounded-xl shadow-lg hover:shadow-blue-500/25 transition-all text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 min-h-[44px]"
             >
               <Link href="/consultation">הגישו בקשה לאבחון והתאמת כלי AI ללא עלות ←</Link>
             </Button>

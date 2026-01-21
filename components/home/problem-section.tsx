@@ -32,10 +32,10 @@ export function ProblemSection() {
     <section className="bg-[#1e3a8a] pt-12 pb-16 md:pt-16 md:pb-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-4">
             טובעים בכאוס של AI?
           </h2>
-          <p className="text-lg sm:text-xl text-white max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-white max-w-3xl mx-auto">
             עסקים קטנים נמצאים בלחץ להתקדם לבינה המלאכותית <br />בעוד שהטכנולוגיה רצה מהר יותר מהיכולת להדביק את הקצב.
           </p>
         </div>

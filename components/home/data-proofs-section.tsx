@@ -105,7 +105,7 @@ export function DataProofsSection() {
     <section className="bg-[#0b2e7b] py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white drop-shadow-sm mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white drop-shadow-sm mb-4">
             אתם לא לבד בזה
           </h2>
           <p className="text-lg sm:text-xl text-white">
@@ -125,7 +125,7 @@ export function DataProofsSection() {
                 <>
                   <button
                     onClick={() => scrollToCard('prev')}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg transition-all text-blue-600 disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg transition-all text-blue-600 disabled:opacity-30 disabled:cursor-not-allowed"
                     disabled={leftDisabled}
                     aria-label="כרטיס קודם"
                   >
@@ -135,7 +135,7 @@ export function DataProofsSection() {
                   {/* Next Arrow Button */}
                   <button
                     onClick={() => scrollToCard('next')}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg transition-all text-blue-600 disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg transition-all text-blue-600 disabled:opacity-30 disabled:cursor-not-allowed"
                     disabled={rightDisabled}
                     aria-label="כרטיס הבא"
                   >
@@ -149,7 +149,7 @@ export function DataProofsSection() {
           {/* Scrollable container with peek effect */}
           <div 
             ref={scrollContainerRef}
-            className="overflow-x-auto pb-4 px-12 scroll-smooth snap-x snap-mandatory hide-scrollbar"
+            className="overflow-x-auto pb-4 px-2 sm:px-8 md:px-12 scroll-smooth snap-x snap-mandatory hide-scrollbar"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             <div className="flex gap-4" style={{ width: "max-content" }}>
@@ -157,7 +157,7 @@ export function DataProofsSection() {
               {statCards.map((card, index) => (
                 <div
                   key={index}
-                  className="w-80 shrink-0 bg-blue-600 rounded-2xl p-6 shadow-lg snap-start flex flex-col items-center text-center"
+                  className="w-[85vw] sm:w-80 shrink-0 bg-blue-600 rounded-2xl p-6 shadow-lg snap-start flex flex-col items-center text-center"
                 >
                   {/* Emoji at top */}
                   <div className="text-4xl mb-3">{card.emoji}</div>
@@ -183,7 +183,7 @@ export function DataProofsSection() {
               {quoteCards.map((card, index) => (
                 <div
                   key={`quote-${index}`}
-                  className="w-80 shrink-0 bg-blue-600 rounded-2xl p-6 shadow-lg snap-start flex flex-col items-center text-center"
+                  className="w-[85vw] sm:w-80 shrink-0 bg-blue-600 rounded-2xl p-6 shadow-lg snap-start flex flex-col items-center text-center"
                 >
                   <div className="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center mb-4">
                     <card.icon className="w-5 h-5 text-white stroke-2" />

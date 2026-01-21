@@ -143,10 +143,10 @@ export function Tool1Opportunity() {
 
     return (
       <div className="max-w-2xl mx-auto px-4 py-8">
-        <div className="bg-white rounded-3xl shadow-xl p-8 text-center">
-          <h3 className="text-lg font-semibold text-slate-700 mb-4">{safeTaskForResults ? `הערכת התאמת המשימה "${safeTaskForResults}" ל‑AI` : 'הערכת התאמת המשימה ל‑AI'}</h3>
+        <div className="bg-white rounded-3xl shadow-xl p-6 sm:p-8 text-center">
+          <h3 className="text-base sm:text-lg font-semibold text-slate-700 mb-4">{safeTaskForResults ? `הערכת התאמת המשימה "${safeTaskForResults}" ל‏-AI` : 'הערכת התאמת המשימה ל‏-AI'}</h3>
           <div className="text-6xl mb-4">{scoreInfo.emoji}</div>
-          <div className="text-5xl font-black text-[#0b2e7b] mb-2">
+          <div className="text-4xl sm:text-5xl font-black text-[#0b2e7b] mb-2">
             {tool1Data.score}
             <span className="text-2xl text-slate-400">/10</span>
           </div>
@@ -183,7 +183,7 @@ export function Tool1Opportunity() {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <Button
               variant="outline"
               onClick={() => {
@@ -193,7 +193,7 @@ export function Tool1Opportunity() {
                 setAnswers([])
                 setTaskName("")
               }}
-              className="flex-1 rounded-xl py-6"
+              className="flex-1 rounded-xl py-4 sm:py-6 min-h-[44px]"
             >
               <RotateCcw className="w-4 h-4 ml-2" />
               התחלה מחדש
@@ -205,7 +205,7 @@ export function Tool1Opportunity() {
                 setQuestionIndex(0)
                 setAnswers([])
               }}
-              className="flex-1 bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-6 text-lg"
+              className="flex-1 bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-4 sm:py-6 text-base sm:text-lg min-h-[44px]"
             >
               המשך לבדיקת בטיחות ←
             </Button>

@@ -221,10 +221,10 @@ export function Tool2Safety() {
 
     return (
       <div className="max-w-2xl mx-auto px-4 py-12">
-        <div className="bg-white rounded-3xl shadow-xl p-8 text-center">
-          <h3 className="text-lg font-semibold text-slate-700 mb-4">{safeTaskLabel ? `הערכת בטיחות למשימה ״${safeTaskLabel}״` : 'הערכת בטיחות למשימה'}</h3>
+        <div className="bg-white rounded-3xl shadow-xl p-6 sm:p-8 text-center">
+          <h3 className="text-base sm:text-lg font-semibold text-slate-700 mb-4">{safeTaskLabel ? `הערכת בטיחות למשימה ״${safeTaskLabel}״` : 'הערכת בטיחות למשימה'}</h3>
           <div className="text-6xl mb-4">{scoreInfo.emoji}</div>
-          <div className="text-5xl font-black text-[#0b2e7b] mb-2">{safetyScore}<span className="text-2xl text-slate-400">/10</span></div>
+          <div className="text-4xl sm:text-5xl font-black text-[#0b2e7b] mb-2">{safetyScore}<span className="text-xl sm:text-2xl text-slate-400">/10</span></div>
           <p className={`text-xl font-bold ${scoreInfo.color} mb-4`}>{scoreInfo.text}</p>
 
           <div className="text-right bg-slate-50 rounded-2xl p-6 mb-6">
@@ -257,7 +257,7 @@ export function Tool2Safety() {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <Button
               variant="outline"
               onClick={() => {
@@ -266,7 +266,7 @@ export function Tool2Safety() {
                 setQuestionIndex(0)
                 setAnswers([])
               }}
-              className="flex-1 rounded-xl py-6"
+              className="flex-1 rounded-xl py-4 sm:py-6 min-h-[44px]"
             >
               בחר משימה אחרת
             </Button>
@@ -277,7 +277,7 @@ export function Tool2Safety() {
                 setQuestionIndex(0)
                 setAnswers([])
               }}
-              className="flex-1 bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-6 text-lg"
+              className="flex-1 bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-4 sm:py-6 text-base sm:text-lg min-h-[44px]"
             >
               לחישוב חסכון לעסק ←
             </Button>

@@ -10,17 +10,17 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="h-16">
-          {/* Logo - pinned to the left corner */}
-          <div className="absolute left-4 inset-y-0 flex items-center">
-            <Link href="/" className="text-2xl font-bold text-[#0b2e7b]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="h-16 flex items-center justify-between min-w-0">
+          {/* Logo */}
+          <div className="flex items-center min-w-0">
+            <Link href="/" className="text-lg sm:text-xl md:text-2xl font-bold text-[#0b2e7b] truncate">
               BizgoAI Israel
             </Link>
           </div>
 
-          {/* Desktop Navigation - pinned to the right */}
-          <nav className="hidden md:flex items-center gap-8 absolute right-4 inset-y-0">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-4 lg:gap-8">
             <Link href="/simulator" className="text-slate-600 hover:text-[#0b2e7b] transition-colors font-medium">
               סימולטור AI לעסק
             </Link>
@@ -35,10 +35,10 @@ export function Header() {
             </Link>
           </nav>
 
-          {/* Mobile menu button - pinned to the right on small screens */}
-          <div className="absolute right-4 inset-y-0 flex items-center md:hidden">
+          {/* Mobile menu button */}
+          <div className="flex items-center md:hidden">
             <button
-              className="p-2 text-slate-600"
+              className="p-2 text-slate-600 min-h-[44px] min-w-[44px] flex items-center justify-center"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label={mobileMenuOpen ? "סגור תפריט" : "פתח תפריט"}
             >

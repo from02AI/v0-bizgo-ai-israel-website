@@ -4,17 +4,17 @@ export function Footer() {
   return (
     <footer className="bg-blue-900 text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 sm:gap-8 mb-8">
           {/* Logo & Tagline */}
-          <div>
-            <h3 className="text-2xl font-bold mb-2">BizgoAI Israel</h3>
-            <p className="text-sm text-blue-200">עסקים קטנים מתקדמים עם AI. בביטחון.</p>
+          <div className="text-center md:text-right">
+            <h3 className="text-xl sm:text-2xl font-bold mb-2">BizgoAI Israel</h3>
+            <p className="text-xs sm:text-sm text-blue-200">עסקים קטנים מתקדמים עם AI. בביטחון.</p>
           </div>
 
           {/* Navigation */}
-          <div>
+          <div className="text-center md:text-right">
             <h4 className="font-semibold mb-4">ניווט</h4>
-            <ul className="space-y-2 text-sm text-blue-200">
+            <ul className="space-y-2 text-xs sm:text-sm text-blue-200">
               <li>
                 <Link href="/" className="hover:text-white transition-colors">
                   דף הבית
@@ -39,9 +39,9 @@ export function Footer() {
           </div>
 
           {/* Community */}
-          <div>
+          <div className="text-center md:text-right">
             <h4 className="font-semibold mb-4">קהילה</h4>
-            <ul className="space-y-2 text-sm text-blue-200">
+            <ul className="space-y-2 text-xs sm:text-sm text-blue-200">
               <li>
                 <a href="#" className="hover:text-white transition-colors">
                   WhatsApp
@@ -61,9 +61,9 @@ export function Footer() {
           </div>
 
           {/* Legal */}
-          <div>
+          <div className="text-center md:text-right">
             <h4 className="font-semibold mb-4">משפטי</h4>
-            <ul className="space-y-2 text-sm text-blue-200">
+            <ul className="space-y-2 text-xs sm:text-sm text-blue-200">
               <li>
                 <Link href="/privacy" className="hover:text-white transition-colors">
                   מדיניות פרטיות

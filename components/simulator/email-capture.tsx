@@ -92,7 +92,7 @@ export function EmailCapture() {
               <p className="text-sm text-slate-600 mt-1">הצטרפ/י לפעילות בערוצים השונים וקבל/י מידע חיוני AI לעסקים קטנים, חומרים, כלים ופתרונות נוספים</p>
             </div>
 
-            <div className="flex justify-center gap-6 mt-4">
+            <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 mt-4">
               <a href={socialLinks.website} target="_blank" rel="noopener noreferrer" className="text-center" aria-label="Website">
                 <div style={{width:48,height:48,background:'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',borderRadius:24,display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 6px auto',boxShadow:'0 4px 8px rgba(102, 126, 234, 0.3)'}}>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="none" stroke="white" strokeWidth="2"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="white" strokeWidth="2" fill="none"/></svg>
@@ -130,7 +130,7 @@ export function EmailCapture() {
             </div>
           </div>
 
-          <Button asChild className="w-full py-4 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold flex items-center justify-center shadow-md focus:outline-none focus:ring-4 focus:ring-amber-200">
+          <Button asChild className="w-full py-3 sm:py-4 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold flex items-center justify-center shadow-md focus:outline-none focus:ring-4 focus:ring-amber-200 min-h-[44px] text-sm sm:text-base">
             <a href="/#consultation" aria-label="המשך להתאמת כלי AI בחינם לעסק שלך">המשך להתאמת כלי AI בחינם לעסק שלך</a>
           </Button>
         </div>
@@ -201,7 +201,7 @@ export function EmailCapture() {
 
           <Button
             type="submit"
-            className="w-full bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-6 text-lg"
+            className="w-full bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-4 sm:py-6 text-base sm:text-lg min-h-[44px]"
           >
             שלחו לי את הדוח המלא ←
           </Button>

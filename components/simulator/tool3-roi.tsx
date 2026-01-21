@@ -326,11 +326,11 @@ export function Tool3ROI() {
     const statusInfo = tool2Data?.status ? statusInfoMap[tool2Data.status as keyof typeof statusInfoMap] : null
 
     return (
-      <div className="max-w-3xl mx-auto px-4 py-12">
-        <div className="bg-white rounded-3xl shadow-xl p-8 relative">
-          <div className="text-center mb-8">
-            <p className="text-slate-500 mb-2">תחזית חיסכון ל־6 חודשים</p>
-            <div className="text-5xl font-black text-[#0b2e7b] mb-2">
+      <div className="max-w-3xl mx-auto px-4 py-8 sm:py-12">
+        <div className="bg-white rounded-3xl shadow-xl p-6 sm:p-8 relative">
+          <div className="text-center mb-6 sm:mb-8">
+            <p className="text-sm sm:text-base text-slate-500 mb-2">תחזית חיסכון ל־6 חודשים</p>
+            <div className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0b2e7b] mb-2">
               ₪{results.sixMonthTotal.toLocaleString("he-IL", { maximumFractionDigits: 0 })}
             </div>
             <p className="text-sm text-slate-500 mt-1">
@@ -360,7 +360,7 @@ export function Tool3ROI() {
               onClick={() => {
                 router.push("/simulator/email-capture")
               }}
-              className="w-full bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-6 px-10"
+              className="w-full bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-4 sm:py-6 px-6 sm:px-10 text-base sm:text-lg min-h-[44px]"
             >
               שלחו לי את התוצאות המלאות למייל ←
             </Button>

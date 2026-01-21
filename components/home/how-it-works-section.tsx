@@ -49,19 +49,19 @@ export function HowItWorksSection() {
         {/* Tools cards removed */}
 
         {/* PDF Value Preview Section */}
-        <div className="bg-linear-to-br from-blue-50 via-white to-amber-50 rounded-3xl border-2 border-blue-200 p-8 mb-10 shadow-xl">
+        <div className="bg-linear-to-br from-blue-50 via-white to-amber-50 rounded-3xl border-2 border-blue-200 p-6 sm:p-8 mb-10 shadow-xl">
           {/* Side-by-side layout: headline + cards (right/55%) + PDF preview (left/45%) on desktop, stacked on mobile */}
-          <div className="grid md:grid-cols-[55%_45%] gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-6 sm:gap-8 items-start">
             {/* Headline + Feature cards (RIGHT side in RTL) */}
             <div className="order-2 md:order-1">
               <div className="text-center mb-6">
               </div>
 
               {/* Feature cards grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="flex items-start gap-4 bg-white/90 backdrop-blur rounded-2xl p-6 border border-blue-100">
-                <div className="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
-                  <Search className="w-7 h-7 text-blue-600" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+              <div className="flex items-start gap-3 sm:gap-4 bg-white/90 backdrop-blur rounded-2xl p-4 sm:p-6 border border-blue-100">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
+                  <Search className="w-6 h-6 sm:w-7 sm:h-7 text-blue-600" />
                 </div>
                 <div className="text-right">
                   <p className="font-bold text-[#0b2e7b] text-base"> התאמת משימה ל-AI</p>
@@ -71,9 +71,9 @@ export function HowItWorksSection() {
                 </div>
               </div>
               
-              <div className="flex items-start gap-4 bg-white/90 backdrop-blur rounded-2xl p-6 border border-blue-100">
-                <div className="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
-                  <ShieldCheck className="w-7 h-7 text-blue-600" />
+              <div className="flex items-start gap-3 sm:gap-4 bg-white/90 backdrop-blur rounded-2xl p-4 sm:p-6 border border-blue-100">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
+                  <ShieldCheck className="w-6 h-6 sm:w-7 sm:h-7 text-blue-600" />
                 </div>
                 <div className="text-right">
                   <p className="font-bold text-[#0b2e7b] text-base">בדיקת בטיחות</p>
@@ -83,9 +83,9 @@ export function HowItWorksSection() {
                 </div>
               </div>
               
-              <div className="flex items-start gap-4 bg-white/90 backdrop-blur rounded-2xl p-6 border border-blue-100">
-                <div className="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
-                  <BarChart3 className="w-7 h-7 text-blue-600" />
+              <div className="flex items-start gap-3 sm:gap-4 bg-white/90 backdrop-blur rounded-2xl p-4 sm:p-6 border border-blue-100">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
+                  <BarChart3 className="w-6 h-6 sm:w-7 sm:h-7 text-blue-600" />
                 </div>
                 <div className="text-right">
                   <p className="font-bold text-[#0b2e7b] text-base">גרף חסכון</p>
@@ -93,9 +93,9 @@ export function HowItWorksSection() {
                 </div>
               </div>
               
-              <div className="flex items-start gap-4 bg-white/90 backdrop-blur rounded-2xl p-6 border border-blue-100">
-                <div className="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
-                  <Lightbulb className="w-7 h-7 text-blue-600" />
+              <div className="flex items-start gap-3 sm:gap-4 bg-white/90 backdrop-blur rounded-2xl p-4 sm:p-6 border border-blue-100">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
+                  <Lightbulb className="w-6 h-6 sm:w-7 sm:h-7 text-blue-600" />
                 </div>
                 <div className="text-right">
                   <p className="font-bold text-[#0b2e7b] text-base">הסברים מלאים ודוח מפורט למייל</p>
@@ -105,12 +105,12 @@ export function HowItWorksSection() {
             </div>
 
             {/* CTA moved here: below the 4 cards and centered */}
-            <div className="mt-8 flex flex-col items-center col-span-1 sm:col-span-2">
+            <div className="mt-6 sm:mt-8 flex flex-col items-center col-span-1 sm:col-span-2">
               <div className="flex justify-center w-full">
                 <Button
                   asChild
                   size="lg"
-                  className="bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl shadow-lg hover:shadow-amber-500/25 transition-all text-2xl px-14 py-8"
+                  className="bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl shadow-lg hover:shadow-amber-500/25 transition-all text-lg sm:text-xl md:text-2xl px-8 sm:px-12 md:px-14 py-4 sm:py-6 md:py-8 min-h-[44px]"
                 >
                   <Link href="/simulator">להתחיל את הסימולטור עכשיו ←</Link>
                 </Button>
@@ -135,13 +135,13 @@ export function HowItWorksSection() {
             </div>
 
             {/* PDF Mockup (LEFT side in RTL) - reduced to ~2/3 size */}
-            <div className="order-1 md:order-2 mx-auto max-w-xs md:max-w-sm">
+            <div className="order-1 md:order-2 mx-auto w-full max-w-xs sm:max-w-sm">
               <div className="relative">
                 {/* Fanned PDF previews: bottom card */}
                 <img
                   src="/pdf-preview.png"
                   alt="דוגמה לדוח: גרף חיסכון לטווח 6 חודשים - שכבה אחורית"
-                  className="w-full rounded-2xl shadow-2xl transform -rotate-2 md:-rotate-3 origin-bottom-left mx-auto block z-10"
+                  className="w-full h-auto rounded-2xl shadow-2xl transform -rotate-2 md:-rotate-3 origin-bottom-left mx-auto block z-10"
                   loading="lazy"
                 />
 
@@ -149,7 +149,7 @@ export function HowItWorksSection() {
                 <img
                   src="/pdf_preview2.png"
                   alt="דוגמה לדוח: גרף חיסכון - שכבה קדמית"
-                  className="absolute bottom-0 left-0 md:left-0 w-11/12 md:w-[88%] rounded-2xl shadow-2xl transform rotate-15 origin-bottom-left mx-auto block z-20"
+                  className="absolute bottom-0 left-0 md:left-0 w-11/12 md:w-[88%] h-auto rounded-2xl shadow-2xl transform rotate-1 md:rotate-2 origin-bottom-left mx-auto block z-20"
                   loading="lazy"
                 />
 
