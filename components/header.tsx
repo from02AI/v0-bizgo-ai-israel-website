@@ -13,14 +13,14 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="h-16 flex items-center justify-between min-w-0">
           {/* Logo - on LEFT */}
-          <div className="flex items-center min-w-0">
+          <div className="flex items-center min-w-0 order-1">
             <Link href="/" className="text-lg sm:text-xl md:text-2xl font-bold text-[#0b2e7b] truncate">
               BizGoAI
             </Link>
           </div>
 
           {/* Desktop Navigation - on RIGHT */}
-          <nav className="hidden md:flex items-center gap-4 lg:gap-8">
+          <nav className="hidden md:flex items-center gap-4 lg:gap-8 order-2">
             <Link href="/simulator" className="text-slate-600 hover:text-[#0b2e7b] transition-colors font-medium">
               סימולטור AI לעסק
             </Link>
@@ -36,7 +36,7 @@ export function Header() {
           </nav>
 
           {/* Mobile menu button */}
-          <div className="flex items-center md:hidden">
+          <div className="flex items-center md:hidden order-3">
             <button
               className="p-2 text-slate-600 min-h-[44px] min-w-[44px] flex items-center justify-center"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
