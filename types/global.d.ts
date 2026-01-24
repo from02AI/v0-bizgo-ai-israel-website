@@ -31,6 +31,16 @@ declare module 'lucide-react' {
   export default LucideDefault;
 }
 
+// Add missing icon names used in the project
+declare module 'lucide-react' {
+  export const Target: any;
+  export const Handshake: any;
+  export const Rocket: any;
+}
+
+// Allow importing plain CSS files as side-effect imports in TypeScript
+declare module '*.css'
+
 declare module 'next/link' {
   // permissive fallback for Next.js Link component to avoid JSX typing errors
   const Link: any;

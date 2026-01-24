@@ -1,0 +1,13 @@
+{
+  "files.exclude": {
+    "**/test-results": true,
+    "**/test-results/**": true
+  },
+  "search.exclude": {
+    "**/test-results": true,
+    "**/test-results/**": true
+  },
+  "files.watcherExclude": {
+    "**/test-results/**": true
+  }
+}
