@@ -23,7 +23,7 @@ export default function AboutPage() {
           </div>
          
           <p className="text-2xl sm:text-2xl text-blue-600 font-bold max-w-2xl mx-auto leading-relaxed">
-            הקמתי את BizgoAI כדי לבנות גשרים בין עידן ה-AI <br />לבין המציאות של עסקים קטנים בישראל.
+            הקמתי את BizgoAI כדי לבנות גשרים בין עידן ה-AI{" "}<span className="hidden sm:inline"><br /></span>לבין המציאות של עסקים קטנים בישראל.
           </p>
         </div>
 
@@ -36,10 +36,10 @@ export default function AboutPage() {
               שמי שני כרמי רדושיצקי, רואת חשבון בהכשרתי ובמשך 15 שנים יזמתי פרויקטים וניהלתי בתפקידי אופרציה וכספים במגוון ארגונים (עסקים קטנים, חברות, עמותות, קואופרטיבים) ותחומים: הייטק, חינוך, בנקאות ועוד.
               </p>
               <p className=" text-slate-700">
-                  <span className="font-bold text-[#0b2e7b]">בתחילת שנת 2025 "נפלה עלי ההבנה" ש-AI הולך לשנות הכל <br />תחום העיסוק, התפקידים, העבודה השוטפת...ישתנו או ייעלמו. </span> <br /> <br />
+                  <span className="font-bold text-[#0b2e7b]">בתחילת שנת 2025 "נפלה עלי ההבנה" ש-AI הולך לשנות הכל{" "}<span className="hidden sm:inline"><br /></span>תחום העיסוק, התפקידים, העבודה השוטפת...ישתנו או ייעלמו. </span>{" "}<span className="hidden sm:inline"><br /><br /></span>
                   מהר מאוד הבנתי עד כמה העולם הזה עצום.
                   בעיקר חדש ושונה מכל מה שהכרנו עד היום — ואנחנו רק בהתחלה.
-                  הרשתות החברתיות מגבירות את הרעש וכמויות התוכן (עם הרבה פייק) <br />
+                  הרשתות החברתיות מגבירות את הרעש וכמויות התוכן (עם הרבה פייק){" "}<span className="hidden sm:inline"><br /></span>
                   הרבה הבטחות שקשה להבחין בין מה שעובד לבין מה שמצולם טוב<div className="br"></div>אפשר בקלות ללכת לאיבוד<div className="br"></div>
 
 והלחץ "להתקדם ל-AI" רק עולה.
@@ -94,7 +94,7 @@ export default function AboutPage() {
                   
                 </ul>
                 <p>
-                  <span className=" font-bold text-blue-600">לעסקים קטנים יש יכולת נמוכה להשקיע משאבי זמן, תקציב וידע טכנולוגיים נדרשים <br />כדי לנווט בעולם החדש של AI - ואז הכאוס הופך לסיכון ממשי
+                  <span className=" font-bold text-blue-600">לעסקים קטנים יש יכולת נמוכה להשקיע משאבי זמן, תקציב וידע טכנולוגיים נדרשים{" "}<span className="hidden sm:inline"><br /></span>כדי לנווט בעולם החדש של AI - ואז הכאוס הופך לסיכון ממשי
 .</span>
                 </p>
               </div>

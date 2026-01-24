@@ -139,8 +139,8 @@ function CollapsibleSection({
   const [open, setOpen] = useState(defaultOpen)
   return (
     <div className="mb-10">
-      <div className="relative mb-4">
-        <h2 className="text-xl font-bold text-[#0b2e7b] pr-12">{title}</h2>
+      <div className="relative mb-4 overflow-hidden">
+        <h2 className="text-xl font-bold text-[#0b2e7b] pr-14 break-words">{title}</h2>
         <button
           type="button"
           aria-expanded={open}

@@ -98,7 +98,7 @@ export function Footer() {
           </div>
 
           {/* Column 4: Logo + Tagline (right side on desktop) */}
-          <div dir="rtl" className="text-center md:text-right md:col-start-4 md:justify-self-end md:translate-x-24 transform">
+          <div dir="rtl" className="text-center md:text-right md:col-start-4 md:justify-self-end lg:translate-x-12 transform">
             <h3 className="text-lg sm:text-xl font-bold mb-1">BizGoAI</h3>
             <p className="text-xs text-blue-200 whitespace-nowrap">עסקים קטנים מתקדמים ל- AI, בביטחון. ביחד.</p>
           </div>
