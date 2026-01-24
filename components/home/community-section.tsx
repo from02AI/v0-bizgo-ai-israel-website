@@ -1,13 +1,13 @@
 "use client"
 
 import React, { useState } from "react"
-import { MessageCircle, Mail, Users } from "lucide-react"
+import * as Lucide from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 
 const channels = [
   {
-    icon: MessageCircle,
+    icon: Lucide.MessageCircle,
     iconBg: "bg-green-100",
     iconColor: "text-green-600",
     title: "קבוצת WhatsApp",
@@ -17,7 +17,7 @@ const channels = [
     href: "#",
   },
   {
-    icon: Mail,
+    icon: Lucide.Mail,
     iconBg: "bg-orange-100",
     iconColor: "text-orange-600",
     title: "ניוזלטר שבועי",
@@ -27,7 +27,7 @@ const channels = [
     href: "#",
   },
   {
-    icon: Users,
+    icon: Lucide.User,
     iconBg: "bg-blue-100",
     iconColor: "text-blue-600",
     title: "קבוצת Facebook",

@@ -18,6 +18,8 @@ declare module 'lucide-react' {
   export const Loader2: any;
   export const FileDown: any;
   export const Download: any;
+  export const Users: any;
+  export const User: any;
   // additional lucide icons used in the project
   export const Search: any;
   export const ShieldCheck: any;
