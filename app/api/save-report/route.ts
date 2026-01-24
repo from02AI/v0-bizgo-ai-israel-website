@@ -122,8 +122,8 @@ export async function POST(request: NextRequest) {
     tool3_budget_max: mapNumeric(tool3Data?.budgetMax),
 
     tool3_monthly_breakdown: tool3Data?.monthlyBreakdown ?? null,
-    // Save whether the user opted into community/marketing updates
-    subscribe_community: subscribed,
+    // Note: subscribe_community column removed to fix schema mismatch
+    // The subscribed value is still used for internal notification emails below
   }
 
   try {

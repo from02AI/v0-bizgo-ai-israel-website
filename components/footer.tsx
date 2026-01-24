@@ -62,7 +62,8 @@ export function Footer() {
         </div>
         <div dir="ltr" className="grid grid-cols-1 md:grid-cols-4 gap-0 sm:gap-1 mb-6 items-start mx-auto max-w-2xl">
           {/* Column 1: טופס יצירת קשר / contact email (swapped) */}
-          <div className="text-center md:text-center md:col-start-1">
+          {/* Mobile order: last (order-4). Desktop order restored via md:order. */}
+          <div className="text-center md:text-center md:col-start-1 order-4 md:order-1">
             <ul className="space-y-1 text-xs sm:text-sm text-blue-200">
               <li>
                 <a href="/#contact" className="hover:text-white transition-colors">טופס יצירת קשר</a>
@@ -74,7 +75,8 @@ export function Footer() {
           </div>
 
           {/* Column 2: אודות / מדיניות פרטיות */}
-          <div className="text-center md:text-center md:col-start-2">
+          {/* Mobile order: third (order-3). Desktop order restored via md:order. */}
+          <div className="text-center md:text-center md:col-start-2 order-3 md:order-2">
             <ul className="space-y-1 text-xs sm:text-sm text-blue-200">
               <li>
                 <Link href="/about" className="hover:text-white transition-colors">אודות</Link>
@@ -86,7 +88,8 @@ export function Footer() {
           </div>
 
           {/* Column 3: סימולטור / התאמת כלים (swapped) */}
-          <div className="text-center md:text-center md:col-start-3">
+          {/* Mobile order: second (order-2). Desktop order restored via md:order. */}
+          <div className="text-center md:text-center md:col-start-3 order-2 md:order-3">
             <ul className="space-y-1 text-xs sm:text-sm text-blue-200">
               <li>
                 <Link href="/simulator" className="hover:text-white transition-colors">סימולטור</Link>
@@ -98,7 +101,8 @@ export function Footer() {
           </div>
 
           {/* Column 4: Logo + Tagline (right side on desktop) */}
-          <div dir="rtl" className="text-center md:text-right md:col-start-4 md:justify-self-end lg:translate-x-12 transform">
+          {/* Mobile order: first (order-1). Desktop order restored via md:order. */}
+          <div dir="rtl" className="text-center md:text-right md:col-start-4 md:justify-self-end lg:translate-x-12 transform order-1 md:order-4">
             <h3 className="text-lg sm:text-xl font-bold mb-1">BizGoAI</h3>
             <p className="text-xs text-blue-200 whitespace-nowrap">עסקים קטנים מתקדמים ל- AI, בביטחון. ביחד.</p>
           </div>
