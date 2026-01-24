@@ -17,12 +17,12 @@ export function ProgressBar({ currentTool, toolName }: ProgressBarProps) {
   return (
     <div className="sticky top-0 z-50 bg-white border-b border-slate-100 py-4">
       {/* Logo pinned to far left of the viewport */}
-      <Link href="/" className="absolute left-2 sm:left-4 -top-3 sm:-top-2 z-50">
-        <img 
-          src="/images/BizgoAI-logo.png" 
-          alt="BizGoAI" 
-          className="h-20 sm:h-24 md:h-20 lg:h-24 object-contain"
-        />
+      <Link href="/" className="absolute left-2 sm:left-4 top-4 sm:top-2 z-50">
+          <img
+            src="/images/BizGoAI-simulator-logo.png"
+            alt="BizGoAI logo"
+            className="h-10 sm:h-14 md:h-10 lg:h-14 object-contain"
+          />
       </Link>
 
       <div className="max-w-3xl mx-auto px-4 pl-16 sm:pl-20 md:pl-4">
