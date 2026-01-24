@@ -14,8 +14,14 @@ export function Header() {
         <div className="h-16 flex items-center justify-between min-w-0">
           {/* Logo - on LEFT */}
           <div className="flex items-center min-w-0 order-1">
-            <Link href="/" className="text-lg sm:text-xl md:text-2xl font-bold text-[#0b2e7b] truncate">
-              BizGoAI
+            <Link href="/" className="flex items-center">
+              <img
+                src="/images/BizgoAI-logo.png"
+                alt="BizGoAI"
+                className="h-10 sm:h-12 md:h-16 lg:h-20 object-contain"
+              />
+              {/* Keep accessible text for screen readers only; remove visible text per request */}
+              <span className="sr-only">BizGoAI</span>
             </Link>
           </div>
 

@@ -2,6 +2,7 @@ import Link from "next/link"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
+import CTARegistrationForm from '@/components/cta-registration-form'
 
 export default function AboutPage() {
   return (
@@ -147,18 +148,29 @@ export default function AboutPage() {
 {/* Final CTA */}
         <section className="text-center bg-blue-600 rounded-3xl p-10 border-2 shadow-lg">
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">בואו נצא למסע הזה ביחד</h2>
-          <p className="text-lg text-white mb-8 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-white mb-6 max-w-2xl mx-auto leading-relaxed">
             אם אתם עסק קטן בישראל שרוצה להתקדם ל-AI בבטחון — אתם במקום הנכון.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              asChild
-              className="bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl px-8 py-6 shadow-lg hover:shadow-xl transition-all"
-            >
-              <Link href="/simulator">הצטרפו לקהילת AI לעסקים קטנים </Link>
-            </Button>
-            
+
+          {/* Inline registration form (name, phone, email) */}
+          <div className="mb-4">
+            {/* Client-side form component */}
+            {/* eslint-disable-next-line @next/next/no-before-interactive-script-outside-document */}
+            {/* Import locally to keep this page mostly server-rendered */}
+            <script type="module" />
+            {/* Lazy-loaded client component */}
+            {
+              /* The CTARegistrationForm is a client component — import dynamically above */
+            }
+            <div>
+              {/* We'll import the component normally — Next will handle bundling */}
+              {/* @ts-ignore */}
+              <CTARegistrationForm />
+            </div>
+
           </div>
+
+          {/* Simulator button removed as requested */}
         </section>
 
       </main>
