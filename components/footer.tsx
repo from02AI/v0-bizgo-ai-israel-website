@@ -74,7 +74,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-blue-800 pt-6 text-center text-sm text-blue-300">
-          © 2026 BizgoAI Israel. כל הזכויות שמורות
+          © 2026 BizGoAI. כל הזכויות שמורות
         </div>
       </div>
     </footer>

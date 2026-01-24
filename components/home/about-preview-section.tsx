@@ -21,7 +21,7 @@ export function AboutPreviewSection() {
     <section className="bg-neutral-50 py-16 md:py-20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-blue-600 drop-shadow-sm mb-6 text-center">
-          למה BizgoAI Israel?
+          למה BizGoAI?
         </h2>
 
         <div className="max-w-3xl mx-auto text-center mb-10">
@@ -30,7 +30,7 @@ export function AboutPreviewSection() {
             זמן וכסף.
           </p>
           <p className="text-lg text-slate-600 leading-relaxed">
-            BizgoAI Israel נבנה על קהילה של בעלי עסקים קטנים שמשתפים ניסיון אמיתי, כדי שתוכלו לאמץ AI בביטחון — תוך
+            BizGoAI נבנה על קהילה של בעלי עסקים קטנים שמשתפים ניסיון אמיתי, כדי שתוכלו לאמץ AI בביטחון — תוך
             חיסכון בזמן ובכסף.
           </p>
         </div>

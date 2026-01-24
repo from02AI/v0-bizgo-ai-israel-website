@@ -8,7 +8,7 @@ import "./globals.css"
 const heebo = Heebo({ subsets: ["hebrew", "latin"], variable: "--font-main" })
 
 export const metadata: Metadata = {
-  title: "BizgoAI Israel - עסקים קטנים מתקדמים עם AI",
+  title: "BizGoAI - עסקים קטנים מתקדמים עם AI",
   description: "קהילה לעסקים קטנים בישראל שרוצים לאמץ AI בביטחון. כלי הערכה חינמי, ייעוץ אישי, ותמיכה קהילתית.",
   generator: "v0.app",
   icons: {
