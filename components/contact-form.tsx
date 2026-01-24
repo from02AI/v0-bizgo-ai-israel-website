@@ -13,8 +13,9 @@ export function ContactForm() {
     email: '',
     phone: '',
     message: '',
-    // Marketing/community opt-in should be explicit (unchecked by default)
-    subscribeCommunity: false,
+    // Marketing/community opt-in: default to checked per product request
+    // user can still uncheck before submitting
+    subscribeCommunity: true,
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
@@ -38,8 +39,8 @@ export function ContactForm() {
       }
 
       setStatus('success');
-      // Reset form after successful submission
-      setFormData({ name: '', email: '', phone: '', message: '', subscribeCommunity: false });
+      // Reset form after successful submission — keep opt-in checked by default
+      setFormData({ name: '', email: '', phone: '', message: '', subscribeCommunity: true });
       
     } catch (error) {
       setStatus('error');

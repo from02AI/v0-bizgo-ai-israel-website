@@ -1,5 +1,9 @@
+"use client"
+
+import React, { useState } from "react"
 import { MessageCircle, Mail, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 
 const channels = [
   {
@@ -35,6 +39,7 @@ const channels = [
 ]
 
 export function CommunitySection() {
+  const [joinCommunity, setJoinCommunity] = useState(true)
   return (
     <section id="community" className="bg-purple-50 py-16 md:py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -63,6 +68,19 @@ export function CommunitySection() {
               </Button>
             </div>
           ))}
+        </div>
+
+        <div className="mt-6 flex justify-center">
+          <div className="flex items-center gap-3">
+            <Checkbox
+              id="homepage-join"
+              checked={joinCommunity}
+              onCheckedChange={(checked: boolean | 'indeterminate') => setJoinCommunity(checked === true)}
+            />
+            <label htmlFor="homepage-join" className="text-slate-700 cursor-pointer">
+              אני מעוניין/ת להצטרף לקהילת BizGoAI ולקבל עדכונים ותוכן (אופציונלי)
+            </label>
+          </div>
         </div>
       </div>
     </section>

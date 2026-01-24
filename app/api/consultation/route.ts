@@ -100,6 +100,8 @@ export async function POST(request: NextRequest) {
     can_commit_to_trial: typeof body.canCommitToTrial === 'boolean' ? body.canCommitToTrial : null,
     user_ip: forwardedFor,
     user_agent: userAgent,
+    // Save whether the user opted into community/marketing updates
+    subscribe_community: subscribeCommunity,
   }
 
   try {

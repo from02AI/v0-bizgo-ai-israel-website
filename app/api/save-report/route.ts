@@ -122,6 +122,8 @@ export async function POST(request: NextRequest) {
     tool3_budget_max: mapNumeric(tool3Data?.budgetMax),
 
     tool3_monthly_breakdown: tool3Data?.monthlyBreakdown ?? null,
+    // Save whether the user opted into community/marketing updates
+    subscribe_community: subscribed,
   }
 
   try {

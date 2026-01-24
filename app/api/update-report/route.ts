@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
     console.log('[UPDATE-REPORT] Querying Supabase for id:', id)
     const { data, error } = await supabase
       .from('simulator_reports')
-      .update({ user_email })
+      .update({ user_email, subscribe_community: subscribed })
       .eq('id', id)
       .select('*')
       .single()

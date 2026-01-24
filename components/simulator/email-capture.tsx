@@ -13,8 +13,9 @@ export function EmailCapture() {
   // (removed NextLink wrapper; use <a> elements below)
   const { tool1Data, tool2Data, tool3Data } = useSimulator()
   const [email, setEmail] = useState("")
-  // Marketing/community opt-in should be explicit (unchecked by default)
-  const [joinWhatsApp, setJoinWhatsApp] = useState(false)
+  // Marketing/community opt-in: default to checked per product request
+  // user can still uncheck before submitting
+  const [joinWhatsApp, setJoinWhatsApp] = useState(true)
   const [submitted, setSubmitted] = useState(false)
 
   // Placeholder social links — will be replaced with real URLs when provided

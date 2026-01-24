@@ -193,8 +193,9 @@ export default function ConsultationPage() {
     mainLimitation: "",
     otherLimitation: "",
     urgency: "",
-    // Marketing/community opt-in should be explicit (unchecked by default)
-    subscribeCommunity: false,
+    // Marketing/community opt-in: default to checked per product request
+    // user can still uncheck before submitting
+    subscribeCommunity: true,
     // Scheduling (removed)
   })
   const [errors, setErrors] = useState<Record<string, string>>({})
