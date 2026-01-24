@@ -72,6 +72,9 @@ export async function POST(request: NextRequest) {
 
   console.log('[CONSULTATION] Validation passed, preparing to save to Supabase')
 
+  // Normalize marketing/community opt-in (optional)
+  const subscribeCommunity = !!body.subscribeCommunity
+
   const record = {
     full_name: body.fullName || null,
     email: body.email || null,
@@ -117,6 +120,69 @@ export async function POST(request: NextRequest) {
     }
 
     console.log('[CONSULTATION] Successfully saved to Supabase. ID:', data.id)
+
+    // Notify BizGoAI internally (best-effort, does not block success)
+    // This helps operationally track leads + whether the user opted into community updates.
+    try {
+      if (!process.env.RESEND_API_KEY) {
+        console.log('[CONSULTATION] Internal notify skipped: RESEND_API_KEY not set')
+      } else {
+        const toInternal = process.env.CONTACT_EMAIL || 'contact@bizgoai.co.il'
+        const resendInternal = new Resend(process.env.RESEND_API_KEY)
+
+        // Use the same sender normalization approach as the user email
+        const rawFrom = process.env.RESEND_FROM || ''
+        const normalizeFrom = (s: string) => {
+          return s
+            .replace(/\u00A0|\u202F|\uFEFF|\u200B/g, ' ')
+            .replace(/_/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim()
+        }
+
+        const normalizedFrom = normalizeFrom(rawFrom)
+        const fromValidRegex = /^(.*<[^@\s]+@[^>]+>|[^@\s]+@[^@\s]+\.[^@\s]+)$/
+        const fromAddress = (normalizedFrom && fromValidRegex.test(normalizedFrom))
+          ? normalizedFrom
+          : 'BizGoAI <contact@bizgoai.co.il>'
+
+        const safe = (v: any) => (v === undefined || v === null ? '' : String(v))
+        const internalHtml = `<!doctype html>
+<html lang="he" dir="rtl">
+<body style="direction: rtl; font-family: Arial, sans-serif;">
+  <h2 style="margin:0 0 12px 0; color:#0b2e7b;">פנייה חדשה — התאמת כלי AI</h2>
+  <p style="margin:0 0 8px 0;"><strong>מזהה:</strong> ${safe(data.id)}</p>
+  <p style="margin:0 0 8px 0;"><strong>שם:</strong> ${safe(body.fullName)}</p>
+  <p style="margin:0 0 8px 0;"><strong>אימייל:</strong> ${safe(body.email)}</p>
+  <p style="margin:0 0 8px 0;"><strong>טלפון:</strong> ${safe(body.phone)}</p>
+  <p style="margin:0 0 8px 0;"><strong>עסק:</strong> ${safe(body.businessName)}</p>
+  <p style="margin:0 0 8px 0;"><strong>ענף:</strong> ${safe(body.sector)} | <strong>גודל:</strong> ${safe(body.businessSize)}</p>
+  <p style="margin:0 0 8px 0;"><strong>תהליך נבחר:</strong> ${safe(body.selectedProcess)}</p>
+  <p style="margin:0 0 8px 0;"><strong>מטרה:</strong> ${safe(body.goal)}</p>
+  <p style="margin:0 0 8px 0;"><strong>כלים קיימים:</strong> ${(Array.isArray(body.currentTools) ? body.currentTools.join(', ') : safe(body.currentTools))}</p>
+  <hr style="margin:16px 0;" />
+  <p style="margin:0 0 8px 0;"><strong>הצטרפות לקהילה (אופציונלי):</strong> ${subscribeCommunity ? 'כן' : 'לא'}</p>
+  <p style="margin:0; color:#666; font-size:12px;">נשלח מהאתר BizGoAI</p>
+</body>
+</html>`
+
+        const internalResult = await resendInternal.emails.send({
+          from: fromAddress,
+          to: [toInternal],
+          replyTo: body.email,
+          subject: `פנייה חדשה — התאמת כלי AI (${safe(body.fullName)})`,
+          html: internalHtml,
+        })
+
+        if (internalResult.error) {
+          console.warn('[CONSULTATION] Internal notify error:', internalResult.error)
+        } else {
+          console.log('[CONSULTATION] Internal notify sent. ID:', internalResult.data?.id)
+        }
+      }
+    } catch (err) {
+      console.warn('[CONSULTATION] Internal notify exception (ignored):', err)
+    }
 
     // Send confirmation email - PROPERLY AWAITED with comprehensive logging
     let emailSent = false

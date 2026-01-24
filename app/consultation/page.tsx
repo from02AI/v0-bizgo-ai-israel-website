@@ -193,7 +193,8 @@ export default function ConsultationPage() {
     mainLimitation: "",
     otherLimitation: "",
     urgency: "",
-    subscribeCommunity: true,
+    // Marketing/community opt-in should be explicit (unchecked by default)
+    subscribeCommunity: false,
     // Scheduling (removed)
   })
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -869,9 +870,15 @@ export default function ConsultationPage() {
           >
             <CheckIcon checked={formData.subscribeCommunity} />
             <div className="flex-1 text-right">
-              <span className="text-slate-700">צרפו אותי לקהילת AI לעסקים קטנים (ללא עלות) לקבלת מידע, כלים ופתרונות בתחום. <span className="text-sm text-slate-500"></span></span>
+              <span className="text-slate-700">אני מעוניין/ת להצטרף לקהילת BizGoAI ולקבל עדכונים ותוכן (אופציונלי)</span>
             </div>
           </div>
+
+          <p className="text-xs text-slate-500 text-right mt-3 leading-relaxed">
+            נשתמש בפרטים שמסרת כדי לטפל בבקשה ולהתאים שיחת ייעוץ. מסירת הפרטים היא מרצון, אך בלי אימייל לא נוכל ליצור קשר.
+            מידע נוסף וזכויותיך: {" "}
+            <a href="/privacy" className="text-blue-700 hover:underline">מדיניות הפרטיות</a>.
+          </p>
 
             
         </form>

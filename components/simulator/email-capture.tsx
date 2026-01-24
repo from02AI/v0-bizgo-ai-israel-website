@@ -13,8 +13,8 @@ export function EmailCapture() {
   // (removed NextLink wrapper; use <a> elements below)
   const { tool1Data, tool2Data, tool3Data } = useSimulator()
   const [email, setEmail] = useState("")
-  // default checked per request: user is opted-in by default and can uncheck
-  const [joinWhatsApp, setJoinWhatsApp] = useState(true)
+  // Marketing/community opt-in should be explicit (unchecked by default)
+  const [joinWhatsApp, setJoinWhatsApp] = useState(false)
   const [submitted, setSubmitted] = useState(false)
 
   // Placeholder social links — will be replaced with real URLs when provided
@@ -48,11 +48,11 @@ export function EmailCapture() {
 
         if (savedId) {
           // Update existing report with email
-          console.log('[EMAIL-CAPTURE] Calling update-report with:', { id: savedId, user_email: email })
+          console.log('[EMAIL-CAPTURE] Calling update-report with:', { id: savedId, user_email: email, subscribeCommunity: joinWhatsApp })
           const response = await fetch('/api/update-report', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: savedId, user_email: email }),
+            body: JSON.stringify({ id: savedId, user_email: email, subscribeCommunity: joinWhatsApp }),
           })
           const result = await response.json()
           console.log('[EMAIL-CAPTURE] Update-report response:', result)
@@ -60,7 +60,7 @@ export function EmailCapture() {
         }
 
         // No existing saved id: create a new report row including the email
-        const payload = { user_email: email, tool1Data, tool2Data, tool3Data }
+        const payload = { user_email: email, tool1Data, tool2Data, tool3Data, subscribeCommunity: joinWhatsApp }
         console.log('[EMAIL-CAPTURE] Calling save-report with payload:', payload)
         const response = await fetch('/api/save-report', {
           method: 'POST',
@@ -192,10 +192,10 @@ export function EmailCapture() {
             <Checkbox
               id="whatsapp"
               checked={joinWhatsApp}
-              onCheckedChange={(checked: boolean) => setJoinWhatsApp(checked)}
+              onCheckedChange={(checked: boolean | 'indeterminate') => setJoinWhatsApp(checked === true)}
             />
             <label htmlFor="whatsapp" className="text-slate-600 cursor-pointer">
-              צרפו אותי לקהילת AI לעסקים קטנים (ללא עלות) לקבלת מידע, כלים ופתרונות בתחום.
+              אני מעוניין/ת להצטרף לקהילת BizGoAI ולקבל עדכונים ותוכן (אופציונלי)
             </label>
           </div>
 
@@ -207,7 +207,11 @@ export function EmailCapture() {
           </Button>
         </form>
 
-        <p className="text-sm text-slate-400 text-center mt-4">אנחנו מכבדים את הפרטיות שלכם. ניתן להסיר בכל עת.</p>
+        <p className="text-xs text-slate-500 text-center mt-4 leading-relaxed">
+          נשתמש באימייל כדי לשלוח את דוח ה-PDF. מסירת האימייל היא מרצון, אך בלי אימייל לא נוכל לשלוח את הדוח במייל.
+          עדכונים/קהילה נשלחים רק אם סימנתם הצטרפות. לפרטים נוספים: {" "}
+          <a href="/privacy" className="text-blue-700 hover:underline">מדיניות הפרטיות</a>.
+        </p>
 
         <a href="/" className="block text-center text-sm text-slate-500 hover:text-slate-700 mt-4">
           אין לי צורך בדוח המלא - חזור לאתר

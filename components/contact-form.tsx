@@ -13,7 +13,8 @@ export function ContactForm() {
     email: '',
     phone: '',
     message: '',
-    subscribeCommunity: true,
+    // Marketing/community opt-in should be explicit (unchecked by default)
+    subscribeCommunity: false,
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
@@ -38,7 +39,7 @@ export function ContactForm() {
 
       setStatus('success');
       // Reset form after successful submission
-      setFormData({ name: '', email: '', phone: '', message: '', subscribeCommunity: true });
+      setFormData({ name: '', email: '', phone: '', message: '', subscribeCommunity: false });
       
     } catch (error) {
       setStatus('error');
@@ -148,12 +149,20 @@ export function ContactForm() {
           <Checkbox
             id="subscribeCommunity"
             checked={formData.subscribeCommunity}
-            onCheckedChange={(checked: boolean) => setFormData({ ...formData, subscribeCommunity: checked })}
+            onCheckedChange={(checked: boolean | 'indeterminate') =>
+              setFormData({ ...formData, subscribeCommunity: checked === true })
+            }
           />
           <label htmlFor="subscribeCommunity" className="text-slate-600 cursor-pointer">
-            צרפו אותי לקהילת AI לעסקים קטנים (ללא עלות) לקבלת מידע, כלים ופתרונות.
+            אני מעוניין/ת להצטרף לקהילת BizGoAI ולקבל עדכונים ותוכן (אופציונלי)
           </label>
         </div>
+
+        <p className="text-xs text-slate-500 text-right mt-2 leading-relaxed">
+          נשתמש בפרטים שמסרת כדי לחזור אליך בנוגע לפנייה. מסירת הפרטים היא מרצון, אך בלי אימייל לא נוכל לחזור אליך.
+          מידע נוסף על אופן השימוש במידע וזכויותיך נמצא ב-{" "}
+          <a href="/privacy" className="text-blue-700 hover:underline">מדיניות הפרטיות</a>.
+        </p>
       </div>
       </div>
 

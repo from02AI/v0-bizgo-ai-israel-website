@@ -64,7 +64,8 @@ export async function POST(request: NextRequest) {
   console.log('[SAVE-REPORT] Received request body keys:', Object.keys(body || {}))
   console.log('[SAVE-REPORT] user_email value:', body?.user_email, 'type:', typeof body?.user_email)
 
-  const { tool1Data, tool2Data, tool3Data, user_email } = body || {}
+  const { tool1Data, tool2Data, tool3Data, user_email, subscribeCommunity } = body || {}
+  const subscribed = !!subscribeCommunity
 
   if (!tool1Data && !tool2Data && !tool3Data) {
     return NextResponse.json({ error: "No simulator data provided" }, { status: 400 })
@@ -136,6 +137,47 @@ export async function POST(request: NextRequest) {
     if (error) {
       console.error('Supabase insert error', error)
       return NextResponse.json({ error: 'Failed to save report', detail: error.message }, { status: 500 })
+    }
+
+    // Best-effort internal notification if the user explicitly opted into community updates.
+    // Does NOT affect user-facing success and does not rely on additional DB columns.
+    if (subscribed && user_email && process.env.RESEND_API_KEY) {
+      try {
+        const resend = new Resend(process.env.RESEND_API_KEY)
+
+        const rawFrom = process.env.RESEND_FROM || ''
+        const normalizeFrom = (s: string) => s.replace(/\u00A0|\u202F|\uFEFF|\u200B/g, ' ').replace(/_/g, ' ').replace(/\s+/g, ' ').trim()
+        const normalizedFrom = normalizeFrom(rawFrom)
+        const fromValidRegex = /^(.*<[^@\s]+@[^>]+>|[^@\s]+@[^@\s]+\.[^@\s]+)$/
+        const fromAddress = (normalizedFrom && fromValidRegex.test(normalizedFrom))
+          ? normalizedFrom
+          : 'BizGoAI <contact@bizgoai.co.il>'
+
+        const toInternal = process.env.CONTACT_EMAIL || 'contact@bizgoai.co.il'
+        const taskName = record.tool1_task_name ?? 'דוח סימולטור'
+
+        const internalResult = await resend.emails.send({
+          from: fromAddress,
+          to: [toInternal],
+          replyTo: String(user_email),
+          subject: `Opt-in לקהילה (סימולטור): ${taskName}`,
+          html: `<!doctype html><html lang="he" dir="rtl"><body style="direction:rtl;font-family:Arial,sans-serif;">
+            <h2 style="margin:0 0 12px 0; color:#0b2e7b;">Opt-in לקהילה — סימולטור</h2>
+            <p style="margin:0 0 8px 0;"><strong>אימייל:</strong> ${String(user_email)}</p>
+            <p style="margin:0 0 8px 0;"><strong>מזהה דוח:</strong> ${String(data.id)}</p>
+            <p style="margin:0 0 8px 0;"><strong>משימה:</strong> ${String(taskName)}</p>
+            <p style="margin:0; color:#666; font-size:12px;">המשתמש בחר להצטרף לקהילה/לקבל עדכונים (אופציונלי).</p>
+          </body></html>`,
+        })
+
+        if (internalResult.error) {
+          console.warn('[SAVE-REPORT] Internal opt-in notify error:', internalResult.error)
+        } else {
+          console.log('[SAVE-REPORT] Internal opt-in notify sent. ID:', internalResult.data?.id)
+        }
+      } catch (err) {
+        console.warn('[SAVE-REPORT] Internal opt-in notify exception (ignored):', err)
+      }
     }
 
     // Attempt to send welcome email with PDF when an email was provided
