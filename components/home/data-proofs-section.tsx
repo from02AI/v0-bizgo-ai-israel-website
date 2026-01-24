@@ -79,6 +79,19 @@ export function DataProofsSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const totalCards = statCards.length + quoteCards.length // 9 total cards
 
+  // Sync currentIndex with actual scroll position
+  const handleScroll = () => {
+    if (!scrollContainerRef.current) return
+    
+    const container = scrollContainerRef.current
+    const cardWidth = 320 + 16 // w-80 (320px) + gap-4 (16px)
+    const scrollLeft = container.scrollLeft
+    
+    // Calculate which card is currently in view
+    const index = Math.round(scrollLeft / cardWidth)
+    setCurrentIndex(Math.max(0, Math.min(index, totalCards - 1)))
+  }
+
   const scrollToCard = (direction: 'next' | 'prev') => {
     if (!scrollContainerRef.current) return
     
@@ -87,18 +100,10 @@ export function DataProofsSection() {
     
     if (direction === 'next') {
       container.scrollBy({ left: cardWidth, behavior: 'smooth' })
-      setCurrentIndex((prev) => Math.min(prev + 1, totalCards - 1))
     } else {
       container.scrollBy({ left: -cardWidth, behavior: 'smooth' })
-      setCurrentIndex((prev) => Math.max(prev - 1, 0))
     }
-  }
-
-  const scrollToIndex = (index: number) => {
-    if (!scrollContainerRef.current) return
-    const cardWidth = 320 + 16
-    scrollContainerRef.current.scrollTo({ left: index * cardWidth, behavior: 'smooth' })
-    setCurrentIndex(index)
+    // Note: currentIndex will be updated by handleScroll event
   }
 
   return (
@@ -115,40 +120,28 @@ export function DataProofsSection() {
 
         {/* Enhanced horizontal scrollable carousel with navigation */}
         <div className="relative">
-          {/* compute disabled states for clearer styling */}
-          {/* Previous Arrow Button */}
-          {
-            (() => {
-              const leftDisabled = currentIndex === 0
-              const rightDisabled = currentIndex >= totalCards - 1
-              return (
-                <>
-                  <button
-                    onClick={() => scrollToCard('prev')}
-                    className="flex absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-2 sm:p-3 shadow-lg transition-all text-blue-600 disabled:opacity-30 disabled:cursor-not-allowed"
-                    disabled={leftDisabled}
-                    aria-label="כרטיס קודם"
-                  >
-                    <L.ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-                  </button>
+          {/* Previous Arrow Button - always enabled */}
+          <button
+            onClick={() => scrollToCard('prev')}
+            className="flex absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all text-blue-600"
+            aria-label="כרטיס קודם"
+          >
+            <L.ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+          </button>
 
-                  {/* Next Arrow Button */}
-                  <button
-                    onClick={() => scrollToCard('next')}
-                    className="flex absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-2 sm:p-3 shadow-lg transition-all text-blue-600 disabled:opacity-30 disabled:cursor-not-allowed"
-                    disabled={rightDisabled}
-                    aria-label="כרטיס הבא"
-                  >
-                    <L.ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
-                  </button>
-                </>
-              )
-            })()
-          }
+          {/* Next Arrow Button - always enabled */}
+          <button
+            onClick={() => scrollToCard('next')}
+            className="flex absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all text-blue-600"
+            aria-label="כרטיס הבא"
+          >
+            <L.ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+          </button>
 
           {/* Scrollable container with peek effect */}
           <div 
             ref={scrollContainerRef}
+            onScroll={handleScroll}
             className="overflow-x-auto pb-4 px-2 sm:px-8 md:px-12 scroll-smooth snap-x snap-mandatory hide-scrollbar"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >

@@ -9,7 +9,7 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header dir="ltr" className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100">
+    <header dir="ltr" className="sticky top-0 z-50 bg-white/50 backdrop-blur-sm border-b border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="h-16 flex items-center justify-between min-w-0">
           {/* Logo - on LEFT */}
