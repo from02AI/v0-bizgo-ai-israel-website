@@ -43,7 +43,7 @@ export function HowItWorksSection() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-blue-600 drop-shadow-sm mb-4">
             גלה איך AI חוסך לך זמן וכסף
           </h2>
-          <p className="text-lg sm:text-xl text-slate-600">בדיקה מהירה, 3 כלים פשוטים, תשובות מיידיות.<div className="br"></div> דוח מפורט של 2 עמודים למייל- ללא עלות!</p>
+          <p className="text-lg sm:text-xl text-slate-600">בדיקה מהירה, 3 כלים פשוטים, תשובות מיידיות.<br /> דוח מפורט של 2 עמודים למייל- ללא עלות!</p>
         </div>
 
         {/* Tools cards removed */}

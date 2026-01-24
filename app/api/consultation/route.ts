@@ -72,9 +72,6 @@ export async function POST(request: NextRequest) {
 
   console.log('[CONSULTATION] Validation passed, preparing to save to Supabase')
 
-  // Normalize marketing/community opt-in (optional)
-  const subscribeCommunity = !!body.subscribeCommunity
-
   const record = {
     full_name: body.fullName || null,
     email: body.email || null,
@@ -100,8 +97,6 @@ export async function POST(request: NextRequest) {
     can_commit_to_trial: typeof body.canCommitToTrial === 'boolean' ? body.canCommitToTrial : null,
     user_ip: forwardedFor,
     user_agent: userAgent,
-    // Save whether the user opted into community/marketing updates
-    subscribe_community: subscribeCommunity,
   }
 
   try {
@@ -147,6 +142,9 @@ export async function POST(request: NextRequest) {
         const fromAddress = (normalizedFrom && fromValidRegex.test(normalizedFrom))
           ? normalizedFrom
           : 'BizGoAI <contact@bizgoai.co.il>'
+
+        // Track community opt-in for internal notification
+        const subscribeCommunity = !!body.subscribeCommunity
 
         const safe = (v: any) => (v === undefined || v === null ? '' : String(v))
         const internalHtml = `<!doctype html>
