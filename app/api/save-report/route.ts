@@ -168,7 +168,7 @@ export async function POST(request: NextRequest) {
             <p style="margin:0 0 8px 0;"><strong>אימייל:</strong> ${String(user_email)}</p>
             <p style="margin:0 0 8px 0;"><strong>מזהה דוח:</strong> ${String(data.id)}</p>
             <p style="margin:0 0 8px 0;"><strong>משימה:</strong> ${String(taskName)}</p>
-            <p style="margin:0; color:#666; font-size:12px;">המשתמש בחר להצטרף לקהילה/לקבל עדכונים (אופציונלי).</p>
+            <p style="margin:0; color:#666; font-size:12px;">המשתמש בחר להצטרף לקהילה/לקבל עדכונים.</p>
           </body></html>`,
         })
 

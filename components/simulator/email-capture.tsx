@@ -196,7 +196,7 @@ export function EmailCapture() {
               onCheckedChange={(checked: boolean | 'indeterminate') => setJoinWhatsApp(checked === true)}
             />
             <label htmlFor="whatsapp" className="text-slate-600 cursor-pointer">
-              אני מעוניין/ת להצטרף לקהילת BizGoAI ולקבל עדכונים ותוכן (אופציונלי)
+              אני מעוניין/ת להצטרף לקהילת BizGoAI ולקבל עדכונים ותוכן
             </label>
           </div>
 

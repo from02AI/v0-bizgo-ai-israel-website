@@ -78,7 +78,7 @@ export function CommunitySection() {
               onCheckedChange={(checked: boolean | 'indeterminate') => setJoinCommunity(checked === true)}
             />
             <label htmlFor="homepage-join" className="text-slate-700 cursor-pointer">
-              אני מעוניין/ת להצטרף לקהילת BizGoAI ולקבל עדכונים ותוכן (אופציונלי)
+              אני מעוניין/ת להצטרף לקהילת BizGoAI ולקבל עדכונים ותוכן
             </label>
           </div>
         </div>

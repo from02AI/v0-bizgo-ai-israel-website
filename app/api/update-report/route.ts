@@ -122,7 +122,7 @@ export async function POST(request: NextRequest) {
             <h2 style="margin:0 0 12px 0; color:#0b2e7b;">Opt-in לקהילה — סימולטור</h2>
             <p style="margin:0 0 8px 0;"><strong>אימייל:</strong> ${String(user_email)}</p>
             <p style="margin:0 0 8px 0;"><strong>מזהה דוח:</strong> ${String(data.id)}</p>
-            <p style="margin:0; color:#666; font-size:12px;">המשתמש בחר להצטרף לקהילה/לקבל עדכונים (אופציונלי).</p>
+            <p style="margin:0; color:#666; font-size:12px;">המשתמש בחר להצטרף לקהילה/לקבל עדכונים.</p>
           </body></html>`,
         })
 

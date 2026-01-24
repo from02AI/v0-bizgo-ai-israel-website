@@ -30,7 +30,7 @@ export default function PrivacyPage() {
             <h2 className="text-2xl font-bold text-[#0b2e7b] mb-4">איזה מידע אנחנו אוספים?</h2>
             <ul className="list-disc list-inside space-y-2 mt-4">
               <li>
-                <strong>פרטי קשר (בטפסים):</strong> שם, כתובת אימייל, מספר טלפון (אופציונלי), ותוכן ההודעה/הבקשה.
+                <strong>פרטי קשר (בטפסים):</strong> שם, כתובת אימייל, מספר טלפון, ותוכן ההודעה/הבקשה.
               </li>
               <li>
                 <strong>מידע על העסק (בטופס התאמת כלי AI):</strong> פרטים על העסק ותהליכים (לדוגמה: ענף, גודל עסק,

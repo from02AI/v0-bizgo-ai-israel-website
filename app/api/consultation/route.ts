@@ -161,7 +161,7 @@ export async function POST(request: NextRequest) {
   <p style="margin:0 0 8px 0;"><strong>מטרה:</strong> ${safe(body.goal)}</p>
   <p style="margin:0 0 8px 0;"><strong>כלים קיימים:</strong> ${(Array.isArray(body.currentTools) ? body.currentTools.join(', ') : safe(body.currentTools))}</p>
   <hr style="margin:16px 0;" />
-  <p style="margin:0 0 8px 0;"><strong>הצטרפות לקהילה (אופציונלי):</strong> ${subscribeCommunity ? 'כן' : 'לא'}</p>
+  <p style="margin:0 0 8px 0;"><strong>הצטרפות לקהילה:</strong> ${subscribeCommunity ? 'כן' : 'לא'}</p>
   <p style="margin:0; color:#666; font-size:12px;">נשלח מהאתר BizGoAI</p>
 </body>
 </html>`

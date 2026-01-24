@@ -871,7 +871,7 @@ export default function ConsultationPage() {
           >
             <CheckIcon checked={formData.subscribeCommunity} />
             <div className="flex-1 text-right">
-              <span className="text-slate-700">אני מעוניין/ת להצטרף לקהילת BizGoAI ולקבל עדכונים ותוכן (אופציונלי)</span>
+              <span className="text-slate-700">אני מעוניין/ת להצטרף לקהילת BizGoAI ולקבל עדכונים ותוכן</span>
             </div>
           </div>
 

@@ -65,7 +65,7 @@ export default function CTARegistrationForm() {
 
         <input
           aria-label="טלפון"
-          placeholder="טלפון (אופציונלי)"
+          placeholder="טלפון"
           value={phone}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPhone(e.target.value)}
           className="rounded-lg px-4 py-3 text-sm w-full sm:w-1/3 bg-white/95 text-slate-800 placeholder-slate-400 shadow-sm border border-transparent focus:outline-none focus:ring-2 focus:ring-amber-300"
