@@ -21,6 +21,9 @@ export function Header() {
 
           {/* Desktop Navigation - on RIGHT */}
           <nav dir="rtl" className="hidden md:flex items-center gap-4 lg:gap-8 order-2">
+            <Link href="/" className="text-slate-600 hover:text-[#0b2e7b] transition-colors font-medium">
+              עמוד הבית
+            </Link>
             <Link href="/simulator" className="text-slate-600 hover:text-[#0b2e7b] transition-colors font-medium">
               סימולטור AI לעסק
             </Link>
@@ -51,6 +54,13 @@ export function Header() {
         {mobileMenuOpen && (
           <nav dir="rtl" className="md:hidden py-4 border-t border-slate-100">
             <div className="flex flex-col gap-4">
+              <Link
+                href="/"
+                className="text-slate-600 hover:text-[#0b2e7b] transition-colors font-medium py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                עמוד הבית
+              </Link>
               <Link
                 href="/simulator"
                 className="text-slate-600 hover:text-[#0b2e7b] transition-colors font-medium py-2"
