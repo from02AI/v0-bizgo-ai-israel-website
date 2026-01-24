@@ -74,7 +74,6 @@ export function ContactForm() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div className="space-y-1">
           <Label htmlFor="name" className="text-sm font-medium">
-            שם מלא <span className="text-red-500">*</span>
           </Label>
           <Input
             id="name"
@@ -91,9 +90,7 @@ export function ContactForm() {
         </div>
 
         <div className="space-y-1">
-          <Label htmlFor="phone" className="text-sm font-medium">
-            מספר טלפון
-          </Label>
+        
           <Input
             id="phone"
             type="tel"
@@ -101,15 +98,14 @@ export function ContactForm() {
             value={formData.phone}
             onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, phone: e.target.value })}
             disabled={status === 'loading'}
-            className="w-full py-2 text-sm"
-            placeholder="050-1234567 (אופציונלי)"
+            className="w-full py-2 text-sm text-right"
+            placeholder="מספר טלפון"
           />
         </div>
       </div>
 
       <div className="space-y-1">
         <Label htmlFor="email" className="text-sm font-medium">
-          כתובת אימייל <span className="text-red-500">*</span>
         </Label>
         <Input
           id="email"
@@ -119,7 +115,7 @@ export function ContactForm() {
           onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: e.target.value })}
           disabled={status === 'loading'}
           className="w-full py-2 text-sm"
-          placeholder="example@email.com"
+          placeholder="כתובת אימייל"
         />
       </div>
 
@@ -127,7 +123,6 @@ export function ContactForm() {
 
       <div className="space-y-1">
         <Label htmlFor="message" className="text-sm font-medium">
-          הודעה <span className="text-red-500">*</span>
         </Label>
         <Textarea
           id="message"
