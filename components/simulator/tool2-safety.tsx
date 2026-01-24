@@ -1,8 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import { ArrowRight, Check, AlertTriangle, X, RotateCcw } from "lucide-react"
+import { ArrowRight, Check, AlertTriangle, X, RotateCcw, MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
 import { useSimulator } from "@/contexts/simulator-context"
 import Link from "next/link"
 
@@ -39,7 +40,7 @@ const questions: Question[] = [
     ],
   },
   {
-    context: "הטמעת כלי AI דורשת יכולות ומשאבים: זמן שלך/עובדיך או תקציב עזרה חיצונית",
+    context: "",
     question: "יש לך משאבים להטמעת כלי AI עבור המשימה\"שם המשימה\"?",
     slider: { left: "אין לי ", right: "כמה שנדרש", min: 1, max: 10 },
   },
@@ -203,6 +204,8 @@ export function Tool2Safety() {
     return <X className="w-5 h-5 text-red-600" />
   }
 
+  // Popover will handle show/hide for explanations
+
   if (showResults && tool2Data) {
     // Convert weighted risk (0=low risk,10=high risk) into a safety score (higher=better)
     const safetyScore = Math.max(0, Math.min(10, Math.round(10 - tool2Data.weightedRisk)))
@@ -221,8 +224,9 @@ export function Tool2Safety() {
 
     return (
       <div className="max-w-2xl mx-auto px-4 py-12">
-        <div className="bg-white rounded-3xl shadow-xl p-6 sm:p-8 text-center">
+        <div className="bg-white rounded-3xl shadow-xl p-6 sm:p-8 text-center relative">
           <h3 className="text-base sm:text-lg font-semibold text-slate-700 mb-4">{safeTaskLabel ? `הערכת בטיחות למשימה ״${safeTaskLabel}״` : 'הערכת בטיחות למשימה'}</h3>
+          {/* result page: info popover intentionally removed */}
           <div className="text-6xl mb-4">{scoreInfo.emoji}</div>
           <div className="text-4xl sm:text-5xl font-black text-[#0b2e7b] mb-2">{safetyScore}<span className="text-xl sm:text-2xl text-slate-400">/10</span></div>
           <p className={`text-xl font-bold ${scoreInfo.color} mb-4`}>{scoreInfo.text}</p>
@@ -257,7 +261,7 @@ export function Tool2Safety() {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <div className="flex flex-col sm:flex-row-reverse gap-3 sm:gap-4">
             <Button
               onClick={() => {
                 setCurrentTool(3)
@@ -329,9 +333,30 @@ export function Tool2Safety() {
         </div>
       </div>
 
-      <div className="bg-white rounded-3xl shadow-xl p-8">
+      <div className="bg-white rounded-3xl shadow-xl p-8 relative">
         <p className="text-slate-500 mb-4">{currentQuestion.context}</p>
-        <h2 className="text-2xl font-bold text-[#0b2e7b] mb-8">{getDisplayedQuestion(currentQuestion.question)}</h2>
+
+        {/* Top-left info popover for current question */}
+        <Popover>
+          <PopoverTrigger asChild>
+            <button title="מידע על השאלה" aria-label={"מידע: " + (getDisplayedQuestion(currentQuestion.question) || 'שאלה')} className="absolute left-4 top-4 z-10 inline-flex items-center justify-center p-0 text-slate-500 hover:text-slate-700">
+              <span className="inline-flex w-6 h-6 rounded-full bg-slate-100 items-center justify-center text-base font-semibold align-middle">?</span>
+            </button>
+          </PopoverTrigger>
+          <PopoverContent side="bottom" align="start">
+            <div className="text-right">
+              {questionIndex === 0 && 'הגיבויים כוללים את כל הנתונים הנדרשים למשימה ומאפשרים שחזור מלא, לכל מקרה של תקלה.'}
+              {questionIndex === 1 && 'זיהוי מהימן לשגיאות/תקלות ע"י בדיקות אוטומטיות או מנגנונים ידניים'}
+              {questionIndex === 2 && ' פוטנציאל ההשפעה של התקלה/שגיאה על העסק'}
+              {questionIndex === 3 && 'הטמעת כלי AI דורשת יכולות ומשאבים: זמן שלך/עובדיך או תקציב עזרה חיצונית במידת הצורך.'}
+
+            </div>
+          </PopoverContent>
+        </Popover>
+
+        <div className="mb-8 flex items-center justify-center">
+          <h2 className="text-2xl font-bold text-[#0b2e7b] inline-flex items-center gap-4">{getDisplayedQuestion(currentQuestion.question)}</h2>
+        </div>
 
         <div className="space-y-3">
           {currentQuestion.options ? (

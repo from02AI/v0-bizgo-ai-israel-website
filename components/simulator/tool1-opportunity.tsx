@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { ArrowRight, Check, RotateCcw, AlertTriangle } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
 import { useSimulator } from "@/contexts/simulator-context"
 
 interface Question {
@@ -13,7 +14,12 @@ interface Question {
 
 const questions: Question[] = [
   {
-    context: "בחר/י משימה אחת חוזרת בעסק שלך שגוזלת זמן משמעותי.",
+    context: "",
+    question: "בחר/י משימה אחת חוזרת בעסק שלך שגוזלת זמן משמעותי.",
+    options: [], // No options, just input
+  },
+  {
+    context: "",
     question: "מה אופי המשימה המשימה הזו?",
     options: [
       { label: "🎨 עבודה יצירתית או אסטרטגית", points: 0 },
@@ -51,6 +57,11 @@ export function Tool1Opportunity() {
   const [showResults, setShowResults] = useState(false)
 
   const handleAnswer = (points: number) => {
+    // Special handling for first page (task name input)
+    if (questionIndex === 0) {
+      setQuestionIndex(1)
+      return
+    }
     const newAnswers = [...answers, points]
     setAnswers(newAnswers)
 
@@ -58,6 +69,7 @@ export function Tool1Opportunity() {
       setQuestionIndex(questionIndex + 1)
     } else {
       // Weights: task type 25%, repetitiveness 45%, documentation 30%
+      // newAnswers: [taskType, repetitiveness, documentation]
       const qTask = newAnswers[0] * 0.25
       const qRepeat = newAnswers[1] * 0.45
       const qDocumentation = newAnswers[2] * 0.30
@@ -97,7 +109,7 @@ export function Tool1Opportunity() {
       // q1 = task type (newAnswers[0])
       // q2 = repetitiveness (newAnswers[1])
       // q3 = documentation (newAnswers[2])
-      const safeTask = taskName ? taskName.replace(/[\"""]/g, "") : undefined
+      const safeTask = taskName ? taskName.replace(/[\"\""]/g, "") : undefined
       setTool1Data({
         q1: newAnswers[0],
         q2: newAnswers[1],
@@ -125,14 +137,14 @@ export function Tool1Opportunity() {
     // Use integer buckets 0-3,4-5,6-7,8-10 based on floor(score)
     const bucket = Math.floor(score)
     if (bucket >= 8) return { emoji: "🟢", text: "התאמה מצוינת — עדיפות גבוהה, סיכון נמוך וצפוי חיסכון גבוה",  color: "text-[#0b2e7b]" }
-    if (bucket >= 6) return { emoji: "🟡", text: "מועמד טוב — המשיכו בתכנון ובדקו אבחון בטיחות בכלי 2", color: "text-[#0b2e7b]" }
+    if (bucket >= 6) return { emoji: "🟡", text: "מועמד טוב — המשיכו בתכנון ובדקו אבחון בטיחות", color: "text-[#0b2e7b]" }
     if (bucket >= 4) return { emoji: "🟠", text: "התאמה נמוכה-בינונית — דורש התאמה משמעותית ועלות הטמעה גבוהה", color: "text-[#0b2e7b]" }
     return { emoji: "🔴", text: "התאמה נמוכה — מומלץ להתמקד במשימות אחרות אלא אם זו עדיפות אסטרטגית",  color: "text-[#0b2e7b]" }
   }
   const getResultTitle = (score: number) => {
     const bucket = Math.floor(score)
     if (bucket >= 8) return "התאמה מצוינת — עדיפות גבוהה, סיכון נמוך וצפי חיסכון גבוה"
-    if (bucket >= 6) return "מועמד טוב — המשיכו בתכנון ובדקו אבחון בטיחות בכלי 2"
+    if (bucket >= 6) return "מועמד טוב — המשיכו בתכנון ובדקו אבחון בטיחות"
     if (bucket >= 4) return "התאמה בינונית — דורש התאמה משמעותית ועלות הטמעה גבוהה"
     return "התאמה נמוכה — מומלץ להתמקד במשימות אחרות"
   }
@@ -183,7 +195,7 @@ export function Tool1Opportunity() {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <div className="flex flex-col sm:flex-row-reverse gap-3 sm:gap-4">
             <Button
               onClick={() => {
                 setCurrentTool(2)
@@ -216,6 +228,14 @@ export function Tool1Opportunity() {
   }
 
   const currentQuestion = questions[questionIndex]
+
+  // concise Hebrew explanations for each question (index-aligned)
+  const explanations: (string | undefined)[] = [
+    `הכניסו שם קצר וברור למשימה החוזרת (למשל: הוצאת חשבוניות, עדכון לקוחות, מעקב תשלומים, קליטת הזמנות, תיוק מסמכים, הזנת שעות עבודה, טיפול בפניות לקוחות, בדיקות שרשרת אספקה).`,
+    `בחר/י את הסוג שמייצג את החלק העיקרי והחוזר של העבודה. אם יש מרכיבים מעורבים בחר/י את החלק שמשפיע על רוב התהליך והזמן.`,
+    `האם השלבים וההחלטות בעבודה חוזרים באותו סדר ובאותה צורה ברוב המקרים? אם רק הפרטים משתנים (למשל לקוח שונה) אך התהליך זהה — זה נחשב חוזר.`,
+    `מקרים אמיתיים של ביצוע אותה משימה. עדיפו דוגמאות מסודרות ועקביות. איכות הדוגמאות חשובה יותר מהכמות הגולמית.`,
+  ]
 
   // Compute displayed question text (inject mission name when provided; otherwise remove placeholder)
   const displayedQuestion = (() => {
@@ -257,19 +277,40 @@ export function Tool1Opportunity() {
         </div>
       </div>
 
-      <div className="bg-white rounded-3xl shadow-xl p-8">
+      <div className="bg-white rounded-3xl shadow-xl p-8 relative">
         {/* For question 1 show the flow title as a question heading, centered (above the context) */}
         {questionIndex === 0 && (
-          <h2 className="text-2xl font-bold text-[#0b2e7b] mb-3 text-center">בדיקת התאמת משימות ל-AI</h2>
+          <h2 className="text-3xl font-bold text-[#0b2e7b] mb-8 text-center">בדיקת התאמת משימות ל-AI</h2>
         )}
 
         {currentQuestion.context && (
-          <p className="text-slate-500 mb-4"><strong className="font-bold">{currentQuestion.context}</strong></p>
+          <div className="flex items-center mb-4 gap-2">
+            <p className="text-amber-600 mr-2 mb-0"><strong className="font-bold">{currentQuestion.context}</strong></p>
+          </div>
         )}
+
+        {/* Top-left info popover for current question */}
+        <Popover>
+          <PopoverTrigger asChild>
+            <button
+              title="מידע על השאלה"
+              aria-label={"מידע: " + (displayedQuestion || 'שאלה')}
+              className="absolute left-4 top-4 z-10 inline-flex items-center justify-center p-0 text-slate-500 hover:text-slate-700"
+            >
+              <span className="inline-flex w-6 h-6 rounded-full bg-slate-100 items-center justify-center text-base font-semibold align-middle">?</span>
+            </button>
+          </PopoverTrigger>
+          <PopoverContent side="bottom" align="start">
+            <div className="text-right max-w-xs">{explanations[questionIndex]}</div>
+          </PopoverContent>
+        </Popover>
 
         {/* Optional task name input for first question (placed above the question heading) */}
         {questionIndex === 0 && (
-          <div className="mb-4">
+          <div className="mb-7">
+            <h2 className="text-xl font-bold text-[#0b2e7b] mb-3 text-right">
+              בחר/י משימה אחת חוזרת בעסק שלך שגוזלת זמן משמעותי.
+            </h2>
             <textarea
               dir="rtl"
               name="missionTitle"
@@ -279,18 +320,32 @@ export function Tool1Opportunity() {
               className="w-full md:w-72 p-2 rounded-xl border border-slate-200 bg-white text-right placeholder:text-slate-400 h-12 resize-none"
               rows={1}
               maxLength={60}
-              aria-label="שם המשימה (אופציונלי)"
+              aria-label="שם המשימה"
             />
+           
+            <button
+              onClick={() => setQuestionIndex(1)}
+              disabled={!taskName.trim()}
+              className="mt-4 w-full bg-amber-600 text-white rounded-xl py-3 font-bold disabled:opacity-50"
+            >
+              המשך
+            </button>
           </div>
         )}
 
         {/* render question text and inject task name when applicable */}
 
-        <h2 className="text-2xl font-bold text-[#0b2e7b] mb-8">{displayedQuestion}</h2>
+        {questionIndex > 0 && (
+          <div className="mb-8 flex items-center justify-center">
+            <h2 className="text-2xl font-bold text-[#0b2e7b] leading-tight inline-flex items-center gap-4">
+              <span className="align-middle">{displayedQuestion}</span>
+            </h2>
+          </div>
+        )}
 
-        <div className="space-y-3">
-          {currentQuestion.options ? (
-            currentQuestion.options.map((option, index) => (
+        {questionIndex > 0 && (
+          <div className="space-y-3">
+            {currentQuestion.options && currentQuestion.options.map((option, index) => (
               <button
                 key={index}
                 onClick={() => handleAnswer(option.points)}
@@ -298,9 +353,9 @@ export function Tool1Opportunity() {
               >
                 {option.label}
               </button>
-            ))
-          ) : null}
-        </div>
+            ))}
+          </div>
+        )}
 
         {questionIndex > 0 && (
           <button

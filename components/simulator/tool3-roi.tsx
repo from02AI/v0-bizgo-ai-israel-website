@@ -2,7 +2,8 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { ArrowRight, AlertTriangle, CheckCircle } from "lucide-react"
+import { ArrowRight, AlertTriangle, CheckCircle, MessageCircle } from "lucide-react"
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -49,6 +50,8 @@ export function Tool3ROI() {
   const router = useRouter()
   const { setTool3Data, tool2Data, tool1Data, tool3Data } = useSimulator()
   const [step, setStep] = useState(1)
+  // popovers used for per-step explanations
+  const [showInfoStep, setShowInfoStep] = useState<number | null>(null)
   const [formData, setFormData] = useState({
     hoursPerWeek: 5,
     numEmployees: 3,
@@ -343,8 +346,7 @@ export function Tool3ROI() {
             <p className="text-slate-600 mt-2 text-sm">
               נקודת איזון: {results.breakEvenMonth <= 6 ? `חודש ${results.breakEvenMonth}` : "מעבר ל-6 חודשים"}
             </p>
-            
-              {/* detail block removed per request */}
+            {/* Top-left info popover removed from results page per request */}
           </div>
 
           <div className="flex items-start gap-3 bg-yellow-50 border border-yellow-100 rounded-xl p-3 mb-4 text-right">
@@ -362,7 +364,7 @@ export function Tool3ROI() {
               }}
               className="w-full bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl py-4 sm:py-6 px-6 sm:px-10 text-base sm:text-lg min-h-[44px]"
             >
-              שלחו לי את התוצאות המלאות למייל ←
+              שלחו לי את התוצאות  ←
             </Button>
           </div>
 
@@ -380,21 +382,14 @@ export function Tool3ROI() {
               <tbody>
                 {results.monthlyBreakdown.map((row) => (
                   <tr key={row.month} className="border-b border-slate-100">
-                    <td className="py-3 px-2">{row.month}</td>
-                    <td className="py-3 px-2 text-green-600">
-                      +₪{row.laborSaved.toLocaleString("he-IL", { maximumFractionDigits: 0 })}
-                    </td>
-                    <td className="py-3 px-2 text-red-500">
-                      -₪
-                      {(row.learningCost + row.maintenanceCost + row.toolCost).toLocaleString("he-IL", {
-                        maximumFractionDigits: 0,
-                      })}
-                    </td>
+                    <td className="py-3 px-2 text-right">חודש {row.month}</td>
+                    <td className="py-3 px-2 text-right">₪{Math.round(row.laborSaved).toLocaleString("he-IL")}</td>
+                    <td className="py-3 px-2 text-right">₪{Math.round((row.learningCost + row.maintenanceCost + row.toolCost)).toLocaleString("he-IL")}</td>
                     <td className={`py-3 px-2 font-bold ${row.netSavings >= 0 ? "text-green-600" : "text-red-600"}`}>
-                      {row.netSavings >= 0 ? "+" : ""}₪{row.netSavings.toLocaleString("he-IL", { maximumFractionDigits: 0 })}
+                      {row.netSavings >= 0 ? "+" : ""}₪{Math.round(row.netSavings).toLocaleString("he-IL", { maximumFractionDigits: 0 })}
                     </td>
                     <td className={`py-3 px-2 font-bold ${row.cumulativeSavings >= 0 ? "text-green-600" : "text-red-600"}`}>
-                      {row.cumulativeSavings >= 0 ? "+" : ""}₪{row.cumulativeSavings.toLocaleString("he-IL", { maximumFractionDigits: 0 })}
+                      {row.cumulativeSavings >= 0 ? "+" : ""}₪{Math.round(row.cumulativeSavings).toLocaleString("he-IL", { maximumFractionDigits: 0 })}
                     </td>
                   </tr>
                 ))}
@@ -418,9 +413,13 @@ export function Tool3ROI() {
       case 1:
         return (
           <div className="space-y-6">
-            <h3 className="text-xl font-bold text-[#0b2e7b] mb-6 text-right">
-              {missionTitle ? `כמה שעות בממוצע בשבוע לוקחת המשימה "${missionTitle}" לעובד אחד?` : "כמה שעות בממוצע בשבוע לוקחת המשימה?"}
-            </h3>
+            <div className="mb-6 flex items-center justify-center">
+              <h3 className="text-xl font-bold text-[#0b2e7b] mb-0 text-right">
+                {missionTitle ? `כמה שעות בממוצע בשבוע לוקחת המשימה "${missionTitle}" לעובד אחד?` : "כמה שעות בממוצע בשבוע לוקחת המשימה?"}
+              </h3>
+              {/* question-level inline '?' removed per request */}
+            </div>
+            {/* Explanation toggles handled globally below */}
             <div>
               <div className="flex items-center gap-4 mb-6">
                 <Input
@@ -440,9 +439,9 @@ export function Tool3ROI() {
             </div>
 
             <div className="border-t pt-6">
-              <Label htmlFor="numEmployees" className="text-lg font-medium text-slate-700 block mb-4 text-right">
-                כמה עובדים בפועל מבצעים את המשימה?
-              </Label>
+              <div className="mb-6 flex items-center justify-center">
+                <h3 className="text-xl font-bold text-[#0b2e7b] mb-0">כמה עובדים בפועל מבצעים את המשימה?</h3>
+              </div>
               <div className="flex items-center gap-4">
                 <Input
                   id="numEmployees"
@@ -463,7 +462,9 @@ export function Tool3ROI() {
             </div>
 
             <div className="border-t pt-6">
-              <Label className="text-lg font-medium text-slate-700 block mb-4 text-right">עלות שעת עבודה ממוצעת (₪)</Label>
+              <div className="mb-6 flex items-center justify-center">
+                <h3 className="text-xl font-bold text-[#0b2e7b] mb-0">עלות שעת עבודה ממוצעת (₪)</h3>
+              </div>
               <div className="flex items-center gap-4 mb-4">
                 <Input
                   id="hourlyRate"
@@ -495,11 +496,23 @@ export function Tool3ROI() {
         // Q2: Organizational readiness for adopting AI (focus on business tech usage)
         return (
           <div className="space-y-6">
-            <h3 className="text-xl font-bold text-[#0b2e7b] mb-4 text-right">
-              {missionTitle
-                ? `מה רמת המוכנות הטכנולוגית של העסק להטמעת AI עבור המשימה "${missionTitle}"?`
-                : `מה רמת המוכנות הטכנולוגית של הארגון לאימוץ AI?`}
-            </h3>
+            <div className="mb-4 flex items-center justify-center">
+              <h3 className="text-xl font-bold text-[#0b2e7b] mb-0 text-right">
+                {missionTitle
+                  ? `מה רמת המוכנות הטכנולוגית של העסק להטמעת AI עבור המשימה "${missionTitle}"?`
+                  : `מה רמת המוכנות הטכנולוגית של הארגון לאימוץ AI?`}
+              </h3>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button title="מידע" aria-label={"מידע: מוכנות טכנולוגית"} className="inline-flex items-center justify-center p-0 text-slate-500 hover:text-slate-700 ml-1 relative -top-1 align-middle">
+                    <span className="inline-flex w-5 h-5 rounded-full bg-slate-100 items-center justify-center text-sm font-semibold align-middle">?</span>
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent side="bottom" align="center">
+                  <div className="text-right">עד כמה יש לעסק תשתיות, כלים דיגיטליים וידע טכנולוגי.</div>
+                </PopoverContent>
+              </Popover>
+            </div>
             <div className="space-y-3">
                 <button onClick={() => { setTechComfort('high'); setStep(3); }} className="w-full text-right p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-blue-300 rounded-xl transition-all font-medium text-slate-700">
                   <div className="font-semibold">גבוהה — תשתיות ואינטגרציות</div>
@@ -532,9 +545,12 @@ export function Tool3ROI() {
         // Implementation step (who will implement) - moved to step 3
         return (
           <div className="space-y-6">
-            <h3 className="text-xl font-bold text-[#0b2e7b] mb-4 text-right">
-              {missionTitle ? `מי יבצעו את הטמעת כלי AI למשימה "${missionTitle}"?` : `מי יבצעו את הטמעת כלי AI?`}
-            </h3>
+            <div className="mb-4 flex items-center justify-center">
+              <h3 className="text-xl font-bold text-[#0b2e7b] mb-0 text-right">
+                {missionTitle ? `מי יבצעו את הטמעת כלי AI למשימה "${missionTitle}"?` : `מי יבצעו את הטמעת כלי AI?`}
+              </h3>
+              {/* inline '?' removed for this question per request */}
+            </div>
             <div className="space-y-3">
               <button onClick={() => { setImplementationProfile('self'); setStep(4); }} className="w-full text-right p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-blue-300 rounded-xl transition-all font-medium text-slate-700">
                 <div className="font-semibold">אני בעצמי</div>
@@ -547,7 +563,6 @@ export function Tool3ROI() {
               <button onClick={() => { setImplementationProfile('full'); setStep(4); }} className="w-full text-right p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-blue-300 rounded-xl transition-all font-medium text-slate-700">
                 <div className="font-semibold">עזרה מלאה</div>
                 <div className="text-sm text-slate-600">הטמעה מלאה על ידי ספק חיצוני כולל פיתוח ותמיכה.</div>
-                <div className="text-xs text-slate-500 mt-1">עלות הטמעה חד-פעמית: ₪3,000 - ₪20,000+ (משתנה לפי מורכבות)</div>
               </button>
             </div>
 
@@ -568,9 +583,12 @@ export function Tool3ROI() {
 
         return (
           <div className="space-y-6">
-            <h3 className="text-xl font-bold text-[#0b2e7b] mb-4 text-right">
-              {missionTitle ? `מה התקציב החודשי שאתם מוכנים להשקיע בכלי AI למשימה "${missionTitle}"?` : 'מה התקציב החודשי שאתם מוכנים להשקיע בכלי AI?'}
-            </h3>
+            <div className="mb-4 flex items-center justify-center">
+              <h3 className="text-xl font-bold text-[#0b2e7b] mb-0 text-right">
+                {missionTitle ? `מה התקציב החודשי שאתם מוכנים להשקיע בכלי AI למשימה "${missionTitle}"?` : 'מה התקציב החודש שאתם מוכנים להשקיע בכלי AI?'}
+              </h3>
+              {/* question-level '?' removed per request; explanatory text removed from inline UI */}
+            </div>
 
             <div>
               <div className="flex gap-3 mb-4">
@@ -684,7 +702,10 @@ export function Tool3ROI() {
         </div>
       </div>
 
-      <div className="bg-white rounded-3xl shadow-xl p-8">{renderStep()}</div>
+      <div className="bg-white rounded-3xl shadow-xl p-8 relative">
+        {/* step-level '?' removed per request; explanations still available inline where needed */}
+        {renderStep()}
+      </div>
     </div>
   )
 }
