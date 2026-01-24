@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Heebo } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { WhatsAppButton } from "@/components/whatsapp-button"
 import "./globals.css"
 
 // Single site-wide font (Heebo) with Hebrew+Latin glyphs so all text—Hebrew or Latin—renders in the same face
@@ -34,6 +35,7 @@ export default function RootLayout({
     <html lang="he" dir="rtl">
       <body className={`${heebo.variable} font-sans antialiased`}>
         {children}
+        <WhatsAppButton />
         <Analytics />
       </body>
     </html>
