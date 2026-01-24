@@ -18,7 +18,7 @@ export function Header() {
               <img
                 src="/images/BizgoAI-logo.png"
                 alt="BizGoAI"
-                className="h-10 sm:h-12 md:h-16 lg:h-20 object-contain"
+                className="h-20 sm:h-24 md:h-20 lg:h-24 object-contain"
               />
               {/* Keep accessible text for screen readers only; remove visible text per request */}
               <span className="sr-only">BizGoAI</span>
