@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@supabase/supabase-js"
+import { upsertSubscriber, syncToProvider } from '@/lib/subscriber'
 import { Resend } from 'resend'
 import puppeteer from 'puppeteer-core'
 import chromium from '@sparticuz/chromium'
@@ -180,6 +181,28 @@ export async function POST(request: NextRequest) {
       } catch (err) {
         console.warn('[SAVE-REPORT] Internal opt-in notify exception (ignored):', err)
       }
+    }
+
+    // If the user opted into community updates, create canonical subscriber record and
+    // start a best-effort provider sync. This must not block or fail the main flow.
+    if (subscribed && user_email) {
+      (async () => {
+        try {
+          const row = await upsertSubscriber({
+            email: String(user_email).trim(),
+            name: null,
+            consent_source: 'simulator-save',
+            metadata: { tool1Data, tool2Data, tool3Data },
+            ip: null,
+            user_agent: null,
+            subscribed: true,
+          })
+          // fire-and-forget provider sync; log failures
+          syncToProvider(row).catch((e) => console.warn('[SAVE-REPORT] provider sync failed (ignored)', e))
+        } catch (e) {
+          console.warn('[SAVE-REPORT] upsertSubscriber failed (ignored)', e)
+        }
+      })()
     }
 
     // Attempt to send welcome email with PDF when an email was provided

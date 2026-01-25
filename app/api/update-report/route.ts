@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@supabase/supabase-js"
+import { upsertSubscriber, syncToProvider } from '@/lib/subscriber'
 import { Resend } from 'resend'
 import puppeteer from 'puppeteer-core'
 import chromium from '@sparticuz/chromium'
@@ -134,6 +135,26 @@ export async function POST(request: NextRequest) {
       } catch (err) {
         console.warn('[UPDATE-REPORT] Internal opt-in notify exception (ignored):', err)
       }
+    }
+
+    // If the user opted into community updates, create canonical subscriber and start provider sync.
+    if (subscribed && user_email) {
+      (async () => {
+        try {
+          const row = await upsertSubscriber({
+            email: String(user_email).trim(),
+            name: null,
+            consent_source: 'simulator-update',
+            metadata: { reportId: data.id },
+            ip: null,
+            user_agent: null,
+            subscribed: true,
+          })
+          syncToProvider(row).catch((e) => console.warn('[UPDATE-REPORT] provider sync failed (ignored)', e))
+        } catch (e) {
+          console.warn('[UPDATE-REPORT] upsertSubscriber failed (ignored)', e)
+        }
+      })()
     }
 
     let emailSent = false
