@@ -9,7 +9,7 @@ $SUPABASE_URL = $SUPABASE_URL.Trim()
 $SUPABASE_KEY = $SUPABASE_KEY.Trim()
 if (-not $email) { Write-Error 'email parameter required'; exit 1 }
 
-$encoded = [System.Web.HttpUtility]::UrlEncode($email)
+$encoded = [System.Uri]::EscapeDataString($email)
 $uri = "$SUPABASE_URL/rest/v1/subscribers?select=*,provider_ids&email=eq.$encoded"
 
 Try {
