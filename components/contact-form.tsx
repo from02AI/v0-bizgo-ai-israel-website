@@ -38,7 +38,29 @@ export function ContactForm() {
         throw new Error(data.error || 'שגיאה בשליחת הטופס');
       }
 
+      // Main form succeeded
       setStatus('success');
+
+      // If user opted into the community / newsletter, call the newsletter subscribe API.
+      // We call it after the main contact POST to avoid failing the primary flow.
+      if (formData.subscribeCommunity && formData.email) {
+        try {
+          // fire and await so we can log errors but not surface them to the user as form failure
+          const nlRes = await fetch('/api/newsletter/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: formData.email, name: formData.name, source: 'contact-form' }),
+          });
+
+          if (!nlRes.ok) {
+            const err = await nlRes.json().catch(() => ({}));
+            console.error('Newsletter subscribe failed:', err);
+          }
+        } catch (nlErr) {
+          console.error('Newsletter subscribe error:', nlErr);
+        }
+      }
+
       // Reset form after successful submission — keep opt-in checked by default
       setFormData({ name: '', email: '', phone: '', message: '', subscribeCommunity: true });
       
