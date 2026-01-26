@@ -39,7 +39,7 @@ export default function NewsletterSignup() {
       if (!res.ok) throw new Error(data?.error || 'שגיאה ברישום')
 
       setStatus('success')
-      setMessage('תודה — נשלח אליך אימייל לאישור אם נדרש')
+      setMessage('תודה — נשלח אליך אימייל לאישור')
       setEmail('')
     } catch (err) {
       setStatus('error')
@@ -50,7 +50,7 @@ export default function NewsletterSignup() {
   return (
     <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-sm" dir="rtl">
       <h2 className="text-2xl font-bold mb-3">הרשמה לניוזלטר</h2>
-      <p className="text-sm text-slate-600 mb-4">הצטרפו לקבלת עדכונים, מאמרים והטבות.</p>
+      <p className="text-sm text-slate-600 mb-4">הצטרפו לקבלת מידע וחומרים בנושאי AI לעסקים קטנים.</p>
 
       <form onSubmit={handleSubmit} className="space-y-3">
         <div>

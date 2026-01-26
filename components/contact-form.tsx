@@ -106,7 +106,7 @@ export function ContactForm() {
             value={formData.name}
             onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, name: e.target.value })}
             disabled={status === 'loading'}
-            className="w-full py-2 text-sm"
+            className="w-full py-2 text-sm bg-white text-slate-800 placeholder:text-slate-400 border border-slate-200"
             placeholder="שם מלא"
           />
         </div>
@@ -120,7 +120,7 @@ export function ContactForm() {
             value={formData.phone}
             onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, phone: e.target.value })}
             disabled={status === 'loading'}
-            className="w-full py-2 text-sm text-right"
+            className="w-full py-2 text-sm text-right bg-white text-slate-800 placeholder:text-slate-400 border border-slate-200"
             placeholder="מספר טלפון"
           />
         </div>
@@ -136,7 +136,7 @@ export function ContactForm() {
           value={formData.email}
           onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: e.target.value })}
           disabled={status === 'loading'}
-          className="w-full py-2 text-sm"
+          className="w-full py-2 text-sm bg-white text-slate-800 placeholder:text-slate-400 border border-slate-200"
           placeholder="כתובת אימייל"
         />
       </div>
@@ -155,10 +155,10 @@ export function ContactForm() {
           value={formData.message}
           onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setFormData({ ...formData, message: e.target.value })}
           disabled={status === 'loading'}
-          className="w-full resize-none py-2 text-sm"
+          className="w-full resize-none py-2 text-sm bg-white text-slate-800 placeholder:text-slate-400 border border-slate-200"
           placeholder="כתוב/י את ההודעה שלך כאן..."
         />
-        <p className="text-xs text-slate-500 text-right">
+        <p className="text-xs text-slate-600 text-right">
           {formData.message.length} / 2000
         </p>
 
@@ -166,20 +166,21 @@ export function ContactForm() {
         <div className="flex items-center gap-3">
           <Checkbox
             id="subscribeCommunity"
+            className="border-gray-300 data-[state=checked]:bg-slate-500 data-[state=checked]:border-slate-500 data-[state=checked]:text-white"
             checked={formData.subscribeCommunity}
             onCheckedChange={(checked: boolean | 'indeterminate') =>
               setFormData({ ...formData, subscribeCommunity: checked === true })
             }
           />
-          <label htmlFor="subscribeCommunity" className="text-slate-600 cursor-pointer">
+          <label htmlFor="subscribeCommunity" className="text-slate-400 cursor-pointer font-medium">
             אני מעוניין/ת להצטרף לקהילת BizGoAI ולקבל עדכונים ותוכן
           </label>
         </div>
 
-        <p className="text-xs text-slate-500 text-right mt-2 leading-relaxed">
-          נשתמש בפרטים שמסרת כדי לחזור אליך בנוגע לפנייה. מסירת הפרטים היא מרצון, אך בלי אימייל לא נוכל לחזור אליך.
+        <p className="text-xs text-slate-400 text-right mt-2 leading-relaxed">
+          נשתמש בפרטים שמסרת כדי לחזור אליך בנוגע לפנייה.
           מידע נוסף על אופן השימוש במידע וזכויותיך נמצא ב-{" "}
-          <a href="/privacy" className="text-blue-700 hover:underline">מדיניות הפרטיות</a>.
+          <a href="/privacy" className="text-gray-300 hover:underline">מדיניות הפרטיות</a>.
         </p>
       </div>
       </div>

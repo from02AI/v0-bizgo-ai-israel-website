@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 
 export function HeroSection() {
   return (
-    <section className="bg-linear-to-b from-neutral-50 to-white py-16 md:py-24">
+    <section className="bg-linear-to-b from-neutral-80 to-neutral-100 py-16 md:py-24">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black tracking-tight text-[#0b2e7b] mb-6 text-balance max-w-[95vw] mx-auto">
      BizGoAI לעסקים קטנים</h1>

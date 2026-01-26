@@ -2,6 +2,7 @@
 
 import React, { useState } from "react"
 import * as Lucide from "lucide-react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 
@@ -10,93 +11,113 @@ const channels = [
     icon: Lucide.MessageCircle,
     iconBg: "bg-green-100",
     iconColor: "text-green-600",
-    title: "קבוצת WhatsApp",
-    description: "דיונים יומיים, שאלות ותשובות, המלצות על כלים",
+    title: "ערוץ WhatsApp שקט",
+    description: "להישאר מעודכנים בכל מה שקשור ל-AI לעסקים קטנים",
     cta: "הצטרפו ל־WhatsApp ←",
     ctaBg: "bg-green-600 hover:bg-green-700",
     // Community invite link (from admin-provided image)
     href: "https://chat.whatsapp.com/JLuDnhyUykg0sy0zOW8fM8",
   },
-  {
-    icon: Lucide.Mail,
-    iconBg: "bg-orange-100",
-    iconColor: "text-orange-600",
-    title: "ניוזלטר שבועי",
-    description: "תובנות AI, מחקרים חדשים, ההמלצות המובילות",
-    cta: "הירשמו לניוזלטר ←",
-    ctaBg: "bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700",
-    href: "#",
-  },
-  {
+    {
     icon: Lucide.User,
     iconBg: "bg-blue-100",
     iconColor: "text-blue-600",
-    title: "קבוצת Facebook",
+    title: "קהילת Facebook",
     description: "דיונים מעמיקים, שיתוף ניסיון, נטוורקינג",
     cta: "הצטרפו לפייסבוק ←",
     ctaBg: "bg-blue-600 hover:bg-blue-700",
     href: "https://www.facebook.com/groups/3741611762641473",
   },
+  {
+    icon: Lucide.Mail,
+    iconBg: "bg-orange-100",
+    iconColor: "text-orange-600",
+    title: "ניוזלטר",
+    description: "מידע שיעזור לך להעמיק ב-AI ישירות לתיבת המייל",
+    cta: "הירשמו לניוזלטר ←",
+    ctaBg: "bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700",
+    href: "/newsletter",
+  },
+
 ]
 
 export function CommunitySection() {
   const [joinCommunity, setJoinCommunity] = useState(true)
   return (
-    <section id="community" className="bg-purple-50 py-16 md:py-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="community" className="relative py-20 md:py-24 overflow-hidden bg-linear-to-b from-neutral-100 to-neutral-80">
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 opacity-30">
+      </div>
+
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-blue-600 drop-shadow-sm mb-4">
-            הצטרפו לקהילה
+    
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0b2e7b] mb-4">
+מוכנים להתקדם עם AI?
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-slate-600">
-            לומדים מניסיון אמיתי של בעלי עסקים בישראל. משתפים, שואלים, צומחים יחד.
+          <p className="text-xl sm:text-3xl text-gray-600 max-w-2xl mx-auto">
+        הצטרפו לקהילת BizGoAI במגוון ערוצים
+          
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        {/* Main Community Channels - Horizontal Layout */}
+        <div className="space-y-6 mb-12">
           {channels.map((channel, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl border border-slate-200 p-6 shadow-lg hover:shadow-xl transition-shadow"
+              className="group relative bg-white/80 backdrop-blur-sm rounded-3xl p-6 sm:p-8 shadow-md hover:shadow-2xl transition-all duration-300 border border-slate-200/50"
             >
-              <div className={`w-14 h-14 ${channel.iconBg} rounded-xl flex items-center justify-center mb-4`}>
-                <channel.icon className={`w-7 h-7 ${channel.iconColor}`} />
+              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+                {/* Icon */}
+                <div className={`shrink-0 w-20 h-20 sm:w-24 sm:h-24 ${channel.iconBg} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                  <channel.icon className={`w-10 h-10 sm:w-12 sm:h-12 ${channel.iconColor} stroke-[2.5]`} />
+                </div>
+
+                {/* Content */}
+                <div className="flex-1 text-center sm:text-right">
+                  <h3 className="text-2xl sm:text-3xl font-bold text-[#0b2e7b] mb-2">
+                    {channel.title}
+                  </h3>
+                  <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-4">
+                    {channel.description}
+                  </p>
+                </div>
+
+                {/* CTA Button */}
+                <div className="shrink-0 sm:self-center">
+                  <Button
+                    asChild
+                    size="lg"
+                    className={`${channel.ctaBg} text-white font-bold rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 px-8 py-6 text-base sm:text-lg whitespace-nowrap`}
+                  >
+                      {channel.href && String(channel.href).startsWith('/') ? (
+                        <Link href={String(channel.href)}>{channel.cta}</Link>
+                      ) : (
+                        <a
+                          href={channel.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                            if (channel.href?.startsWith && channel.href.startsWith("https://chat.whatsapp.com")) {
+                              e.preventDefault()
+                              window.open(channel.href, '_blank', 'noopener,noreferrer')
+                            }
+                          }}
+                        >
+                          {channel.cta}
+                        </a>
+                      )}
+                  </Button>
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-[#0b2e7b] mb-2">{channel.title}</h3>
-              <p className="text-slate-600 leading-relaxed mb-6">{channel.description}</p>
-              <Button asChild className={`w-full ${channel.ctaBg} text-white font-bold rounded-xl`}>
-                <a
-                  href={channel.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => {
-                    // For WhatsApp community invite, open in a new tab without navigating away
-                    if (channel.href?.startsWith && channel.href.startsWith("https://chat.whatsapp.com")) {
-                      e.preventDefault()
-                      window.open(channel.href, '_blank', 'noopener,noreferrer')
-                    }
-                  }}
-                >
-                  {channel.cta}
-                </a>
-              </Button>
             </div>
           ))}
         </div>
-
-        <div className="mt-6 flex justify-center">
-          <div className="flex items-center gap-3">
-            <Checkbox
-              id="homepage-join"
-              checked={joinCommunity}
-              onCheckedChange={(checked: boolean | 'indeterminate') => setJoinCommunity(checked === true)}
-            />
-            <label htmlFor="homepage-join" className="text-slate-700 cursor-pointer">
-              אני מעוניין/ת להצטרף לקהילת BizGoAI ולקבל עדכונים ותוכן
-            </label>
-          </div>
-        </div>
+        
       </div>
     </section>
   )
 }
+            
