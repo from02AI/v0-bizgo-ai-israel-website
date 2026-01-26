@@ -14,7 +14,8 @@ const channels = [
     description: "דיונים יומיים, שאלות ותשובות, המלצות על כלים",
     cta: "הצטרפו ל־WhatsApp ←",
     ctaBg: "bg-green-600 hover:bg-green-700",
-    href: "#",
+    // Community invite link (from admin-provided image)
+    href: "https://chat.whatsapp.com/JLuDnhyUykg0sy0zOW8fM8",
   },
   {
     icon: Lucide.Mail,
@@ -64,7 +65,20 @@ export function CommunitySection() {
               <h3 className="text-xl font-bold text-[#0b2e7b] mb-2">{channel.title}</h3>
               <p className="text-slate-600 leading-relaxed mb-6">{channel.description}</p>
               <Button asChild className={`w-full ${channel.ctaBg} text-white font-bold rounded-xl`}>
-                <a href={channel.href}>{channel.cta}</a>
+                <a
+                  href={channel.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    // For WhatsApp community invite, open in a new tab without navigating away
+                    if (channel.href?.startsWith && channel.href.startsWith("https://chat.whatsapp.com")) {
+                      e.preventDefault()
+                      window.open(channel.href, '_blank', 'noopener,noreferrer')
+                    }
+                  }}
+                >
+                  {channel.cta}
+                </a>
               </Button>
             </div>
           ))}

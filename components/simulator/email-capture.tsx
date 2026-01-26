@@ -24,7 +24,8 @@ export function EmailCapture() {
     newsletter: '#',
     linkedin: '#',
     facebook: '#',
-    whatsapp: '#',
+    // Group invite for community
+    whatsapp: 'https://chat.whatsapp.com/JLuDnhyUykg0sy0zOW8fM8',
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

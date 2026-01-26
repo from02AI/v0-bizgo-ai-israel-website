@@ -164,7 +164,8 @@ export default function ConsultationPage() {
     newsletter: '#',
     linkedin: '#',
     facebook: '#',
-    whatsapp: '#',
+    // group invite link for community
+    whatsapp: 'https://chat.whatsapp.com/JLuDnhyUykg0sy0zOW8fM8',
   }
   const [formData, setFormData] = useState({
     // Threshold conditions

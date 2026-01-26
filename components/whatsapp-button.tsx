@@ -5,14 +5,23 @@ export function WhatsAppButton() {
   // Replace with your actual WhatsApp business number
   // Format: country code + number (972 for Israel)
   // Example: Israel 050-123-4567 → 972501234567
-  const phoneNumber = "972XXXXXXXXX"; // TODO: Replace with actual number
+  const phoneNumber = "972544403660"; // BizGoAI contact number (no leading +)
   
   // Pre-filled message in Hebrew (URL encoded)
-  const message = encodeURIComponent("שלום! אני מעוניין/ת לקבל מידע נוסף על BizgoAI");
+  const message = encodeURIComponent("שלום! אני מעוניין/ת לקבל מידע נוסף על BizGoAI");
+
+  const href = `https://wa.me/${phoneNumber}?text=${message}`
+
+  function handleClick(e: React.MouseEvent) {
+    e.preventDefault()
+    // open WhatsApp in a new tab/window and keep current page open
+    window.open(href, '_blank', 'noopener,noreferrer')
+  }
 
   return (
     <a
-      href={`https://wa.me/${phoneNumber}?text=${message}`}
+      href={href}
+      onClick={handleClick}
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 left-6 z-50 flex items-center gap-3 bg-[#25D366] text-white px-5 py-3 rounded-full shadow-lg hover:bg-[#20BA5A] transition-all hover:scale-105 group"

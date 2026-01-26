@@ -1,4 +1,7 @@
+"use client"
+
 import Link from "next/link"
+import React from "react"
 
 export function Footer() {
   return (
@@ -7,9 +10,14 @@ export function Footer() {
         {/* Row A - Social Media Icons (compact) */}
         <div className="flex justify-center gap-4 mb-6 pb-6 border-b border-blue-800">
           <a
-            href="https://wa.me/972XXXXXXXXX"
+            href="https://chat.whatsapp.com/JLuDnhyUykg0sy0zOW8fM8"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+              // open invite in a new tab without navigating away if JS is enabled
+              e.preventDefault()
+              window.open('https://chat.whatsapp.com/JLuDnhyUykg0sy0zOW8fM8', '_blank', 'noopener,noreferrer')
+            }}
             className="group flex flex-col items-center gap-2 transition-colors"
             aria-label="WhatsApp"
           >
