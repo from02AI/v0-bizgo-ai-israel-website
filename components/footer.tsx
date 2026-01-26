@@ -45,7 +45,7 @@ export function Footer() {
           </a>
           
           <a
-            href="https://www.linkedin.com/company/bizgoai"
+            href="https://www.linkedin.com/in/shani-carmi-radoszycki-b7474886/"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex flex-col items-center gap-2 transition-colors"

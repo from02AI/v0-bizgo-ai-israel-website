@@ -388,7 +388,7 @@ export async function POST(request: NextRequest) {
                   </a>
                 </td>
                 <td style="padding:6px 8px; text-align:center;">
-                  <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="text-decoration:none; color:inherit;">
+                  <a href="https://www.linkedin.com/in/shani-carmi-radoszycki-b7474886/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="text-decoration:none; color:inherit;">
                     <div style="width:44px;height:44px;background:#0A66C2;border-radius:22px;display:inline-block;line-height:44px;text-align:center;color:white;font-weight:700;box-shadow:0 4px 8px rgba(10,102,194,0.25);">in</div>
                     <div style="font-size:12px;color:#333;margin-top:6px;">LinkedIn</div>
                   </a>

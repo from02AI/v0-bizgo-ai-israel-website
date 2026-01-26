@@ -22,7 +22,7 @@ export function EmailCapture() {
   const socialLinks = {
     website: '#',
     newsletter: '#',
-    linkedin: '#',
+    linkedin: 'https://www.linkedin.com/in/shani-carmi-radoszycki-b7474886/',
     facebook: 'https://www.facebook.com/groups/3741611762641473',
     // Group invite for community
     whatsapp: 'https://chat.whatsapp.com/JLuDnhyUykg0sy0zOW8fM8',
