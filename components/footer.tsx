@@ -30,7 +30,7 @@ export function Footer() {
           </a>
           
           <a
-            href="https://www.facebook.com/bizgoai"
+            href="https://www.facebook.com/groups/3741611762641473"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex flex-col items-center gap-2 transition-colors"

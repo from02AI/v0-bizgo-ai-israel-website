@@ -35,7 +35,7 @@ const channels = [
     description: "דיונים מעמיקים, שיתוף ניסיון, נטוורקינג",
     cta: "הצטרפו לפייסבוק ←",
     ctaBg: "bg-blue-600 hover:bg-blue-700",
-    href: "#",
+    href: "https://www.facebook.com/groups/3741611762641473",
   },
 ]
 

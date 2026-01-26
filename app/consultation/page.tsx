@@ -163,7 +163,7 @@ export default function ConsultationPage() {
     website: '#',
     newsletter: '#',
     linkedin: '#',
-    facebook: '#',
+    facebook: 'https://www.facebook.com/groups/3741611762641473',
     // group invite link for community
     whatsapp: 'https://chat.whatsapp.com/JLuDnhyUykg0sy0zOW8fM8',
   }

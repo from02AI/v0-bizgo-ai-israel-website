@@ -23,7 +23,7 @@ export function EmailCapture() {
     website: '#',
     newsletter: '#',
     linkedin: '#',
-    facebook: '#',
+    facebook: 'https://www.facebook.com/groups/3741611762641473',
     // Group invite for community
     whatsapp: 'https://chat.whatsapp.com/JLuDnhyUykg0sy0zOW8fM8',
   }
