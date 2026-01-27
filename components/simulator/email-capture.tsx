@@ -20,8 +20,8 @@ export function EmailCapture() {
 
   // Placeholder social links — will be replaced with real URLs when provided
   const socialLinks = {
-    website: '#',
-    newsletter: '#',
+    website: process.env.NEXT_PUBLIC_SITE_URL || '/',
+    newsletter: '/newsletter',
     linkedin: 'https://www.linkedin.com/in/shani-carmi-radoszycki-b7474886/',
     facebook: 'https://www.facebook.com/groups/3741611762641473',
     // Group invite for community
@@ -212,7 +212,7 @@ export function EmailCapture() {
         <p className="text-xs text-slate-500 text-center mt-4 leading-relaxed">
           נשתמש באימייל כדי לשלוח את דוח ה-PDF. מסירת האימייל היא מרצון, אך בלי אימייל לא נוכל לשלוח את הדוח במייל.
           עדכונים/קהילה נשלחים רק אם סימנתם הצטרפות. לפרטים נוספים: {" "}
-          <a href="/privacy" className="text-blue-700 hover:underline">מדיניות הפרטיות</a>.
+          <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:underline">מדיניות הפרטיות</a>.
         </p>
 
         <a href="/" className="block text-center text-sm text-slate-500 hover:text-slate-700 mt-4">

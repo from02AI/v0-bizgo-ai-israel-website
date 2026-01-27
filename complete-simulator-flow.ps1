@@ -2,7 +2,7 @@
 # This mimics the exact user experience: fill simulator -> generate PDF -> receive email
 
 Write-Host "========================================" -ForegroundColor Cyan
-Write-Host "BizgoAI Simulator - Complete Email Flow" -ForegroundColor Cyan
+Write-Host "BizGoAI Simulator - Complete Email Flow" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 

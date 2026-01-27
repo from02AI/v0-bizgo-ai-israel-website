@@ -73,10 +73,10 @@ export async function POST(request: NextRequest) {
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
-      from: 'BizgoAI Contact <noreply@bizgoai.co.il>',
+      from: 'BizGoAI Contact <noreply@bizgoai.co.il>',
       to: [process.env.CONTACT_EMAIL || 'contact@bizgoai.co.il'],
       replyTo: email,
-      subject: `פנייה חדשה מ-${name} - אתר BizgoAI`,
+      subject: `פנייה חדשה מ-${name} - אתר BizGoAI`,
       react: ContactEmail({ name, email, phone, message, subscribeCommunity: subscribed }),
     });
 

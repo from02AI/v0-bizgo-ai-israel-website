@@ -158,6 +158,9 @@ export async function POST(request: NextRequest) {
     }
 
     let emailSent = false
+    // Canonical site URL for building absolute links inside emails. Prefer server-only SITE_URL,
+    // fall back to NEXT_PUBLIC_SITE_URL for dev/build environments, then to a safe default.
+    const siteUrl = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || 'https://bizgoai.co.il'
     console.log('[UPDATE-REPORT] Checking email send conditions:', { 
       hasEmail: !!user_email,
       email: user_email,
@@ -354,13 +357,13 @@ export async function POST(request: NextRequest) {
                   </a>
                 </td>
                 <td style="padding:6px 8px; text-align:center;">
-                  <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Newsletter" style="text-decoration:none; color:inherit;">
+                  <a href="${siteUrl}/newsletter" target="_blank" rel="noopener noreferrer" aria-label="Newsletter" style="text-decoration:none; color:inherit;">
                     <div style="width:44px;height:44px;background:linear-gradient(135deg, #f093fb 0%, #f5576c 100%);border-radius:22px;display:inline-block;line-height:44px;text-align:center;color:white;font-weight:700;box-shadow:0 4px 8px rgba(245,87,108,0.25);">✉</div>
                     <div style="font-size:12px;color:#333;margin-top:6px;">Newsletter</div>
                   </a>
                 </td>
                 <td style="padding:6px 8px; text-align:center;">
-                  <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Website" style="text-decoration:none; color:inherit;">
+                  <a href="${siteUrl}" target="_blank" rel="noopener noreferrer" aria-label="Website" style="text-decoration:none; color:inherit;">
                     <div style="width:44px;height:44px;background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);border-radius:22px;display:inline-block;line-height:44px;text-align:center;color:white;font-weight:700;box-shadow:0 4px 8px rgba(102,126,234,0.25);">🌐</div>
                     <div style="font-size:12px;color:#333;margin-top:6px;">Website</div>
                   </a>
@@ -384,7 +387,7 @@ export async function POST(request: NextRequest) {
 </html>`,
             attachments: [
               {
-                filename: `BizgoAI-Report-${id}.pdf`,
+                filename: `BizGoAI-Report-${id}.pdf`,
                 content: base64Content,
                 // CRITICAL FIX: Removed contentType - let Resend infer from .pdf filename
               },

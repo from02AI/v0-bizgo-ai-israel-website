@@ -488,6 +488,9 @@ export function buildPdfHtml(payload: PdfPayload) {
   const tool2 = payload.tool2Data || {}
   const tool3 = payload.tool3Data || {}
 
+  // Canonical site URL for absolute links inside PDFs/emails
+  const siteUrl = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || 'https://bizgoai.co.il'
+
   // show mission only if provided by user; otherwise leave empty
   const taskDisplayName = tool1.taskName ? escapeHtml(tool1.taskName) : ''
   const tool1Score = tool1.score ?? 0
@@ -534,7 +537,7 @@ export function buildPdfHtml(payload: PdfPayload) {
   <!-- Header -->
   <div class="header">
     <!-- Plain text logo top-left -->
-    <div class="logo-plain">BizgoAI</div>
+    <div class="logo-plain">BizGoAI</div>
     <!-- Date top-right -->
     <div class="date-plain">${escapeHtml(currentDate)}</div>
     <!-- Centered Headline (primary) -->
@@ -744,7 +747,7 @@ export function buildPdfHtml(payload: PdfPayload) {
   <!-- CTA Section -->
   <div class="cta-section">
     <div style="text-align: center; margin-bottom: 12px;">
-      <p style="font-size: 14px; font-weight: 700; color: var(--blue-900); margin: 0 0 6px 0;">תודה שהשתמשת בסימולטור של BizgoAI</p>
+      <p style="font-size: 14px; font-weight: 700; color: var(--blue-900); margin: 0 0 6px 0;">תודה שהשתמשת בסימולטור של BizGoAI</p>
       <p style="font-size: 11px; color: var(--slate-600); margin: 0; line-height: 1.5;">
         הצטרפ/י לפעילות בערוצים השונים וקבל/י מידע חיוני AI לעסקים קטנים, חומרים, כלים ופתרונות נוספים
       </p>
@@ -752,56 +755,66 @@ export function buildPdfHtml(payload: PdfPayload) {
     <!-- Social Media Icons (high-quality badges) -->
     <div style="display: flex; justify-content: center; gap: 20px; margin-top: 16px;">
       <div style="text-align: center;">
-        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px auto; box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);">
-          <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
-            <circle cx="12" cy="12" r="10" fill="none" stroke="white" stroke-width="2"/>
-            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="white" stroke-width="2" fill="none"/>
-          </svg>
-        </div>
-        <div style="font-size: 10px; color: var(--slate-700); font-weight: 600;">Website</div>
+        <a href="${siteUrl}" target="_blank" rel="noopener noreferrer" style="text-decoration:none; color:inherit;">
+          <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px auto; box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);">
+            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
+              <circle cx="12" cy="12" r="10" fill="none" stroke="white" stroke-width="2"/>
+              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="white" stroke-width="2" fill="none"/>
+            </svg>
+          </div>
+          <div style="font-size: 10px; color: var(--slate-700); font-weight: 600;">Website</div>
+        </a>
       </div>
 
       <div style="text-align: center;">
-        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px auto; box-shadow: 0 4px 8px rgba(245, 87, 108, 0.3);">
-          <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
-            <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div style="font-size: 10px; color: var(--slate-700); font-weight: 600;">Newsletter</div>
+        <a href="${siteUrl}/newsletter" target="_blank" rel="noopener noreferrer" style="text-decoration:none; color:inherit;">
+          <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px auto; box-shadow: 0 4px 8px rgba(245, 87, 108, 0.3);">
+            <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
+              <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div style="font-size: 10px; color: var(--slate-700); font-weight: 600;">Newsletter</div>
+        </a>
       </div>
 
       <div style="text-align: center;">
-        <div style="width: 48px; height: 48px; background: #0A66C2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px auto; box-shadow: 0 4px 8px rgba(10, 102, 194, 0.3);">
-          <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="16" font-weight="700" font-family="Arial, sans-serif">in</text>
-          </svg>
-        </div>
-        <div style="font-size: 10px; color: var(--slate-700); font-weight: 600;">LinkedIn</div>
+        <a href="https://www.linkedin.com/in/shani-carmi-radoszycki-b7474886/" target="_blank" rel="noopener noreferrer" style="text-decoration:none; color:inherit;">
+          <div style="width: 48px; height: 48px; background: #0A66C2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px auto; box-shadow: 0 4px 8px rgba(10, 102, 194, 0.3);">
+            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="16" font-weight="700" font-family="Arial, sans-serif">in</text>
+            </svg>
+          </div>
+          <div style="font-size: 10px; color: var(--slate-700); font-weight: 600;">LinkedIn</div>
+        </a>
       </div>
 
       <div style="text-align: center;">
-        <div style="width: 48px; height: 48px; background: #1877F2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px auto; box-shadow: 0 4px 8px rgba(24, 119, 242, 0.3);">
-          <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="18" font-weight="700" font-family="Arial, sans-serif">f</text>
-          </svg>
-        </div>
-        <div style="font-size: 10px; color: var(--slate-700); font-weight: 600;">Facebook</div>
+        <a href="https://www.facebook.com/groups/3741611762641473" target="_blank" rel="noopener noreferrer" style="text-decoration:none; color:inherit;">
+          <div style="width: 48px; height: 48px; background: #1877F2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px auto; box-shadow: 0 4px 8px rgba(24, 119, 242, 0.3);">
+            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="18" font-weight="700" font-family="Arial, sans-serif">f</text>
+            </svg>
+          </div>
+          <div style="font-size: 10px; color: var(--slate-700); font-weight: 600;">Facebook</div>
+        </a>
       </div>
 
       <div style="text-align: center;">
-        <div style="width: 48px; height: 48px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px auto; box-shadow: 0 4px 8px rgba(37, 211, 102, 0.3);">
-          <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="16" font-weight="700" font-family="Arial, sans-serif">W</text>
-          </svg>
-        </div>
-        <div style="font-size: 10px; color: var(--slate-700); font-weight: 600;">WhatsApp</div>
+        <a href="https://chat.whatsapp.com/JLuDnhyUykg0sy0zOW8fM8" target="_blank" rel="noopener noreferrer" style="text-decoration:none; color:inherit;">
+          <div style="width: 48px; height: 48px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px auto; box-shadow: 0 4px 8px rgba(37, 211, 102, 0.3);">
+            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="16" font-weight="700" font-family="Arial, sans-serif">W</text>
+            </svg>
+          </div>
+          <div style="font-size: 10px; color: var(--slate-700); font-weight: 600;">WhatsApp</div>
+        </a>
       </div>
     </div>
   </div>
 
   <!-- Footer -->
   <div class="footer">
-    <p style="margin: 0;"><strong>Israel BizgoAI</strong> | דוח זה נוצר אוטומטית על בסיס המידע שהזנת</p>
+    <p style="margin: 0;"><strong>BizGoAI</strong> | דוח זה נוצר אוטומטית על בסיס המידע שהזנת</p>
     <p style="margin: 4px 0 0 0; font-size: 8px; line-height: 1.4;">
       מסמך זה לשירותך ומהווה הערכה אינדיקטיבת בלבד. אין לראות בכך משום המלצה לפעולה, ייעוץ מקצועי או התחייבות.
     </p>

@@ -68,7 +68,7 @@ export default function NewsletterSignup() {
         <div className="flex items-start gap-3">
           <Checkbox id="newsletter-consent" checked={consent} onCheckedChange={(v: any) => setConsent(v === true)} />
           <label htmlFor="newsletter-consent" className="text-sm text-slate-700">
-            אני מסכים/ה לקבלת עדכונים וקריאת <a href="/privacy" className="text-blue-600 hover:underline">מדיניות הפרטיות</a>
+            אני מסכים/ה לקבלת עדכונים וקריאת <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">מדיניות הפרטיות</a>
           </label>
         </div>
 

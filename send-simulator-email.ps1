@@ -2,7 +2,7 @@
 # Mimics real user flow: simulator -> PDF -> email
 
 Write-Host "========================================"
-Write-Host "BizgoAI Simulator - Complete Email Flow"
+Write-Host "BizGoAI Simulator - Complete Email Flow"
 Write-Host "========================================"
 Write-Host ""
 

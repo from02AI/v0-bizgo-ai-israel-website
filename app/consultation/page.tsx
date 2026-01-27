@@ -160,8 +160,8 @@ export default function ConsultationPage() {
   const [submitted, setSubmitted] = useState(false)
   // placeholder social links (update later if needed)
   const socialLinks = {
-    website: '#',
-    newsletter: '#',
+    website: process.env.NEXT_PUBLIC_SITE_URL || '/',
+    newsletter: '/newsletter',
     linkedin: 'https://www.linkedin.com/in/shani-carmi-radoszycki-b7474886/',
     facebook: 'https://www.facebook.com/groups/3741611762641473',
     // group invite link for community
@@ -879,7 +879,7 @@ export default function ConsultationPage() {
           <p className="text-xs text-slate-500 text-right mt-3 leading-relaxed">
             נשתמש בפרטים שמסרת כדי לטפל בבקשה ולהתאים שיחת ייעוץ. מסירת הפרטים היא מרצון, אך בלי אימייל לא נוכל ליצור קשר.
             מידע נוסף וזכויותיך: {" "}
-            <a href="/privacy" className="text-blue-700 hover:underline">מדיניות הפרטיות</a>.
+            <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:underline">מדיניות הפרטיות</a>.
           </p>
 
             

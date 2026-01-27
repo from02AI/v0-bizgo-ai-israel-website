@@ -534,7 +534,7 @@ export function buildPdfHtml(payload: PdfPayload) {
   <!-- Header -->
   <div class="header">
     <!-- Plain text logo top-left -->
-    <div class="logo-plain">BizgoAI</div>
+    <div class="logo-plain">BizGoAI</div>
     <!-- Date top-right -->
     <div class="date-plain">${escapeHtml(currentDate)}</div>
     <!-- Centered Headline (primary) -->
@@ -744,7 +744,7 @@ export function buildPdfHtml(payload: PdfPayload) {
   <!-- CTA Section -->
   <div class="cta-section">
     <div style="text-align: center; margin-bottom: 12px;">
-      <p style="font-size: 14px; font-weight: 700; color: var(--blue-900); margin: 0 0 6px 0;">╫¬╫ò╫ô╫ö ╫⌐╫ö╫⌐╫¬╫₧╫⌐╫¬ ╫æ╫í╫Ö╫₧╫ò╫£╫ÿ╫ò╫¿ ╫⌐╫£ BizgoAI</p>
+      <p style="font-size: 14px; font-weight: 700; color: var(--blue-900); margin: 0 0 6px 0;">╫¬╫ò╫ô╫ö ╫⌐╫ö╫⌐╫¬╫₧╫⌐╫¬ ╫æ╫í╫Ö╫₧╫ò╫£╫ÿ╫ò╫¿ ╫⌐╫£ BizGoAI</p>
       <p style="font-size: 11px; color: var(--slate-600); margin: 0; line-height: 1.5;">
         ╫ö╫ª╫ÿ╫¿╫ñ/╫Ö ╫£╫ñ╫ó╫Ö╫£╫ò╫¬ ╫æ╫ó╫¿╫ò╫ª╫Ö╫¥ ╫ö╫⌐╫ò╫á╫Ö╫¥ ╫ò╫º╫æ╫£/╫Ö ╫₧╫Ö╫ô╫ó ╫ù╫Ö╫ò╫á╫Ö AI ╫£╫ó╫í╫º╫Ö╫¥ ╫º╫ÿ╫á╫Ö╫¥, ╫ù╫ò╫₧╫¿╫Ö╫¥, ╫¢╫£╫Ö╫¥ ╫ò╫ñ╫¬╫¿╫ò╫á╫ò╫¬ ╫á╫ò╫í╫ñ╫Ö╫¥
       </p>
@@ -786,7 +786,7 @@ export function buildPdfHtml(payload: PdfPayload) {
 
   <!-- Footer -->
   <div class="footer">
-    <p style="margin: 0;"><strong>Israel BizgoAI</strong> | ╫ô╫ò╫ù ╫û╫ö ╫á╫ò╫ª╫¿ ╫É╫ò╫ÿ╫ò╫₧╫ÿ╫Ö╫¬ ╫ó╫£ ╫æ╫í╫Ö╫í ╫ö╫₧╫Ö╫ô╫ó ╫⌐╫ö╫û╫á╫¬</p>
+    <p style="margin: 0;"><strong>Israel BizGoAI</strong> | ╫ô╫ò╫ù ╫û╫ö ╫á╫ò╫ª╫¿ ╫É╫ò╫ÿ╫ò╫₧╫ÿ╫Ö╫¬ ╫ó╫£ ╫æ╫í╫Ö╫í ╫ö╫₧╫Ö╫ô╫ó ╫⌐╫ö╫û╫á╫¬</p>
     <p style="margin: 4px 0 0 0; font-size: 8px; line-height: 1.4;">
       ╫₧╫í╫₧╫Ü ╫û╫ö ╫£╫⌐╫Ö╫¿╫ò╫¬╫Ü ╫ò╫₧╫ö╫ò╫ò╫ö ╫ö╫ó╫¿╫¢╫ö ╫É╫Ö╫á╫ô╫Ö╫º╫ÿ╫Ö╫æ╫¬ ╫æ╫£╫æ╫ô. ╫É╫Ö╫ƒ ╫£╫¿╫É╫ò╫¬ ╫æ╫¢╫Ü ╫₧╫⌐╫ò╫¥ ╫ö╫₧╫£╫ª╫ö ╫£╫ñ╫ó╫ò╫£╫ö, ╫Ö╫Ö╫ó╫ò╫Ñ ╫₧╫º╫ª╫ò╫ó╫Ö ╫É╫ò ╫ö╫¬╫ù╫Ö╫Ö╫æ╫ò╫¬.
     </p>

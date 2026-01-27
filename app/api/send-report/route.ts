@@ -156,7 +156,7 @@ export async function POST(request: NextRequest) {
             })}</p>
             <p>© ${new Date().getFullYear()} BizGoAI. כל הזכויות שמורות.</p>
             <p style="margin-top: 10px;">
-              <a href="https://bizgoai.co.il/privacy" style="color: #667eea; text-decoration: none;">מדיניות פרטיות</a>
+              <a href="https://bizgoai.co.il/privacy" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">מדיניות פרטיות</a>
             </p>
           </div>
         </body>

@@ -180,7 +180,7 @@ export function ContactForm() {
         <p className="text-xs text-slate-400 text-right mt-2 leading-relaxed">
           נשתמש בפרטים שמסרת כדי לחזור אליך בנוגע לפנייה.
           מידע נוסף על אופן השימוש במידע וזכויותיך נמצא ב-{" "}
-          <a href="/privacy" className="text-gray-300 hover:underline">מדיניות הפרטיות</a>.
+          <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:underline">מדיניות הפרטיות</a>.
         </p>
       </div>
       </div>

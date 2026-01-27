@@ -15,7 +15,7 @@ export default function AboutPage() {
             <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-full overflow-hidden shadow-2xl ring-[#0b2e7b]">
               <img
                 src="/images/founder.jpg"
-                alt="מייסדת BizgoAI"
+                alt="מייסדת BizGoAI"
                 className="object-cover w-full h-full"
                 loading="eager"
               />
@@ -23,7 +23,7 @@ export default function AboutPage() {
           </div>
          
           <p className="text-2xl sm:text-2xl text-blue-600 font-bold max-w-2xl mx-auto leading-relaxed">
-            הקמתי את BizgoAI כדי לבנות גשרים בין עידן ה-AI{" "}<span className="hidden sm:inline"><br /></span>לבין המציאות של עסקים קטנים בישראל.
+            הקמתי את BizGoAI כדי לבנות גשרים בין עידן ה-AI{" "}<span className="hidden sm:inline"><br /></span>לבין המציאות של עסקים קטנים.
           </p>
         </div>
 
@@ -104,7 +104,7 @@ export default function AboutPage() {
 
         {/* Title for the Solution cards (not in a card) */}
         <section className="mb-8 text-center mt-24">
-          <h2 className="text-3xl sm:text-4xl font-black text-[#0b2e7b] mb-3">BizgoAI נבנית בדיוק עבור זה</h2>
+          <h2 className="text-3xl sm:text-4xl font-black text-[#0b2e7b] mb-3">BizGoAI נבנית בדיוק עבור זה</h2>
           <p className="text-lg sm:text-xl text-slate-700">לבנות גשרים. לחבר בין אנשים. ולצמוח ביחד.</p>
         </section>
 

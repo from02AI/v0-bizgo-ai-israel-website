@@ -90,7 +90,7 @@ export function Footer() {
                 <Link href="/about" className="hover:text-white transition-colors">אודות</Link>
               </li>
               <li>
-                <Link href="/privacy" className="hover:text-white transition-colors">מדיניות פרטיות</Link>
+                <Link href="/privacy" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">מדיניות פרטיות</Link>
               </li>
             </ul>
           </div>
