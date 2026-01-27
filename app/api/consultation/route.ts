@@ -185,31 +185,6 @@ export async function POST(request: NextRequest) {
       console.warn('[CONSULTATION] Internal notify exception (ignored):', err)
     }
 
-      // If user opted into community updates, upsert canonical subscriber and start provider sync.
-      try {
-        const subscribeCommunity = !!body.subscribeCommunity
-        if (subscribeCommunity && data?.email) {
-          (async () => {
-            try {
-              const row = await upsertSubscriber({
-                email: String(data.email).trim(),
-                name: data.full_name ?? null,
-                consent_source: 'consultation-form',
-                metadata: { consultationId: data.id },
-                ip: forwardedFor,
-                user_agent: userAgent,
-                subscribed: true,
-              })
-              syncToProvider(row).catch((e) => console.warn('[CONSULTATION] provider sync failed (ignored)', e))
-            } catch (e) {
-              console.warn('[CONSULTATION] upsertSubscriber failed (ignored)', e)
-            }
-          })()
-        }
-      } catch (e) {
-        console.warn('[CONSULTATION] subscriber upsert flow error (ignored)', e)
-      }
-
     // Send confirmation email - PROPERLY AWAITED with comprehensive logging
     let emailSent = false
     let emailError: any = null
@@ -462,6 +437,37 @@ export async function POST(request: NextRequest) {
         errorMessage = JSON.stringify(emailError)
       }
     }
+
+    // If user opted into community updates, upsert canonical subscriber and start provider sync.
+    // CRITICAL: This MUST be awaited to ensure it completes before the function returns in serverless (Vercel).
+    try {
+      const subscribeCommunity = !!body.subscribeCommunity
+      if (subscribeCommunity && data?.email) {
+        try {
+          console.log('[CONSULTATION] Starting subscriber upsert', { email: data.email, consultationId: data.id, subscribeCommunity })
+          
+          const row = await upsertSubscriber({
+            email: String(data.email).trim(),
+            name: data.full_name ?? null,
+            consent_source: 'consultation-form',
+            metadata: { consultationId: data.id },
+            ip: forwardedFor,
+            user_agent: userAgent,
+            subscribed: true,
+          })
+          
+          console.log('[CONSULTATION] Subscriber upserted, calling syncToProvider')
+          await syncToProvider(row)
+          console.log('[CONSULTATION] Provider sync completed')
+        } catch (e) {
+          console.warn('[CONSULTATION] upsertSubscriber or syncToProvider failed (ignored)', e)
+        }
+      }
+    } catch (e) {
+      console.warn('[CONSULTATION] subscriber upsert flow error (ignored)', e)
+    }
+
+    console.log('[CONSULTATION] Returning success response with ID:', data.id)
 
     return NextResponse.json({ 
       id: data.id,
