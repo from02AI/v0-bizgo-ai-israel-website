@@ -60,6 +60,14 @@ export async function syncToProvider(subscriber: any) {
     const MAILERLITE_API_KEY = process.env.MAILERLITE_API_KEY
     const MAILERLITE_GROUP_ID = process.env.MAILERLITE_GROUP_ID
 
+    // Diagnostic logging to help debug missing provider syncs
+    try {
+      console.log('[syncToProvider] start', { email: subscriber?.email, id: subscriber?.id })
+      console.log('[syncToProvider] MAILERLITE_API_KEY present:', !!MAILERLITE_API_KEY, 'MAILERLITE_GROUP_ID present:', !!MAILERLITE_GROUP_ID)
+    } catch (e) {
+      // swallow any logging error
+    }
+
     // If a real group id is configured, use it. Ignore common placeholder values.
     const hasMailerLiteGroupConfigured = Boolean(MAILERLITE_API_KEY && MAILERLITE_GROUP_ID && !String(MAILERLITE_GROUP_ID).toLowerCase().includes('your_'))
     if (hasMailerLiteGroupConfigured) {
