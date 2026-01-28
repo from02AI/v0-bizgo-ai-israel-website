@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useSimulator } from "@/contexts/simulator-context"
-import { PDFDownloadButton } from "@/components/simulator/PDFDownloadButton"
 
 export function EmailCapture() {
   // (removed NextLink wrapper; use <a> elements below)
@@ -159,26 +158,6 @@ export function EmailCapture() {
             </li>
           ))}
         </ul>
-
-        {/* PDF Download Section */}
-        <div className="mb-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
-          <h3 className="text-lg font-bold text-[#0b2e7b] mb-2 text-center">צפייה מיידית בדוח</h3>
-          <p className="text-sm text-slate-600 text-center mb-4">הורידו את הדוח עכשיו ללא צורך באימייל</p>
-          <PDFDownloadButton 
-            tool1Data={tool1Data}
-            tool2Data={tool2Data}
-            tool3Data={tool3Data}
-          />
-        </div>
-
-        <div className="relative mb-6">
-          <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t border-slate-200" />
-          </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="bg-white px-4 text-slate-500">או קבלו למייל</span>
-          </div>
-        </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input
