@@ -42,6 +42,24 @@ export default function CTARegistrationForm() {
         throw new Error(data?.error || 'שגיאה בשליחת הטופס')
       }
 
+      // Contact form succeeded - now sync to newsletter/community (Supabase + MailerLite)
+      if (email.trim()) {
+        try {
+          await fetch('/api/newsletter/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: email.trim(),
+              name: name.trim(),
+              source: 'cta-registration-about'
+            }),
+          });
+        } catch (nlErr) {
+          console.error('Newsletter subscribe error:', nlErr);
+          // Don't block success UI if newsletter fails
+        }
+      }
+
       setStatus('success')
       setName('')
       setPhone('')
