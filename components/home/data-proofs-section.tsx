@@ -7,7 +7,7 @@ const L = Lucide as any
 const statCards = [
   {
     emoji: "🎓",
-    stat: "71.9%",
+    stat: "72%",
     title: "פער ידע",
     description:
       "בעלי עסקים קטנים מציינים 'אני לא יודע מספיק על כלים דיגיטליים חדשים' כסיבה העיקרית לכך שלא הטמיעו AI.",

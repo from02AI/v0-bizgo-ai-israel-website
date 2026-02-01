@@ -51,12 +51,15 @@ export function Header() {
             <Link href="/#consultation" className="text-slate-600 hover:text-[#0b2e7b] transition-colors font-medium">
               התאמת כלי AI
             </Link>
+                        <Link href="/programs/smb-adoption">שת"פ ארגונים  </Link>             
+
             <Link href="/#community" className="text-slate-600 hover:text-[#0b2e7b] transition-colors font-medium">
               קהילה
             </Link>
             <Link href="/about" className="text-slate-600 hover:text-[#0b2e7b] transition-colors font-medium">
               אודות
             </Link>
+    
           </nav>
 
           {/* Mobile menu button */}
@@ -88,6 +91,13 @@ export function Header() {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 סימולטור AI לעסק
+              </Link>
+              <Link
+                href="/programs/smb-adoption"
+                className="text-slate-600 hover:text-[#0b2e7b] transition-colors font-medium py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                תוכנית אימוץ AI
               </Link>
               <Link
                 href="/#consultation"
