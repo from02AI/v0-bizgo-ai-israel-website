@@ -38,6 +38,7 @@ declare module 'lucide-react' {
   export const Target: any;
   export const Handshake: any;
   export const Rocket: any;
+  export const Calendar: any;
 }
 
 // Allow importing plain CSS files as side-effect imports in TypeScript

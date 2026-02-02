@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Header } from '@/components/header'
-import { MessageCircle, TrendingUp, AlertTriangle } from 'lucide-react'
+import { MessageCircle, TrendingUp, AlertTriangle, Calendar } from 'lucide-react'
 
 // SMB Adoption Program page — Refined design with #0b2e7b, blue-600, amber-600
 export default function Page() {
@@ -45,6 +45,8 @@ export default function Page() {
       <style>{`
         /* Override sticky header to static on this page only */
         header[dir="ltr"] { position: static !important; }
+        /* Hide global WhatsApp button on this page only */
+        a[href*="wa.me"][class*="fixed"][class*="bottom-6"] { display: none !important; }
       `}</style>
       <Header />
       
@@ -85,7 +87,10 @@ export default function Page() {
             </div>
             <div className="flex items-center justify-center mt-8 md:mt-12 mb-6 md:mb-4">
               <Button asChild size="lg" className="bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg px-8 py-8 text-lg md:text-xl shadow-lg">
-                <Link href="/contact" className="text-lg md:text-xl">לקביעת שיחת הכרות</Link>
+                <a href="https://calendly.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-lg md:text-xl">
+                  <Calendar className="w-5 h-5" />
+                  <span>לקביעת שיחת הכרות</span>
+                </a>
               </Button>
             </div>
 
@@ -211,7 +216,7 @@ export default function Page() {
       {/* PROGRAM STRUCTURE SECTION — RTL Vertical Timeline (NEW DESIGN) */}
       <section className="bg-white py-20 md:py-28">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8" dir="rtl">
-          <h2 className="text-center text-4xl md:text-5xl font-black mb-8 text-[#0b2e7b]">מה בתכנית?</h2>
+          <h2 className="text-center text-4xl md:text-5xl font-black mb-8 text-blue-600">מה בתכנית?</h2>
           <p className="text-center text-gray-600 text-[18px] mb-12">מחזור של 4 שבועות שחוזר על עצמו למשך 3 חודשים</p>
 
           <div className="relative">
@@ -269,52 +274,54 @@ export default function Page() {
       </section>
 
       {/* QUALIFICATION & PROCESS SECTION */}
-      <section className="bg-[#0b2e7b] py-20 md:py-28" dir="rtl">
+      <section className="bg-[#0b2e7b] py-20 md:py-20" dir="rtl">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Part 1: Who Is This For */}
-          <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-8">
             למי זה מתאים?
           </h2>
           
-          <div className="max-w-2xl mx-auto mb-20">
-            <ul className="space-y-4">
-              <li className="grid grid-cols-[40px_1fr] items-start gap-4">
-                <div className="w-10 flex items-start justify-center">
-                  <span className="text-gray-300 font-bold text-2xl">•</span>
-                </div>
-                <div className="text-right">
-                  <span className="font-bold text-gray-300 text-2xl"> עסק שנותן שירותים לעסקים קטנים</span>
-                </div>
-              </li>
+          <div className="max-w-4xl mx-auto mb-20">
+            <div className="bg-blue-600 rounded-xl p-12">
+              <ul className="space-y-4 mr-4">
+                <li className="grid grid-cols-[40px_1fr] items-start gap-4">
+                  <div className="w-10 flex items-start justify-center">
+                    <span className="text-white font-bold text-2xl">•</span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-white text-2xl"> עסק שנותן שירותים לעסקים קטנים</span>
+                  </div>
+                </li>
 
-              <li className="grid grid-cols-[40px_1fr] items-start gap-4">
-                <div className="w-10 flex items-start justify-center">
-                  <span className="text-gray-300 font-bold text-2xl">•</span>
-                </div>
-                <div className="text-right">
-                  <span className="font-bold text-gray-300 text-2xl"> בעל לפחות 100 לקוחות פוטנציאליים לתכנית (כדי להגיע למספר משתתפים מינימאלי מתאים).</span>
-                </div>
-              </li>
+                <li className="grid grid-cols-[40px_1fr] items-start gap-4">
+                  <div className="w-10 flex items-start justify-center">
+                    <span className="text-white font-bold text-2xl">•</span>
+                  </div>
+                  <div className="text-right">
+                    <span className=" text-white text-2xl"> בעל לפחות 100 לקוחות פוטנציאליים לתכנית (כדי להגיע למספר משתתפים מינימאלי מתאים).</span>
+                  </div>
+                </li>
 
-              <li className="grid grid-cols-[40px_1fr] items-start gap-4">
-                <div className="w-10 flex items-start justify-center">
-                  <span className="text-gray-300 font-bold text-2xl">•</span>
-                </div>
-                <div className="text-right">
-                  <span className="font-bold text-gray-300 text-2xl"> חיבור לקדמה טכנולוגית ורצון להוביל</span>
-                </div>
-              </li>
+                <li className="grid grid-cols-[40px_1fr] items-start gap-4">
+                  <div className="w-10 flex items-start justify-center">
+                    <span className="text-white font-bold text-2xl">•</span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-white text-2xl"> חיבור לקדמה טכנולוגית ורצון להוביל</span>
+                  </div>
+                </li>
 
-              <li className="grid grid-cols-[40px_1fr] items-start gap-4">
-                <div className="w-10 flex items-start justify-center">
-                  <span className="text-gray-300 font-bold text-2xl">•</span>
-                </div>
-                <div className="text-right">
-                  <span className="font-bold text-gray-300 text-2xl"> הבנת צורך השעה ורצון לעזור ללקוחות שלכם (ולעצמכם) לצלוח את מהפכת ה-AI</span>
-                </div>
-              </li>
-            </ul>
+                <li className="grid grid-cols-[40px_1fr] items-start gap-4">
+                  <div className="w-10 flex items-start justify-center">
+                    <span className="text-white font-bold text-2xl">•</span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-white text-2xl"> הבנת צורך השעה ורצון לעזור ללקוחות שלכם (ולעצמכם) לצלוח את מהפכת ה-AI</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
 
           {/* Part 2: How It Works */}
@@ -330,7 +337,7 @@ export default function Page() {
                 <div className="w-16 h-16 bg-amber-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
                   1
                 </div>
-                <div className="text-right w-full">
+                <div className="text-center w-full">
                   <h3 className="text-2xl font-bold text-[#0b2e7b]  mb-3">שיחת הכרות קצרה</h3>
                   <p className="text-gray-600 text-base leading-relaxed">
                     הסברים על התכנית והצרכים, מענה על שאלות ותיאום ציפיות
@@ -345,7 +352,7 @@ export default function Page() {
                 <div className="w-16 h-16 bg-amber-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
                   2
                 </div>
-                <div className="text-right w-full">
+                <div className="text-center w-full">
                   <h3 className="text-2xl font-bold text-[#0b2e7b] mb-3">החלטה משותפת</h3>
                   <p className="text-gray-600 text-base leading-relaxed">
                     הבנה שיש רצון הדדי לעבוד יחד וסיכום כל התנאים
@@ -360,7 +367,7 @@ export default function Page() {
                 <div className="w-16 h-16 bg-amber-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
                   3
                 </div>
-                <div className="text-right w-full">
+                <div className="text-center w-full">
                   <h3 className="text-2xl font-bold text-[#0b2e7b] mb-3">הזמנה ללקוחות</h3>
                   <p className="text-gray-600 text-base leading-relaxed">
                     הודעה על פתיחת התכנית בהתאם לתנאים שסוכמו
@@ -370,40 +377,41 @@ export default function Page() {
             </div>
           </div>
 
+        
+
         </div>
       </section>
 
       {/* FINAL CTA SECTION — Amber button, professional call-to-action */}
-      <section className="bg-slate-50 py-20 md:py-28">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="bg-slate-50 py-20 md:py-12">
+        <div className="max-w-3xl mx-auto px-8 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-black text-[#0b2e7b] mb-4">הצעד הבא</h2>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
             <Button asChild size="lg" className="bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg px-8 py-6 text-lg min-h-[48px]">
-              <Link href="/contact">לקבוע שיחת הכרות ←</Link>
+              <a href="https://calendly.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                <Calendar className="w-5 h-5" />
+                <span>לקבוע שיחת הכרות ←</span>
+              </a>
             </Button>
 
            
           </div>
 
-          <p className="text-sm text-gray-500">
-            שאלות? אפשר לכתוב ישירות ב-WhatsApp או ללחוץ על הקישור
-          </p>
+      
         </div>
       </section>
 
       {/* Custom CTA Button - This Page Only */}
       <a
-        href="https://wa.me/972544403660?text=%D7%A9%D7%9C%D7%95%D7%9D%21%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%A2%D7%95%D7%99%D7%99%D7%9F%2F%D7%AA%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%9E%D7%99%D7%93%D7%A2%20%D7%A0%D7%95%D7%A1%D7%A3%20%D7%A2%D7%9C%20BizGoAI"
+        href="https://calendly.com"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 left-6 z-50 flex items-center gap-2 bg-[#0b2e7b] text-white px-5 py-3 rounded-full shadow-lg hover:bg-[#0a2460] transition-all hover:scale-105"
-        aria-label="לתיאום שיחה"
+        aria-label="קביעת שיחה"
       >
-        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" />
-        </svg>
-        <span className="hidden sm:inline font-semibold text-sm">לתיאום שיחה</span>
+        <Calendar className="w-5 h-5" />
+        <span className="hidden sm:inline font-semibold text-sm">קביעת שיחה</span>
       </a>
     </main>
 
