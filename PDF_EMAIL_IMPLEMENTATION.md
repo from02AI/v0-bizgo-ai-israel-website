@@ -85,7 +85,7 @@ RESEND_API_KEY=re_your_actual_api_key_here
 5. Update the `from` address in `/app/api/send-report/route.ts`:
 
 ```typescript
-from: 'BizgoAI Israel <reports@yourdomain.com>',
+from: 'BizGoAI Israel <reports@yourdomain.com>',
 ```
 
 **For testing:** You can use Resend's test domain without verification, but emails may go to spam.

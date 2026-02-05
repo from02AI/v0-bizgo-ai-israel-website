@@ -46,20 +46,17 @@ export function Header() {
               עמוד הבית
             </Link>
             <Link href="/simulator" className="text-slate-600 hover:text-[#0b2e7b] transition-colors font-medium">
-              סימולטור AI לעסק
+              סימולטור AI
             </Link>
             <Link href="/#consultation" className="text-slate-600 hover:text-[#0b2e7b] transition-colors font-medium">
-              התאמת כלי AI
+              אבחון והתאמת כלים
             </Link>
-                        <Link href="/programs/smb-adoption">שת"פ ארגונים  </Link>             
-
-            <Link href="/#community" className="text-slate-600 hover:text-[#0b2e7b] transition-colors font-medium">
-              קהילה
+            <Link href="/programs/smb-adoption" className="text-slate-600 hover:text-[#0b2e7b] transition-colors font-medium">
+              תכנית יישום AI ואוטומציה
             </Link>
             <Link href="/about" className="text-slate-600 hover:text-[#0b2e7b] transition-colors font-medium">
               אודות
             </Link>
-    
           </nav>
 
           {/* Mobile menu button */}
@@ -90,28 +87,21 @@ export function Header() {
                 className="text-slate-600 hover:text-[#0b2e7b] transition-colors font-medium py-2"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                סימולטור AI לעסק
+                סימולטור AI
               </Link>
               <Link
                 href="/programs/smb-adoption"
                 className="text-slate-600 hover:text-[#0b2e7b] transition-colors font-medium py-2"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                תוכנית אימוץ AI
+                תכנית יישום AI ואוטומציה
               </Link>
               <Link
                 href="/#consultation"
                 className="text-slate-600 hover:text-[#0b2e7b] transition-colors font-medium py-2"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                התאמת כלי AI
-              </Link>
-              <Link
-                href="/#community"
-                className="text-slate-600 hover:text-[#0b2e7b] transition-colors font-medium py-2"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                קהילה
+                אבחון והתאמת כלים
               </Link>
               <Link
                 href="/about"

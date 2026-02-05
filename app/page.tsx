@@ -5,7 +5,6 @@ import { ProblemSection } from "@/components/home/problem-section"
 import { HowItWorksSection } from "@/components/home/how-it-works-section"
 import { ConsultationPreviewSection } from "@/components/home/consultation-preview-section"
 import { DataProofsSection } from "@/components/home/data-proofs-section"
-import { CommunitySection } from "@/components/home/community-section"
 import { ContactForm } from "@/components/contact-form"
 
 export default function HomePage() {
@@ -18,8 +17,6 @@ export default function HomePage() {
         <HowItWorksSection />
         <ConsultationPreviewSection />
         <DataProofsSection />
-        <CommunitySection />
-        
         {/* Contact Form Section */}
         <section className="py-16 bg-blue-600" id="contact">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

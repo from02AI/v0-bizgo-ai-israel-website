@@ -11,31 +11,31 @@ export default function Page() {
       label: 'שבוע 1',
       time: '30–45 דק׳',
       title: 'משימה חודשית ליישום AI ואוטומציה בעסק',
-      description: 'כל חודש מתמקדים בתהליך עסקי אחד מרכזי להטמעה בעסק',
-      format: 'פורמט: משתתפי/ות התכנית מקבלים מייל עם הדרכה מפורטת וחומרים נלווים'
+      description: 'כל חודש מתמקדים בתהליך/משימה אחת מרכזית להטמעה בעסק בתחומי שיווק, מכירות ואופרציה',
+      format: 'פורמט: מייל עם הדרכה מפורטת וחומרים נלווים'
     },
     {
       number: 2,
       label: 'שבוע 2',
       time: '60 דק׳ (לא חובה)',
-      title: 'Open Office (זום פתוח)',
-      description: 'הזדמנות לשאול שאלות, לשתף, ולפתור חסמים.',
+      title: 'Open Office (מפגש פתוח)',
+      description: 'מקום לשאול שאלות, לשתף, ולפתור חסמים.',
       format: 'פורמט: שעה קבועה בזום, ללא חובת השתתפות'
     },
     {
       number: 3,
       label: 'שבוע 3',
       time: '10–15 דק׳',
-      title: 'עדכוני AI',
-      description: 'מה חדש בשוק ואיך זה רלוונטי לעסקים קטנים בישראל.',
-      format: 'פורמט: משתתפי/ות התכנית מקבלים מייל עם מידע שיעזור בחיבור לעולם ה-AI ולחיזוק התכנית וביצוע המשימה החודשית'
+      title: 'גלובל AI',
+      description: 'כלים, תוכנות ועדכונים שחשוב להכיר ואיך זה רלוונטי לעסקים קטנים בישראל.',
+      format: 'פורמט: מייל עם מידע וקישורים, שיעזור בחיבור לעולם ה-AI ולחיזוק התכנית וביצוע המשימות'
     },
     {
       number: 4,
       label: 'שבוע 4',
       time: '60 דק׳ (לא חובה)',
-      title: 'Open Office (זום פתוח)',
-      description: 'הזדמנות למי שרוצה לשאול שאלות, לשתף בתהליך',
+      title: 'Open Office (מפגש פתוח)',
+      description: 'מקום לשאול שאלות, לשתף, ולפתור חסמים.',
       format: 'פורמט: שעה קבועה בזום, ללא חובת השתתפות'
     }
   ];
@@ -55,21 +55,27 @@ export default function Page() {
       <section className="bg-[#0b2e7b] text-white py-20 md:py-32 lg:py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="font-black text-4xl md:text-5xl lg:text-6xl leading-tight mb-6">
-            תוכנית יישום AI ואוטומציות <br />לעסקים קטנים
+            <h1 className="font-black text-4xl md:text-5xl lg:text-6xl leading-tight mb-2">
+             AI ואוטומציה  לעסקים קטנים בישראל
             </h1>
+            <h1 className="font-semibold text-3xl md:text-4xl lg:text-5xl leading-tight mb-8">
+            להתקדם בביטחון למציאות העסקית החדשה
+            </h1>
+            <h1 className=" text-2xl md:text-3xl lg:text-4xl leading-tight mb-1">
+מודול א' - רמת מתחילים            </h1>
+
         
 
     
 
-            <p className="font-bold text-lg md:text-xl text-blue-100 mb-10 max-w-4xl mx-auto leading-relaxed">
-מסגרת מובנית של 12 שבועות ללקוחות העסקיים שלך <br />
+            <p className="font-bold text-lg md:text-xl text-blue-100 mb-6 max-w-4xl mx-auto leading-relaxed">
+תכנית מובנית של 12 שבועות ללקוחות העסקיים שלך <br />
 מוצעת כרגע רק במסגרת פיילוט שיתוף פעולה עם נותני שירותים מקצועיים          </p>
 
 
 
             {/* Timeline indicator with amber accents */}
-            <div className="inline-flex flex-wrap justify-center gap-6 md:gap-12 bg-white/5 backdrop-blur-sm rounded-2xl px-8 md:px-12 py-1">
+            <div className="inline-flex flex-wrap justify-center gap-6 md:gap-16 bg-white/5 backdrop-blur-sm rounded-2xl px-8 md:px-12 py-1">
               <div className="text-center">
                 <div className="text-3xl md:text-4xl font-bold text-amber-400 mb-1">3 חודשים</div>
                 <div className="text-sm text-blue-100 font-medium">תכנית מובנית</div>
@@ -86,9 +92,9 @@ export default function Page() {
               </div>
             </div>
             <div className="flex items-center justify-center mt-8 md:mt-12 mb-6 md:mb-4">
-              <Button asChild size="lg" className="bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg px-8 py-8 text-lg md:text-xl shadow-lg">
-                <a href="https://calendly.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-lg md:text-xl">
-                  <Calendar className="w-5 h-5" />
+              <Button asChild size="lg" className="bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg px-14 py-9 text-lg md:text-xl shadow-xl">
+                <a href="https://calendly.com/contact-bizgoai/30min" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-lg md:text-xl">
+                  <Calendar className="w-8 h-8" />
                   <span>לקביעת שיחת הכרות</span>
                 </a>
               </Button>
@@ -142,7 +148,7 @@ export default function Page() {
            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-4xl md:text-5xl font-black mb-8 text-white">שיתוף פעולה משתלם</h2>
           <div className="text-center">
-            <p className="text-3xl text-gray-300 font-semibold mb-10">BizGoAI מספקת ללקוחותיכם תוכנית ליישום AI ואוטומציות בעסק<br />
+            <p className="text-3xl text-gray-900 font-bold mb-10">BizGoAI מספקת ללקוחותיכם תוכנית ליישום AI ואוטומציות בעסק<br />
 אתם מספקים חיבור לעסקים קטנים<br /></p>
           </div>
         </div>
@@ -155,15 +161,15 @@ export default function Page() {
               <ul className="space-y-4 mt-6">
                 <li className="flex gap-3">
                   <span className="text-amber-400 font-bold">✓</span>
-                  <span className="font-semibold">מתן ערך מיידי ומשמעותי ללקוחות שלכם</span>
+                  <span className="font-semibold">מתן ערך מיידי (הטבה/מתנה) ללקוחות שלכם</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-amber-400 font-bold">✓</span>
-                  <span className="font-semibold">הגדלת הסיכוי של לקוחותיכם לצלוח את מהפכת ה-AI</span>
+                  <span className="font-semibold">הגדלת הסיכוי של לקוחותיכם=שלכם לצלוח את מהפכת ה-AI</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-amber-400 font-bold">✓</span>
-                  <span className="font-semibold">תהליך מובנה ומנוהל ע"י BizGoAI כך שההשקעה מצידכם מינימאלית </span>
+                  <span className="font-semibold">התכנית מנוהלת ע"י BizGoAI עם מינמום השקעה מצידכם </span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-amber-400 font-bold">✓</span>
@@ -196,7 +202,7 @@ export default function Page() {
 
                 <li className="flex gap-3">
                   <span className="text-amber-400 font-bold">✓</span>
-                  <span className="font-semibold">תכנית מובנית ומותאמת לעסקים קטנים בישראל</span>
+                  <span className="font-semibold">תכנית מותאמת לצרכים וקצב של עסקים קטנים בישראל</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-amber-400 font-bold">✓</span>
@@ -209,38 +215,40 @@ export default function Page() {
 
               </ul>
             </div>
+            
           </div>
+          
         </div>
       </section>
 
       {/* PROGRAM STRUCTURE SECTION — RTL Vertical Timeline (NEW DESIGN) */}
-      <section className="bg-white py-20 md:py-28">
+      <section className="bg-white py-20 md:py-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8" dir="rtl">
-          <h2 className="text-center text-4xl md:text-5xl font-black mb-8 text-blue-600">מה בתכנית?</h2>
-          <p className="text-center text-gray-600 text-[18px] mb-12">מחזור של 4 שבועות שחוזר על עצמו למשך 3 חודשים</p>
+          <h2 className="text-center text-4xl md:text-5xl font-black mb-6 text-blue-600">מה בתכנית? </h2>
+          <p className="text-center text-[#0b2e7b] text-[30px] mb-8 font-black">מחזור קבוע של 4 שבועות למשך 3 חודשים</p>
 
           <div className="relative">
             {/* Timeline line - visible on md+ only */}
-            <div className="hidden md:block absolute top-2 bottom-8 w-[2px] bg-[#0b2e7b]" style={{ right: 'calc(17.5% - 16px)' }} />
+            <div className="hidden md:block absolute top-2 bottom-22 w-[3px] bg-[#0b2e7b]" style={{ right: 'calc(17.5% - 16px)' }} />
 
             {/* Desktop timeline - cards left of the line */}
             <div className="hidden md:block">
               <div className="space-y-8">
                 {weeks.map((week) => (
-                  <div key={week.number} className="relative mb-8">
+                  <div key={week.number} className="relative mb-6">
                     {/* Node */}
-                    <div className="hidden md:flex absolute top-0 -translate-y-1 w-11 h-11 z-10 bg-amber-600 rounded-full items-center justify-center text-white font-bold text-[13px] leading-none" style={{ right: 'calc(17.5% - 22px)' }}>
+                    <div className="hidden md:flex absolute top-0 -translate-y-1 w-12 h-12 z-10 bg-amber-600 rounded-full items-center justify-center text-white font-bold text-[13px] leading-none" style={{ right: 'calc(17.5% - 22px)' }}>
                       {`שבוע ${week.number}`}
                     </div>
 
                     {/* Card */}
-                    <div className="md:mx-auto md:w-[65%] w-full bg-white border border-gray-200 rounded-xl p-6 shadow-sm text-right">
+                    <div className="md:mx-auto md:w-[62%] w-full bg-gray-200 shadow-lg border border-gray-200 rounded-xl p-2 shadow-sm text-right">
                       <div className="flex justify-between items-start mb-3">
                       </div>
-                      <h3 className="text-[20px] font-bold text-[#0b2e7b] mb-2">{week.title}</h3>
-                      <p className="text-[15px] font-semibold text-gray-700 mb-2">{week.description}</p>
-                      <p className="text-[15px] text-gray-600 mt-1">
-                        <span className="font-semibold">פורמט:</span> {week.format.replace(/^\s*פורמט:\s*/,'')}
+                      <h3 className="text-[20px] font-extrabold text-[#0b2e7b] mb-2 text-center">{week.title}</h3>
+                      <p className="text-[14px] font-semibold text-blue-600 mb-2 text-center">{week.description}</p>
+                      <p className="text-[14px] text-gray-600 mt-1 text-center">
+                        <span className="font-semibold text-center">פורמט:</span> {week.format.replace(/^\s*פורמט:\s*/,'')}
                       </p>
                     </div>
                   </div>
@@ -268,7 +276,7 @@ export default function Page() {
 
           {/* Bottom clarifier */}
           <div className="pt-2">
-            <p className=" text-center text-[#6b7280] text-[16px] font-bold max-w-[600px] mx-auto">לאורך כל התכנית ייאספו נתונים מהמשתתפים/ות ובסוף כל חודש משובים <br />לטובת התאמות שוטפות לצרכים העולים בזמן אמת</p>
+            <p className=" text-center text-[#6b7280] text-[16px] font-bold max-w-[600px] mx-auto">לאורך התכנית ייאספו נתונים מהמשתתפים/ות ובסוף כל חודש משובים <br />לטובת התאמות שוטפות לצרכים העולים בזמן אמת</p>
           </div>
         </div>
       </section>
@@ -279,7 +287,7 @@ export default function Page() {
           
           {/* Part 1: Who Is This For */}
           <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-8">
-            למי זה מתאים?
+            למי השת"פ מתאים?
           </h2>
           
           <div className="max-w-4xl mx-auto mb-20">
@@ -287,37 +295,46 @@ export default function Page() {
               <ul className="space-y-4 mr-4">
                 <li className="grid grid-cols-[40px_1fr] items-start gap-4">
                   <div className="w-10 flex items-start justify-center">
-                    <span className="text-white font-bold text-2xl">•</span>
+                    <span className="text-white font-bold text-2xl">+</span>
                   </div>
                   <div className="text-right">
-                    <span className="text-white text-2xl"> עסק שנותן שירותים לעסקים קטנים</span>
+                    <span className="text-white text-3xl"> נותני שירותים לעסקים קטנים</span>
                   </div>
                 </li>
 
                 <li className="grid grid-cols-[40px_1fr] items-start gap-4">
                   <div className="w-10 flex items-start justify-center">
-                    <span className="text-white font-bold text-2xl">•</span>
+                    <span className="text-white font-bold text-2xl">+</span>
                   </div>
                   <div className="text-right">
-                    <span className=" text-white text-2xl"> בעל לפחות 100 לקוחות פוטנציאליים לתכנית (כדי להגיע למספר משתתפים מינימאלי מתאים).</span>
+                    <span className=" text-white text-3xl"> עם לפחות 50 לקוחות פוטנציאליים* לתכנית</span>
                   </div>
                 </li>
 
                 <li className="grid grid-cols-[40px_1fr] items-start gap-4">
                   <div className="w-10 flex items-start justify-center">
-                    <span className="text-white font-bold text-2xl">•</span>
+                    <span className="text-white font-bold text-2xl">+</span>
                   </div>
                   <div className="text-right">
-                    <span className="text-white text-2xl"> חיבור לקדמה טכנולוגית ורצון להוביל</span>
+                    <span className="text-white text-3xl"> התפתחות טכנולוגית הינה בחזון וב-DNA העסקי שלכם</span>
                   </div>
                 </li>
 
-                <li className="grid grid-cols-[40px_1fr] items-start gap-4">
+                <li className="mb-10 grid grid-cols-[40px_1fr] items-start gap-4">
                   <div className="w-10 flex items-start justify-center">
-                    <span className="text-white font-bold text-2xl">•</span>
+                    <span className="text-white font-bold text-2xl">+</span>
                   </div>
                   <div className="text-right">
-                    <span className="text-white text-2xl"> הבנת צורך השעה ורצון לעזור ללקוחות שלכם (ולעצמכם) לצלוח את מהפכת ה-AI</span>
+                    <span className="text-white text-3xl"> הבנת צורך השעה לעזור ללקוחות שלכם (ולעצמכם) לצלוח את מהפכת ה-AI</span>
+                  </div>
+                </li>
+                <li className="grid grid-cols-[40px_1fr] items-start gap-4">
+                  <div className="w-10 flex items-start justify-center">
+                    <span className="text-amber-400 font-bold text-2xl">*</span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-amber-400 text-xl">  התכנית אידיאלית לעסקים קטנים בעלי מחזור שנתי המסתכם בלפחות 1 מש"ח, על מנת שהפוטנציאל בהשקעה ב-AI ואוטומציה יהיה משמעותי ומשתלם.</span>
+
                   </div>
                 </li>
               </ul>
@@ -388,23 +405,19 @@ export default function Page() {
           <h2 className="text-3xl md:text-4xl font-black text-[#0b2e7b] mb-4">הצעד הבא</h2>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-            <Button asChild size="lg" className="bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg px-8 py-6 text-lg min-h-[48px]">
-              <a href="https://calendly.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                <Calendar className="w-5 h-5" />
+            <Button asChild size="xl" className="bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg px-8 py-6 text-2xl min-h-[48px]">
+              <a href="https://calendly.com/contact-bizgoai/30min" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                <Calendar className="w-6 h-6" />
                 <span>לקבוע שיחת הכרות ←</span>
               </a>
             </Button>
-
-           
           </div>
-
-      
         </div>
       </section>
 
       {/* Custom CTA Button - This Page Only */}
       <a
-        href="https://calendly.com"
+        href="https://calendly.com/contact-bizgoai/30min"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 left-6 z-50 flex items-center gap-2 bg-[#0b2e7b] text-white px-5 py-3 rounded-full shadow-lg hover:bg-[#0a2460] transition-all hover:scale-105"

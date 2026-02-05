@@ -65,7 +65,7 @@ export function EmailCapture() {
               </div>
               <div className="text-right">
                 <p className="font-bold text-[#0b2e7b]">╫£╫£╫₧╫ò╫ô ╫ó╫ò╫ô</p>
-                <p className="text-sm text-slate-500">╫ó╫£ BizgoAI Israel</p>
+                <p className="text-sm text-slate-500">╫ó╫£ BizGoAI Israel</p>
               </div>
             </Link>
           </div>

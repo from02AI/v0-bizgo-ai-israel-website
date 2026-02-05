@@ -53,7 +53,7 @@
 1. **Check Gmail inbox** for bizgoai.il@gmail.com
 2. **Find two test emails**:
    - "Test PDF Attachment - Tiny PDF" (minimal test)
-   - "דוח הערכת מוכנות AI שלך - BizgoAI Israel" (full report)
+- "דוח הערכת מוכנות AI שלך - BizGoAI Israel" (full report)
 
 ### PDF Verification:
 3. **Try to open both PDF attachments**
@@ -142,7 +142,7 @@ Next steps to investigate:
 ```typescript
 attachments: [
   {
-    filename: `BizgoAI-Report-${id}.pdf`,
+    filename: `BizGoAI-Report-${id}.pdf`,
     content: pdfBuffer.toString('base64'),
     contentType: 'application/pdf',  // ❌ Causes encoding mismatch
   },
@@ -162,7 +162,7 @@ console.log('[UPDATE-REPORT] Base64 expansion ratio:', ratio, '(should be ~1.33)
 
 attachments: [
   {
-    filename: `BizgoAI-Report-${id}.pdf`,
+    filename: `BizGoAI-Report-${id}.pdf`,
     content: base64Content,
     // ✅ No contentType - let Resend infer from filename
   },

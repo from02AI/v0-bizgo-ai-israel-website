@@ -331,47 +331,6 @@ export async function POST(request: NextRequest) {
       <p style="color: #333333; font-size: 16px; line-height: 1.6; margin: 20px 0; text-align: right;">
         ניתן לפתוח את הקובץ המצורף ולעיין בניתוח המפורט.
       </p>
-        <!-- Social badges section (added) -->
-        <div style="padding:20px 24px; text-align:center; direction: rtl;">
-          <p style="margin:0;font-size:16px;color:#0b2e7b;font-weight:bold;">הצטרפו אלינו בערוצים השונים</p>
-          <p style="margin:8px 0 14px;color:#666;font-size:14px;">קבל/י עדכונים, חומרים והמלצות כלים שיעזרו לך להטמיע AI בעסק</p>
-          <div style="margin:0 auto; max-width:420px; text-align:center;">
-            <table role="presentation" style="margin:0 auto; border-collapse:collapse;">
-              <tr>
-                <td style="padding:6px 8px; text-align:center;">
-                  <a href="#" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" style="text-decoration:none; color:inherit;">
-                    <div style="width:44px;height:44px;background:#25D366;border-radius:22px;display:inline-block;line-height:44px;text-align:center;color:white;font-weight:700;box-shadow:0 4px 8px rgba(37,211,102,0.25);">W</div>
-                    <div style="font-size:12px;color:#333;margin-top:6px;">WhatsApp</div>
-                  </a>
-                </td>
-                <td style="padding:6px 8px; text-align:center;">
-                  <a href="https://www.facebook.com/groups/3741611762641473" target="_blank" rel="noopener noreferrer" aria-label="Facebook" style="text-decoration:none; color:inherit;">
-                    <div style="width:44px;height:44px;background:#1877F2;border-radius:22px;display:inline-block;line-height:44px;text-align:center;color:white;font-weight:700;box-shadow:0 4px 8px rgba(24,119,242,0.25);">f</div>
-                    <div style="font-size:12px;color:#333;margin-top:6px;">Facebook</div>
-                  </a>
-                </td>
-                <td style="padding:6px 8px; text-align:center;">
-                  <a href="https://www.linkedin.com/in/shani-carmi-radoszycki-b7474886/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="text-decoration:none; color:inherit;">
-                    <div style="width:44px;height:44px;background:#0A66C2;border-radius:22px;display:inline-block;line-height:44px;text-align:center;color:white;font-weight:700;box-shadow:0 4px 8px rgba(10,102,194,0.25);">in</div>
-                    <div style="font-size:12px;color:#333;margin-top:6px;">LinkedIn</div>
-                  </a>
-                </td>
-                <td style="padding:6px 8px; text-align:center;">
-                  <a href="${siteUrl}/newsletter" target="_blank" rel="noopener noreferrer" aria-label="Newsletter" style="text-decoration:none; color:inherit;">
-                    <div style="width:44px;height:44px;background:linear-gradient(135deg, #f093fb 0%, #f5576c 100%);border-radius:22px;display:inline-block;line-height:44px;text-align:center;color:white;font-weight:700;box-shadow:0 4px 8px rgba(245,87,108,0.25);">✉</div>
-                    <div style="font-size:12px;color:#333;margin-top:6px;">Newsletter</div>
-                  </a>
-                </td>
-                <td style="padding:6px 8px; text-align:center;">
-                  <a href="${siteUrl}" target="_blank" rel="noopener noreferrer" aria-label="Website" style="text-decoration:none; color:inherit;">
-                    <div style="width:44px;height:44px;background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);border-radius:22px;display:inline-block;line-height:44px;text-align:center;color:white;font-weight:700;box-shadow:0 4px 8px rgba(102,126,234,0.25);">🌐</div>
-                    <div style="font-size:12px;color:#333;margin-top:6px;">Website</div>
-                  </a>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </div>
       <p class="signature" dir="rtl" style="direction: rtl; text-align: right;">
         בברכה,<br/>
         שני כרמי רדושיצקי

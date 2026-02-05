@@ -16,7 +16,7 @@ export function ContactEmail({ name, email, phone, message, subscribeCommunity }
       <Body style={{ fontFamily: 'Arial, sans-serif', backgroundColor: '#f4f4f4', padding: '20px' }}>
         <Container style={{ maxWidth: '600px', margin: '0 auto', backgroundColor: '#ffffff', padding: '30px', borderRadius: '8px' }}>
           <Heading style={{ color: '#0b2e7b', fontSize: '24px', marginBottom: '20px', textAlign: 'right' }}>
-            פנייה חדשה מאתר BizgoAI
+          פנייה חדשה מאתר BizGoAI
           </Heading>
           <Section style={{ marginBottom: '20px' }}>
             <Text style={{ fontSize: '16px', lineHeight: '1.6', color: '#333', textAlign: 'right' }}>
@@ -47,7 +47,7 @@ export function ContactEmail({ name, email, phone, message, subscribeCommunity }
             )}
 
             <Text style={{ fontSize: '12px', color: '#666', textAlign: 'center' }}>
-              הודעה זו נשלחה מטופס יצירת הקשר באתר BizgoAI
+              הודעה זו נשלחה מטופס יצירת הקשר באתר BizGoAI
             </Text>
           </Section>
         </Container>

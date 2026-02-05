@@ -1,5 +1,5 @@
-Build a Hebrew-language website for BizgoAI Israel - a community platform helping Israeli small businesses adopt AI safely. The site includes a scrollable homepage, 3-tool interactive AI assessment simulator with calculations, consultation form page, about page, and privacy policy page.
-CRITICAL: Full RTL (right-to-left) support required. Set html dir="rtl" and lang="he". All text alignment must be right-aligned. Match BizgoAI.com typography: use Inter as the primary font (same weights), and for Hebrew glyph coverage use a fallback font (Rubik) after Inter. Also load Caveat for any small handwritten accent labels (same as BizgoAI.com).
+Build a Hebrew-language website for BizGoAI Israel - a community platform helping Israeli small businesses adopt AI safely. The site includes a scrollable homepage, 3-tool interactive AI assessment simulator with calculations, consultation form page, about page, and privacy policy page.
+CRITICAL: Full RTL (right-to-left) support required. Set html dir="rtl" and lang="he". All text alignment must be right-aligned. Match BizGoAI.com typography: use Inter as the primary font (same weights), and for Hebrew glyph coverage use a fallback font (Rubik) after Inter. Also load Caveat for any small handwritten accent labels (same as BizGoAI.com).
 TECHNICAL STACK:
 -
  React 18+ with React Router for navigation
@@ -17,8 +17,8 @@ TECHNICAL STACK:
  No external form services - build forms natively
 -
  No Supabase needed for MVP - client-side state only
-DESIGN SYSTEM (match BizgoAI.com):
-Colors (use Tailwind palette + a few exact hexes from BizgoAI.com):
+DESIGN SYSTEM (match BizGoAI.com):
+Colors (use Tailwind palette + a few exact hexes from BizGoAI.com):
 -
  Primary (deep navy): #0b2e7b (used for key headings and icon gradients)
 -
@@ -31,23 +31,23 @@ Colors (use Tailwind palette + a few exact hexes from BizgoAI.com):
  Backgrounds: white; slate-50; subtle blue wash (blue-50/30); occasional radial dot pattern at very low opacity
 Typography:
 -
- Primary font: Inter (400/500/600/700/800) exactly like BizgoAI.com; fallback to Rubik for Hebrew glyphs.
+ Primary font: Inter (400/500/600/700/800) exactly like BizGoAI.com; fallback to Rubik for Hebrew glyphs.
 -
  Accent font: Caveat (500/700) for small handwritten-style tags only (if needed).
 -
- H1: bold/black, large, tight tracking (similar to BizgoAI.com hero: text-5xl→text-6xl, font-black, tracking-tight)
+ H1: bold/black, large, tight tracking (similar to BizGoAI.com hero: text-5xl→text-6xl, font-black, tracking-tight)
 -
  H2: text-blue-600, font-extrabold, drop-shadow-sm, responsive (text-3xl→text-5xl)
 -
  Body: text-base→text-xl, text-slate-600, leading-relaxed
 Spacing & Layout:
 -
- Section padding: py-12 to py-20 (BizgoAI.com commonly uses py-12/16/20 depending on section)
+ Section padding: py-12 to py-20 (BizGoAI.com commonly uses py-12/16/20 depending on section)
 -
  Containers: max-w-6xl or max-w-7xl centered with px-4/6/8
 -
  Cards: rounded-2xl or rounded-3xl, subtle borders (blue-100/50 or slate-200), shadow-xl/2xl on feature cards
-Component Patterns (BizgoAI.com patterns):
+ Component Patterns (BizGoAI.com patterns):
 -
  Primary CTA buttons (hero + forms): bg-gradient-to-r from-amber-500 to-amber-600, text-white, font-bold, rounded-xl (or rounded-full in some CTAs), shadow-lg; hover adds stronger shadow (amber tint) and subtle transform
 -
@@ -57,7 +57,7 @@ Component Patterns (BizgoAI.com patterns):
 -
  Icon tiles: gradient background from #0b2e7b to blue-600 with white icon, rounded-xl/2xl, shadow-lg
 -
- Use lucide-react for all icons (to match the icon style used on BizgoAI.com)
+Use lucide-react for all icons (to match the icon style used on BizGoAI.com)
 SITE STRUCTURE:
 / (homepage - single scrollable page)
 /simulator (3-tool assessment flow)
@@ -69,7 +69,7 @@ SITE STRUCTURE:
 HOMEPAGE (/) - Single Scrollable Page with 8 Sections:
 HEADER (sticky):
 -
- Logo on right: "BizgoAI Israel" in text-2xl font-bold text-primary
+ Logo on right: "BizGoAI Israel" in text-2xl font-bold text-primary
 -
  Desktop navigation (hidden on mobile): links to #how-it-works, #consultation, /about
 -
@@ -91,13 +91,13 @@ SECTION 2 - PROBLEM:
 Background: white
 Headline (H2, centered): "טובעים בכאוס של AI"
 Description (text-xl, centered): "עסקים קטנים נמצאים בלחץ לאמץ AI בעוד שהטכנולוגיה רצה מהר יותר מהיכולת שלהם להדביק את הקצב."
-STYLE REQUIREMENT (must match BizgoAI.com section "Drowning in AI Chaos"):
+STYLE REQUIREMENT (must match BizGoAI.com section "Drowning in AI Chaos"):
 -
- Use the same visual hierarchy and spacing as BizgoAI.com #problem-section: pt-12 pb-4 on mobile, larger top padding on desktop.
+Use the same visual hierarchy and spacing as BizGoAI.com #problem-section: pt-12 pb-4 on mobile, larger top padding on desktop.
 -
  H2 color: text-blue-600; description color: text-[#0b2e7b] with drop-shadow-sm.
 -
- 3 pain-point cards: same card styling as BizgoAI.com pain-point-card (rounded, subtle shadow, icon in colored circle with white stroke, title in #0b2e7b, body in text-slate-600).
+3 pain-point cards: same card styling as BizGoAI.com pain-point-card (rounded, subtle shadow, icon in colored circle with white stroke, title in #0b2e7b, body in text-slate-600).
 -
  Keep the Hebrew copy EXACTLY as written above; only translate the visual layout to RTL (right aligned text, mirrored directional cues if any).
 3 cards in grid (md:grid-cols-3):
@@ -184,10 +184,10 @@ Blue info box (bg-blue-50 border-blue-200):
 CTA button: "הגישו בקשה לייעוץ חינם →" linking to /consultation
 SECTION 5 - ABOUT PREVIEW:
 Background: neutral-50
-Headline (H2): "למה BizgoAI Israel?"
+Headline (H2): "למה BizGoAI Israel?"
 Preview text (max-w-3xl):
 "אנחנו מאמינים שלעסקים קטנים בישראל מגיעה גישה הוגנת ל־AI. די לשיווק מנופח, די לכלים שלא עובדים, די לבזבוז זמן וכסף.
-BizgoAI Israel נבנה על קהילה של בעלי עסקים קטנים שמשתפים ניסיון אמיתי, כדי שתוכלו לאמץ AI בביטחון — תוך חיסכון בזמן ובכסף."
+BizGoAI Israel נבנה על קהילה של בעלי עסקים קטנים שמשתפים ניסיון אמיתי, כדי שתוכלו לאמץ AI בביטחון — תוך חיסכון בזמן ובכסף."
 3 key points with icons:
 -
  🎯 "קהילה ישראלית: 100% תוכן בעברית, מותאם לעסקים בישראל"
@@ -248,7 +248,7 @@ Background: blue-900, text white
 Grid layout (md:grid-cols-4):
 Column 1: Logo + tagline
 -
- "BizgoAI Israel" in text-2xl font-bold
+ "BizGoAI Israel" in text-2xl font-bold
 -
  "עסקים קטנים מתקדמים עם AI. בביטחון." in text-sm text-blue-200
 Column 2: Navigation
@@ -267,7 +267,7 @@ Column 4: Legal
 -
  Link: "מדיניות פרטיות" "/privacy"
 Bottom border-top section:
-"© 2026 BizgoAI Israel. כל הזכויות שמורות" centered, text-sm
+"© 2026 BizGoAI Israel. כל הזכויות שמורות" centered, text-sm
 ---
 
 SIMULATOR PAGE (/simulator) - Interactive 3-Tool Assessment:
@@ -505,7 +505,7 @@ Long-form reading layout (max-w-3xl, py-20)
 Heading sections:
 HERO:
 H1: "לעסקים קטנים מגיעה גישה הוגנת ל־AI"
-Subtitle: "BizgoAI Israel קיימת כדי להשוות את המגרש."
+Subtitle: "BizGoAI Israel קיימת כדי להשוות את המגרש."
 SECTION 1 - THE PROBLEM:
 H2: "פער ה־AI רק גדל"
 Body text (4-5 paragraphs):
@@ -522,7 +522,7 @@ H2: "זה לא רק טכנולוגיה"
 Body text explaining consequences of SMBs not adopting AI, the widening gap, and cumulative effects
 SECTION 3 - THE SOLUTION:
 H2: "בוחרים דרך אחרת"
-Description: "BizgoAI Israel היא לא עוד ספקית כלי AI. אנחנו פלטפורמה שמתחילה בקהילה — על ידי עסקים קטנים, בשביל עסקים קטנים."
+Description: "BizGoAI Israel היא לא עוד ספקית כלי AI. אנחנו פלטפורמה שמתחילה בקהילה — על ידי עסקים קטנים, בשביל עסקים קטנים."
 3 subsections:
 "1. מתחילים בהערכה (לא במכירה)"
 "2. לומדים מעמיתים (לא מספקים)"
@@ -714,7 +714,7 @@ Animations:
  Keep subtle - don't overdo
 Typography:
 -
- Load Inter (and Caveat) from Google Fonts like BizgoAI.com. Configure font-sans to prefer Inter, with Rubik as fallback for Hebrew glyphs.
+ Load Inter (and Caveat) from Google Fonts like BizGoAI.com. Configure font-sans to prefer Inter, with Rubik as fallback for Hebrew glyphs.
 Critical RTL Requirements:
 -
  Set dir="rtl" on html element

@@ -116,7 +116,7 @@ npm run dev
 
 6. **Update email sender** in `app/api/send-report/route.ts`:
    ```typescript
-   from: 'BizgoAI Israel <reports@bizgoai.co.il>',
+   from: 'BizGoAI Israel <reports@bizgoai.co.il>',
    ```
 
 ---
